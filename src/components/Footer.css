@@ -1,0 +1,74 @@
+/* Footer Styling */
+.footer {
+    background-color: #87CEEB; /* Màu xanh da trời */
+    padding: 20px 0;
+    color: white;
+    text-align: center;
+    width: 100%; /* Đảm bảo footer phủ hết chiều rộng */
+    position: relative;
+    left: 0;
+    right: 0;
+    box-sizing: border-box; /* Đảm bảo padding và border không làm mất độ rộng */
+    margin: 0; /* Đảm bảo không có margin ngoài */
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px; /* Điều chỉnh max-width theo yêu cầu */
+    margin: 0 auto; /* Căn giữa container */
+    padding: 0 20px;
+    width: 100%; /* Đảm bảo container phủ hết chiều rộng */
+    box-sizing: border-box; /* Đảm bảo padding không làm giảm chiều rộng */
+  }
+  
+  .footer-info {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .footer-text {
+    margin: 5px 0;
+  }
+  
+  .footer-text a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .footer-text a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-socials {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  
+  .social-link {
+    color: white;
+    margin: 5px 0;
+    text-decoration: none;
+  }
+  
+  .social-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Xử lý cho các màn hình nhỏ hơn */
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .footer-socials {
+      align-items: center;
+    }
+  }
+  

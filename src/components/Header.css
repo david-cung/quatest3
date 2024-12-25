@@ -1,0 +1,98 @@
+/* Đảm bảo rằng không có margin hay padding mặc định */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: white;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+  position: fixed;  /* Để header luôn ở trên cùng */
+  top: 0;           /* Đặt header sát trên cùng */
+  left: 0;
+  width: 100%;      /* Đảm bảo chiều rộng của header phủ hết màn hình */
+  z-index: 1000;    /* Đảm bảo header luôn hiển thị trên cùng */
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px; /* Tăng chiều rộng tối đa của header */
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo span {
+  font-weight: bold;
+  color: #0056a8;
+  font-size: 18px;
+}
+
+.navigation ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation li {
+  margin: 0 15px;
+}
+
+.navigation a {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  position: relative;
+}
+
+.navigation a:hover {
+  color: #0056a8;
+}
+
+.navigation a::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #0056a8;
+  transition: width 0.3s;
+}
+
+.navigation a:hover::after {
+  width: 100%;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  font-size: 18px;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.language-switch img {
+  width: 20px;
+  height: 14px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* Thêm khoảng đệm cho nội dung chính dưới header */
+main {
+  margin-top: 70px;  /* Điều chỉnh theo chiều cao của header */
+}
