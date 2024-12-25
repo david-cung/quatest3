@@ -1,11 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './HomePage.css';
-import service1 from '../assets/services/service1.png';
-import service2 from '../assets/services/service2.png';
-import service3 from '../assets/services/service3.jpg';
-import service4 from '../assets/services/service4.jpg';
-import service5 from '../assets/services/service5.jpg';
-import service6 from '../assets/services/service6.png';
+import images from '../utils/imageImports';
+
+const { service1, service2, service3, service4, service5, service6, introduce1, introduce2, introduce3, introduce4 } = images;
 
 const services = [
   {
@@ -41,19 +38,13 @@ const services = [
 ];
 
 const AutoSweetImages = () => {
-  const images = [
-    '/9dich vu.png',
-    '/BannerGNTN_u.png',
-    '/cac-nhom-san-pham.jpg',
-    '/cscl.png',
-  ];
+  const images = [introduce1, introduce2, introduce3, introduce4];
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const [currentIndex, setCurrentIndex] = React.useState(0);
-
-  React.useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 2000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [images.length]);
 

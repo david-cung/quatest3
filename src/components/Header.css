@@ -13,6 +13,8 @@ html, body {
   left: 0;
   width: 100%;      /* Đảm bảo chiều rộng của header phủ hết màn hình */
   z-index: 1000;    /* Đảm bảo header luôn hiển thị trên cùng */
+  height: 70px;     /* Chiều cao cố định của header */
+  box-sizing: border-box;
 }
 
 .header-container {

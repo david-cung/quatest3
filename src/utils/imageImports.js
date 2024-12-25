@@ -1,0 +1,17 @@
+const createImageURL = (path) => new URL(path, import.meta.url).href;
+
+// imageImports.js
+const images = {
+  service1: new URL("../assets/services/service1.png", import.meta.url).href,
+  service2: new URL("../assets/services/service2.png", import.meta.url).href,
+  service3: new URL("../assets/services/service3.jpg", import.meta.url).href,
+  service4: new URL("../assets/services/service4.jpg", import.meta.url).href,
+  service5: new URL("../assets/services/service5.jpg", import.meta.url).href,
+  service6: new URL("../assets/services/service6.png", import.meta.url).href,
+  introduce1: createImageURL("../assets/introduceHome/introduce1.png"),
+  introduce2: createImageURL("../assets/introduceHome/introduce2.png"),
+  introduce3: createImageURL("../assets/introduceHome/introduce3.png"),
+  introduce4: createImageURL("../assets/introduceHome/introduce4.jpg"),
+};
+
+export default images;
