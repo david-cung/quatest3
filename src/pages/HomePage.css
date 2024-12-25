@@ -168,13 +168,14 @@ main {
 .service-description {
   position: absolute;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7); /* Darker background for better contrast */
+  background: rgba(0, 0, 0, 0.7); /* Đảm bảo nền tối hơn để chữ dễ đọc */
   color: #fff;
   width: 100%;
-  padding: 15px;
+  padding: 15px; /* Tăng khoảng cách để chữ không bị sát viền */
   text-align: center;
-  font-size: 18px;
-  font-weight: 600; /* Bold for emphasis */
+  font-size: 16px; /* Điều chỉnh kích thước chữ */
+  line-height: 1.5; /* Tăng khoảng cách dòng */
+  z-index: 1; /* Đảm bảo rằng phần mô tả không bị che khuất */
 }
 
 .service-card h3 {

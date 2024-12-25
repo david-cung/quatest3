@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './HomePage.css';
 import images from '../utils/imageImports';
 
-const { service1, service2, service3, service4, service5, service6, introduce1, introduce2, introduce3, introduce4 } = images;
+const { service1, service2, service3, service4, service5, service6,service7, service8, service9, introduce1, introduce2, introduce3, introduce4 } = images;
 
 const services = [
   {
@@ -34,6 +34,21 @@ const services = [
     title: 'THỬ NGHIỆM THÀNH THẠO VÀ SO SÁNH LIÊN PHÒNG',
     description: 'Đánh giá năng lực phòng thí nghiệm.',
     image: service6,
+  },
+  {
+    title: 'MÃ SỐ - MÃ VẠCH',
+    description: 'QUATEST 3 cung cấp các dịch vụ về tư vấn, hướng dẫn liên quan đến việc đăng ký và sử dụng Mã số mã vạch...',
+    image: service7,
+  },
+  {
+    title: 'ĐÀO TẠO VÀ CUNG CẤP GIẢI PHÁP NĂNG SUẤT CHẤT LƯỢNG',
+    description: 'Trung tâm Dịch vụ Thí nghiệm và Chất lượng là đơn vị trực thuộc QUATEST 3 chuyên cung cấp dịch vụ đào tạo...',
+    image: service8,
+  },
+  {
+    title: 'CUNG CẤP THÔNG TIN TIÊU CHUẨN VÀ TÀI LIỆU KỸ THUẬT',
+    description: 'QUATEST 3 cung cấp các thông tin, tài liệu kỹ thuật liên quan lĩnh vực tiêu chuẩn đo lường chất lượng...',
+    image: service9,
   },
 ];
 

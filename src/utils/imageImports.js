@@ -8,10 +8,14 @@ const images = {
   service4: new URL("../assets/services/service4.jpg", import.meta.url).href,
   service5: new URL("../assets/services/service5.jpg", import.meta.url).href,
   service6: new URL("../assets/services/service6.png", import.meta.url).href,
+  service7: new URL("../assets/services/service7.jpg", import.meta.url).href,
+  service8: new URL("../assets/services/service8.jpg", import.meta.url).href,
+  service9: new URL("../assets/services/service9.jpg", import.meta.url).href,
   introduce1: createImageURL("../assets/introduceHome/introduce1.png"),
   introduce2: createImageURL("../assets/introduceHome/introduce2.png"),
   introduce3: createImageURL("../assets/introduceHome/introduce3.png"),
   introduce4: createImageURL("../assets/introduceHome/introduce4.jpg"),
+  intro: createImageURL("../assets/intro/intro.jpg"),
 };
 
 export default images;
