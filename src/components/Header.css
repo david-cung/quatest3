@@ -1,27 +1,22 @@
-/* Đảm bảo rằng không có margin hay padding mặc định */
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
+/* Updated header styles */
 .header {
   background-color: white;
   padding: 10px 20px;
   border-bottom: 1px solid #ddd;
-  position: fixed;  /* Để header luôn ở trên cùng */
-  top: 0;           /* Đặt header sát trên cùng */
+  position: fixed;  /* Ensure the header is fixed at the top */
+  top: 0;
   left: 0;
-  width: 100%;      /* Đảm bảo chiều rộng của header phủ hết màn hình */
-  z-index: 1000;    /* Đảm bảo header luôn hiển thị trên cùng */
-  height: 70px;     /* Chiều cao cố định của header */
+  width: 100%;      /* Full width */
+  z-index: 1000;    /* Layer above all other elements */
+  height: 70px;     /* Consistent height */
   box-sizing: border-box;
 }
 
 .header-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  max-width: 1400px; /* Tăng chiều rộng tối đa của header */
+  justify-content: space-between;
+  max-width: 1400px; /* Restrict content width */
   margin: 0 auto;
 }
 
@@ -35,66 +30,75 @@ html, body {
   margin-right: 10px;
 }
 
-.logo span {
-  font-weight: bold;
-  color: #0056a8;
-  font-size: 18px;
-}
-
 .navigation ul {
-  display: flex;
   list-style: none;
-  padding: 0;
+  display: flex;
   margin: 0;
+  padding: 0;
 }
 
-.navigation li {
+.navigation ul li {
+  position: relative;
   margin: 0 15px;
 }
 
-.navigation a {
-  text-decoration: none;
-  font-weight: bold;
+.navigation ul li a {
   color: black;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
   position: relative;
 }
 
-.navigation a:hover {
+.navigation ul li a:hover {
   color: #0056a8;
 }
 
-.navigation a::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 2px;
-  background: #0056a8;
-  transition: width 0.3s;
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  color: #003399;
+  list-style: none;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: none; /* Initially hidden */
+  flex-direction: column;
+  z-index: 1000;
 }
 
-.navigation a:hover::after {
-  width: 100%;
+.navigation ul li:hover .dropdown-menu {
+  display: flex; /* Show dropdown on hover */
+}
+
+.dropdown-menu li {
+  margin: 0;
+}
+
+.dropdown-menu li a {
+  color: #003399;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 5px 0;
+}
+
+.dropdown-menu li a:hover {
+  text-decoration: underline;
 }
 
 .header-actions {
   display: flex;
+  gap: 20px;
   align-items: center;
 }
 
-.search-icon {
-  font-size: 18px;
-  cursor: pointer;
-  margin-right: 20px;
-}
-
 .language-switch img {
-  width: 20px;
-  height: 14px;
-  margin-left: 10px;
+  height: 20px;
   cursor: pointer;
 }
 
-/* Thêm khoảng đệm cho nội dung chính dưới header */
 main {
-  margin-top: 70px;  /* Điều chỉnh theo chiều cao của header */
+  margin-top: 70px; /* Avoid overlap with fixed header */
 }

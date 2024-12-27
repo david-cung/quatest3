@@ -1,10 +1,20 @@
+/* Ensure there is no default margin or padding */
+html, body {
+    margin: 0;
+    padding: 0;
+  }
+
 .intro-page {
     font-family: Arial, sans-serif;
     color: #333;
     padding: 20px;
     background-color: #fff;
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
     box-sizing: border-box;
+    margin: 0 auto;
+  padding-top: 70px; /* Prevent the header from overlapping */
   }
   
   h1 {
