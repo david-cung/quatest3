@@ -67,6 +67,7 @@
   display: none; /* Initially hidden */
   flex-direction: column;
   z-index: 1000;
+  min-width: 200px; /* Ensure dropdown has a consistent width */
 }
 
 .navigation ul li:hover .dropdown-menu {
@@ -75,17 +76,20 @@
 
 .dropdown-menu li {
   margin: 0;
+  padding: 5px 10px; /* Add padding for better spacing */
 }
 
 .dropdown-menu li a {
   color: #003399;
   text-decoration: none;
   font-size: 14px;
-  padding: 5px 0;
+  display: block; /* Ensure links span the entire row */
+  white-space: nowrap; /* Prevent wrapping to new lines */
 }
 
 .dropdown-menu li a:hover {
-  text-decoration: underline;
+  background-color: #f0f0f0; /* Add subtle background on hover */
+  text-decoration: none;
 }
 
 .header-actions {
