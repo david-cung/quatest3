@@ -58,8 +58,8 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: white;
-  color: #003399;
+  background-color: #79bdf2; /* Change background to light blue */
+  color: white; /* Change text color to white */
   list-style: none;
   padding: 10px;
   border-radius: 5px;
@@ -80,7 +80,7 @@
 }
 
 .dropdown-menu li a {
-  color: #003399;
+  color: white !important; /* Ensure text color is white */
   text-decoration: none;
   font-size: 14px;
   display: block; /* Ensure links span the entire row */
@@ -88,7 +88,7 @@
 }
 
 .dropdown-menu li a:hover {
-  background-color: #f0f0f0; /* Add subtle background on hover */
+  background-color: #66a3d2; /* Add lighter hover background color */
   text-decoration: none;
 }
 
