@@ -1,0 +1,142 @@
+/* Service Page Styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  .service-page {
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 0 20px;
+    background-color: #fff;
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding-top: 70px; /* Prevent the header from overlapping */
+    overflow-x: hidden;
+  }
+  
+  /* Service Header */
+  .service-header {
+    text-align: center;
+    padding: 20px 10px;
+    background-color: #f7f9fc;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  .service-header h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #0056a8;
+  }
+  
+  .service-header p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin: 0 auto;
+    padding: 0 10px;
+    max-width: 100%;
+  }
+  
+  /* Service Sections */
+.service-sections {
+    display: flex;
+    justify-content: center; /* Đặt các phần tử gần nhau hơn */
+    gap: 0; /* Loại bỏ khoảng cách giữa hai section */
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Service Section (loại dịch vụ và lĩnh vực sản phẩm) */
+  .service-section {
+    flex: 0 1 49%; /* Đặt chiều rộng của mỗi section cố định là 49% */
+    padding: 0; /* Loại bỏ padding bên trong section */
+    margin: 0; /* Loại bỏ margin giữa các section */
+    box-sizing: border-box;
+  }
+  
+  /* Service Cards */
+  .service-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Giảm kích thước các item */
+    gap: 10px; /* Khoảng cách giữa các item bên trong section */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .service-section h2 {
+    font-size: 24px;
+    color: #0056a8;
+    margin-bottom: 20px;
+    border-left: 4px solid #ffa500;
+    padding-left: 10px;
+  }
+  
+  /* Service Cards */
+.service-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Giảm kích thước của mỗi item */
+    gap: 10px; /* Giảm khoảng cách giữa các item */
+    width: 100%;
+    padding: 0 20px;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Service Card */
+  .service-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    max-width: 280px; /* Giảm chiều rộng tối đa của thẻ card */
+    width: 100%; /* Đảm bảo thẻ chiếm toàn bộ chiều rộng */
+  }
+  
+  .service-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  /* Service Image */
+  .service-image {
+    height: 150px; /* Giảm chiều cao của hình ảnh */
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+  }
+  
+  .service-card h3 {
+    font-size: 16px; /* Giảm kích thước font tiêu đề */
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  .service-card p {
+    font-size: 12px; /* Giảm kích thước font mô tả */
+    color: #666;
+    padding: 0 10px 10px;
+    line-height: 1.4;
+  }
+  
+  /* Ensure responsiveness */
+  @media (max-width: 768px) {
+    .service-sections {
+      flex-direction: column; /* Stack sections vertically on small screens */
+    }
+  
+    .service-section {
+      width: 100%;
+    }
+  }
+  
