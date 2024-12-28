@@ -1,128 +1,16 @@
-/* Ensure there is no default margin or padding */
+/* Reset styles */
 html, body {
   margin: 0;
   padding: 0;
 }
 
-.header {
-  background-color: white;
-  padding: 10px 20px;
-  border-bottom: 1px solid #ddd;
-  position: fixed;  /* Keep header at the top */
-  top: 0;           /* Position header at the very top */
-  left: 0;
-  width: 100%;      /* Ensure header spans the full width */
-  z-index: 1000;    /* Keep header on top of other elements */
-  height: 70px;     /* Fixed height for the header */
-  box-sizing: border-box;
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1400px; /* Maximum width for the header */
-  margin: 0 auto;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logo img {
-  height: 40px;
-  margin-right: 10px;
-}
-
-.logo span {
-  font-weight: bold;
-  color: #0056a8;
-  font-size: 18px;
-}
-
-.navigation ul {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.navigation li {
-  margin: 0 15px;
-}
-
-.navigation a {
-  text-decoration: none;
-  font-weight: bold;
-  color: black;
-  position: relative;
-}
-
-.navigation a:hover {
-  color: #0056a8;
-}
-
-.navigation a::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 2px;
-  background: #0056a8;
-  transition: width 0.3s;
-}
-
-.navigation a:hover::after {
-  width: 100%;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-}
-
-.search-icon {
-  font-size: 18px;
-  cursor: pointer;
-  margin-right: 20px;
-}
-
-.language-switch img {
-  width: 20px;
-  height: 14px;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-/* Add spacing for the main content below the header */
-main {
-  margin-top: 70px;  /* Adjust based on the header height */
-}
-
-/* Ensure the entire page spans the full width */
 .home-page {
   font-family: Arial, sans-serif;
-  width: 100%;
-  margin: 0 auto;
-  padding-top: 70px; /* Prevent the header from overlapping */
-  background-color: white; /* Set background color to white */
+  background-color: #fff;
+  padding-top: 70px;
 }
 
-/* Automatic image section */
-.auto-sweet-images {
-  position: relative;
-  text-align: center;
-  width: 100%;
-  overflow: hidden;
-}
-
-.auto-sweet-image {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-/* Services section */
+/* Services Section */
 .services-section {
   padding: 20px;
   max-width: 1200px;
@@ -131,57 +19,51 @@ main {
 
 .services-section h2 {
   text-align: center;
-  margin-bottom: 40px; /* Increased space to make heading stand out more */
-  font-size: 24px;     /* Larger font size for better visibility */
+  margin-bottom: 40px;
+  font-size: 24px;
   font-weight: bold;
   color: #333;
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr); /* Hiển thị 3 item trên mỗi dòng */
+  gap: 20px; /* Khoảng cách giữa các item */
 }
 
-/* Service card */
+/* Service Card */
 .service-card {
-  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .service-card:hover {
-  transform: translateY(-10px); /* Lift effect on hover */
+  transform: translateY(-5px);
 }
 
 .service-image {
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  height: 200px;
+  width: 100%;
+  height: 200px; /* Đặt chiều cao cố định */
+  overflow: hidden;
 }
 
-.service-description {
-  position: absolute;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7); /* Đảm bảo nền tối hơn để chữ dễ đọc */
-  color: #fff;
+.service-image img {
   width: 100%;
-  padding: 15px; /* Tăng khoảng cách để chữ không bị sát viền */
-  text-align: center;
-  font-size: 16px; /* Điều chỉnh kích thước chữ */
-  line-height: 1.5; /* Tăng khoảng cách dòng */
-  z-index: 1; /* Đảm bảo rằng phần mô tả không bị che khuất */
+  height: 100%;
+  object-fit: cover; /* Đảm bảo hình ảnh phủ toàn bộ không gian */
 }
 
 .service-card h3 {
-  margin: 15px 0;
-  padding: 0 10px;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: bold;
   color: #333;
+  margin: 10px 0; /* Khoảng cách giữa title và card */
 }

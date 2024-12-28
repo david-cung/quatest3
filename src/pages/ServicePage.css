@@ -1,234 +1,109 @@
-/* Updated Header Styles */
-.header {
-    background-color: white;
-    padding: 10px 20px;
-    border-bottom: 1px solid #ddd;
-    position: fixed; /* Ensure the header is fixed at the top */
-    top: 0;
-    left: 0;
-    width: 100%; /* Full width */
-    z-index: 1000; /* Layer above all other elements */
-    height: 70px; /* Consistent height */
-    box-sizing: border-box;
-  }
-  
-  .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1400px; /* Restrict content width */
-    margin: 0 auto;
-  }
-  
-  .logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo img {
-    height: 40px;
-    margin-right: 10px;
-  }
-  
-  .navigation ul {
-    list-style: none;
-    display: flex;
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-  }
-  
-  .navigation ul li {
-    position: relative;
-    margin: 0 15px;
-  }
-  
-  .navigation ul li a {
-    color: black;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    position: relative;
-  }
-  
-  .navigation ul li a:hover {
-    color: #0056a8;
-  }
-  
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #79bdf2; /* Change background to light blue */
-    color: white; /* Change text color to white */
-    list-style: none;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: none; /* Initially hidden */
-    flex-direction: column;
-    z-index: 1000;
-    min-width: 200px; /* Ensure dropdown has a consistent width */
-  }
-  
-  .navigation ul li:hover .dropdown-menu {
-    display: flex; /* Show dropdown on hover */
-  }
-  
-  .dropdown-menu li {
-    margin: 0;
-    padding: 5px 10px; /* Add padding for better spacing */
-  }
-  
-  .dropdown-menu li a {
-    color: white !important; /* Ensure text color is white */
-    text-decoration: none;
-    font-size: 14px;
-    display: block; /* Ensure links span the entire row */
-    white-space: nowrap; /* Prevent wrapping to new lines */
-  }
-  
-  .dropdown-menu li a:hover {
-    background-color: #66a3d2; /* Add lighter hover background color */
-    text-decoration: none;
-  }
-  
-  .header-actions {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-  }
-  
-  .language-switch img {
-    height: 20px;
-    cursor: pointer;
-  }
-  
-  main {
-    margin-top: 70px; /* Avoid overlap with fixed header */
-  }
-  
-  /* Service Page Styles */
-  .service-page {
-    font-family: Arial, sans-serif;
-    color: #333;
-    background-color: #fff;
-    width: 100vw; /* Full width */
-    min-height: calc(100vh - 70px); /* Full height minus header */
-    margin: 0 auto;
+    width: 100%;
     box-sizing: border-box;
-    padding-top: 20px; /* Small spacing below header */
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column; /* Stack content vertically */
   }
   
-  /* Service Header */
+  .service-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 70px;
+    min-height: 100vh;
+    background-color: #fff;
+  }
+  
   .service-header {
     text-align: center;
-    padding: 20px 10px;
-    background-color: #f7f9fc;
+    margin-bottom: 40px;
     width: 100%;
-    margin: 20px 0 0; /* Add top margin to separate from the header */
-    box-sizing: border-box;
   }
   
   .service-header h1 {
     font-size: 32px;
-    font-weight: bold;
     color: #0056a8;
+    margin: 0;
   }
   
   .service-header p {
     font-size: 16px;
     color: #555;
-    line-height: 1.6;
-    margin: 0 auto;
-    padding: 0 10px;
-    max-width: 100%;
+    margin: 10px 0 0;
   }
   
-  /* Service Sections */
   .service-sections {
     display: flex;
-    justify-content: center; /* Center sections horizontally */
-    align-items: flex-start; /* Align sections at the top */
-    gap: 20px; /* Space between sections */
+    justify-content: space-between;
     width: 100%;
-    flex-grow: 1; /* Occupy remaining height */
-    padding: 20px 0; /* Padding on top and bottom */
+    max-width: 1200px;
+    gap: 20px;
+    padding: 0 20px;
     box-sizing: border-box;
   }
   
-  /* Service Section */
   .service-section {
-    flex: 0 1 48%; /* Width of each section */
-    box-sizing: border-box;
+    flex: 1;
   }
   
-  /* Service Cards */
   .service-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
-    gap: 10px; /* Space between cards */
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
   
-  .service-section h2 {
-    font-size: 24px;
-    color: #0056a8;
-    margin-bottom: 20px;
-    border-left: 4px solid #ffa500;
-    padding-left: 10px;
-  }
-  
-  /* Service Card */
   .service-card {
-    background-color: #f9f9f9;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
-    overflow: hidden;
-    text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    max-width: 280px;
-    width: 100%;
-  }
-  
-  .service-card:hover {
-    transform: translateY(-10px);
+    padding: 15px;
+    box-sizing: border-box;
   }
   
   .service-image {
+    flex: 0 0 150px;
     height: 150px;
     background-size: cover;
     background-position: center;
-    width: 100%;
+    border-radius: 8px;
   }
   
-  .service-card h3 {
-    font-size: 16px;
+  .service-card-content {
+    flex: 1;
+  }
+  
+  .service-card-content h3 {
+    font-size: 20px;
+    font-weight: bold;
     color: #333;
-    margin: 10px 0;
+    margin: 0 0 10px;
   }
   
-  .service-card p {
-    font-size: 12px;
+  .service-card-content p {
+    font-size: 14px;
     color: #666;
-    padding: 0 10px 10px;
-    line-height: 1.4;
+    margin: 0;
   }
   
-  /* Ensure responsiveness */
   @media (max-width: 768px) {
     .service-sections {
-      flex-direction: column; /* Stack sections vertically on small screens */
+      flex-direction: column;
     }
   
-    .service-section {
-      width: 100%; /* Full width on smaller screens */
+    .service-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .service-image {
+      width: 100%;
+      height: 200px;
     }
   }
   

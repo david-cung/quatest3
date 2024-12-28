@@ -1,15 +1,18 @@
 import React from "react";
 import "./ServicePage.css";
+import images from "../utils/imageImports";
+
+const { service1, service2, service3, service4 } = images;
 
 const serviceByType = [
   {
-    image: "/path-to-image1.jpg",
-    title: "Thử nghiệm chất lượng và an toàn của sản phẩm, hàng hóa",
+    image: service1,
+    title: "Thử nghiệm chất lượng và an toàn của sản phẩm",
     description:
       "QUATEST 3 cung cấp dịch vụ thử nghiệm, phân tích chất lượng và tính an toàn đối với các loại sản phẩm.",
   },
   {
-    image: "/path-to-image2.jpg",
+    image: service2,
     title: "Kiểm tra nhà nước, giám định, kiểm định an toàn",
     description:
       "Dịch vụ kiểm tra nhà nước, giám định, kiểm định an toàn thuộc trách nhiệm của QUATEST 3.",
@@ -18,13 +21,13 @@ const serviceByType = [
 
 const serviceByField = [
   {
-    image: "/path-to-image3.jpg",
+    image: service3,
     title: "Nông sản - Thực phẩm",
     description:
       "An toàn thực phẩm là một khái niệm khoa học chỉ sự không chứa vi sinh vật gây bệnh.",
   },
   {
-    image: "/path-to-image4.jpg",
+    image: service4,
     title: "Hàng tiêu dùng - Dầu khí - Hóa chất - Môi trường",
     description:
       "Hỗ trợ các doanh nghiệp trong việc phân tích các sản phẩm tiêu dùng.",
@@ -40,6 +43,7 @@ const ServicePage = () => {
           QUATEST 3 thực hiện các hoạt động cung cấp dịch vụ kỹ thuật theo các
           lĩnh vực tiêu chuẩn đo lường chất lượng.
         </p>
+        <p>Quý khách có thể tham khảo thêm thông tin chi tiết về các Dịch vụ của QUATEST 3 như sau đây:</p>
       </div>
 
       <div className="service-sections">
@@ -52,8 +56,10 @@ const ServicePage = () => {
                   className="service-image"
                   style={{ backgroundImage: `url(${item.image})` }}
                 ></div>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
+                <div className="service-card-content">
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -68,8 +74,10 @@ const ServicePage = () => {
                   className="service-image"
                   style={{ backgroundImage: `url(${item.image})` }}
                 ></div>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
+                <div className="service-card-content">
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
               </div>
             ))}
           </div>

@@ -83,14 +83,16 @@ const AutoSweetImages = () => {
   );
 };
 
-const ServiceCard = ({ title, description, image }) => (
+const ServiceCard = ({ title, image }) => (
   <div className="service-card">
-    <div className="service-image" style={{ backgroundImage: `url(${image})` }}>
-      <div className="service-description">{description}</div>
+    <div className="service-image">
+      <img src={image} alt={title} />
     </div>
     <h3>{title}</h3>
   </div>
 );
+
+
 
 const HomePage = () => {
   return (
