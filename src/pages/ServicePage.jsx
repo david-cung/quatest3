@@ -1,4 +1,3 @@
-import React from "react";
 import "./ServicePage.css";
 import images from "../utils/imageImports";
 

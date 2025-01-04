@@ -18,8 +18,8 @@ function Footer() {
             CÔNG TY CỔ PHẦN KIỂM ĐỊNH HIỆU CHUẨN ĐO LƯỜNG MIỀN TRUNG TÂY NGUYÊN
           </h2>
           <p style={{ fontSize: "18px", color: "#555", lineHeight: "1.8" }}>
-            Mitest là đơn vị chuyên các giải pháp toàn diện từ hiệu chuẩn, kiểm định thiết bị đến bảo trì – sửa chữa,
-            đào tạo và huấn luyện. Nhờ áp dụng những công nghệ đứng đầu xu hướng, thiết bị hiệu chuẩn hiện đại, Mitest
+            Intest là đơn vị chuyên các giải pháp toàn diện từ hiệu chuẩn, kiểm định thiết bị đến bảo trì – sửa chữa,
+            đào tạo và huấn luyện. Nhờ áp dụng những công nghệ đứng đầu xu hướng, thiết bị hiệu chuẩn hiện đại, Intest
             luôn không ngừng nâng cao chất lượng dịch vụ và là địa chỉ hiệu chuẩn uy tín giúp khách hàng có thêm sự
             lựa chọn.
           </p>

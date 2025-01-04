@@ -62,7 +62,7 @@ function HomePage() {
         {/* Phần mô tả bên trái */}
         <div style={{ flex: "2" }}>
           <h2 style={{ fontSize: "22px", color: "#555", fontWeight: "bold" }}>
-            GIỚI THIỆU VỀ MITEST
+            GIỚI THIỆU VỀ INTEST
           </h2>
           <h1
             style={{
@@ -82,8 +82,8 @@ function HomePage() {
               margin: "10px 0 20px",
             }}
           >
-            Mitest là một trong những công ty hiệu chuẩn thiết bị đo lường uy tín
-            tại khu vực miền Trung Tây Nguyên. Đến với Mitest, bạn sẽ được trải
+            Intest là một trong những công ty hiệu chuẩn thiết bị đo lường uy tín
+            tại khu vực miền Trung Tây Nguyên. Đến với Intest, bạn sẽ được trải
             nghiệm dịch vụ chất lượng, tận nơi, tận nhà máy. Bằng dịch vụ chuyên
             nghiệp nhất, chúng tôi tin tưởng sẽ đáp ứng được mọi yêu cầu của
             khách hàng.
@@ -167,9 +167,9 @@ function HomePage() {
                 },
                 {
                   question:
-                    "Mitest tư vấn, đánh giá những dây chuyền công nghệ, thiết bị sản xuất nào?",
+                    "Intest tư vấn, đánh giá những dây chuyền công nghệ, thiết bị sản xuất nào?",
                   answer:
-                    "Mitest có đội ngũ với nhiều kinh nghiệm trong việc tư vấn, đánh giá các dây chuyền công nghệ, thiết bị sản xuất dược phẩm, thực phẩm chức năng, mỹ phẩm, thực phẩm.",
+                    "Intest có đội ngũ với nhiều kinh nghiệm trong việc tư vấn, đánh giá các dây chuyền công nghệ, thiết bị sản xuất dược phẩm, thực phẩm chức năng, mỹ phẩm, thực phẩm.",
                 },
               ].map((item, index) => (
                 <li
@@ -206,7 +206,7 @@ function HomePage() {
         {/* Phần liên hệ */}
         <div style={{ flex: "1", backgroundColor: "#f8d7da", borderRadius: "10px", padding: "20px" }}>
           <h3 style={{ fontSize: "20px", color: "#c21f1f", fontWeight: "bold" }}>
-            Liên hệ với Mitest
+            Liên hệ với Intest
           </h3>
           <form>
             <input
