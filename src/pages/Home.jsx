@@ -1,65 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import './HomePage.css';
-import images from '../utils/imageImports';
+import React, { useState, useEffect } from "react";
+import images from "../utils/imageImports";
+import NewSection from "../components/NewSection";
 
-const { service1, service2, service3, service4, service5, service6,service7, service8, service9, introduce1, introduce2, introduce3, introduce4 } = images;
-
-const services = [
-  {
-    id: 0,
-    title: 'THỬ NGHIỆM CHẤT LƯỢNG VÀ AN TOÀN CỦA SẢN PHẨM, HÀNG HÓA',
-    description: 'Đảm bảo chất lượng và an toàn tối ưu cho sản phẩm.',
-    image: service1,
-  },
-  {
-    id: 1,
-    title: 'KIỂM TRA NHÀ NƯỚC, GIÁM ĐỊNH, KIỂM ĐỊNH AN TOÀN',
-    description: 'Dịch vụ kiểm tra và giám định đạt chuẩn.',
-    image: service2,
-  },
-  {
-    id: 2,
-    title: 'CHỨNG NHẬN CHẤT LƯỢNG CỦA SẢN PHẨM, HÀNG HÓA',
-    description: 'Đảm bảo sản phẩm đạt chứng nhận quốc tế.',
-    image: service3,
-  },
-  {
-    id: 3,
-    title: 'CHỨNG NHẬN HỆ THỐNG QUẢN LÝ',
-    description: 'Tối ưu hóa hệ thống quản lý doanh nghiệp.',
-    image: service4,
-  },
-  {
-    id: 4,
-    title: 'HIỆU CHUẨN, KIỂM ĐỊNH PHƯƠNG TIỆN ĐO',
-    description: 'Đo lường chính xác và đáng tin cậy.',
-    image: service5,
-  },
-  {
-    id: 5,
-    title: 'THỬ NGHIỆM THÀNH THẠO VÀ SO SÁNH LIÊN PHÒNG',
-    description: 'Đánh giá năng lực phòng thí nghiệm.',
-    image: service6,
-  },
-  {
-    id: 6,
-    title: 'MÃ SỐ - MÃ VẠCH',
-    description: 'QUATEST 3 cung cấp các dịch vụ về tư vấn, hướng dẫn liên quan đến việc đăng ký và sử dụng Mã số mã vạch...',
-    image: service7,
-  },
-  {
-    id: 7,
-    title: 'ĐÀO TẠO VÀ CUNG CẤP GIẢI PHÁP NĂNG SUẤT CHẤT LƯỢNG',
-    description: 'Trung tâm Dịch vụ Thí nghiệm và Chất lượng là đơn vị trực thuộc QUATEST 3 chuyên cung cấp dịch vụ đào tạo...',
-    image: service8,
-  },
-  {
-    id: 8,
-    title: 'CUNG CẤP THÔNG TIN TIÊU CHUẨN VÀ TÀI LIỆU KỸ THUẬT',
-    description: 'QUATEST 3 cung cấp các thông tin, tài liệu kỹ thuật liên quan lĩnh vực tiêu chuẩn đo lường chất lượng...',
-    image: service9,
-  },
-];
+const { service10, introduce1, introduce2, introduce3, introduce4 } = images;
 
 const AutoSweetImages = () => {
   const images = [introduce1, introduce2, introduce3, introduce4];
@@ -77,40 +20,253 @@ const AutoSweetImages = () => {
       <img
         src={images[currentIndex]}
         alt={`Image ${currentIndex + 1}`}
-        className="auto-sweet-image"
+        style={{
+          maxWidth: "100%",
+          borderRadius: "10px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        }}
       />
     </div>
   );
 };
 
-const ServiceCard = ({ title, image }) => (
-  <div className="service-card">
-    <div className="service-image">
-      <img src={image} alt={title} />
-    </div>
-    <h3>{title}</h3>
-  </div>
-);
+function HomePage() {
+  const [expandedQuestion, setExpandedQuestion] = useState(null);
 
+  const toggleQuestion = (questionIndex) => {
+    setExpandedQuestion(
+      expandedQuestion === questionIndex ? null : questionIndex
+    );
+  };
 
-
-const HomePage = () => {
   return (
-    <div className="home-page">
-      {/* Auto Sweet Section */}
+    <div
+      style={{
+        backgroundColor: "#ffffff", // Nền trắng
+        padding: "40px 20px",
+      }}
+    >
+      {/* Phần ảnh tự động chuyển đổi */}
       <AutoSweetImages />
 
-      {/* Services Section */}
-      <div className="services-section">
-        <h2>Dịch Vụ Chúng Tôi Cung Cấp</h2>
-        <div className="services-grid">
-          {services.map((service, index) => (
-            <ServiceCard key={index} {...service} />
-          ))}
+      {/* Container chính */}
+      <div
+        style={{
+          display: "flex",
+          maxWidth: "1200px",
+          margin: "40px auto",
+          gap: "20px",
+          alignItems: "center",
+        }}
+      >
+        {/* Phần mô tả bên trái */}
+        <div style={{ flex: "2" }}>
+          <h2 style={{ fontSize: "22px", color: "#555", fontWeight: "bold" }}>
+            GIỚI THIỆU VỀ MITEST
+          </h2>
+          <h1
+            style={{
+              fontSize: "28px",
+              color: "#222",
+              fontWeight: "bold",
+              margin: "10px 0",
+            }}
+          >
+            DỊCH VỤ KIỂM ĐỊNH HIỆU CHUẨN ĐO LƯỜNG TRÊN TOÀN QUỐC
+          </h1>
+          <p
+            style={{
+              fontSize: "18px",
+              color: "#555",
+              lineHeight: "1.8",
+              margin: "10px 0 20px",
+            }}
+          >
+            Mitest là một trong những công ty hiệu chuẩn thiết bị đo lường uy tín
+            tại khu vực miền Trung Tây Nguyên. Đến với Mitest, bạn sẽ được trải
+            nghiệm dịch vụ chất lượng, tận nơi, tận nhà máy. Bằng dịch vụ chuyên
+            nghiệp nhất, chúng tôi tin tưởng sẽ đáp ứng được mọi yêu cầu của
+            khách hàng.
+          </p>
+          <ul
+            style={{
+              listStyle: "none",
+              padding: "0",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr", // Hiển thị 2 cột
+              gap: "10px",
+              fontSize: "16px",
+              color: "#333",
+            }}
+          >
+            <li>✔️ Đo lường lực</li>
+            <li>✔️ Đo lường khối lượng</li>
+            <li>✔️ Đo lường độ dài</li>
+            <li>✔️ Đo lường nhiệt</li>
+            <li>✔️ Đo lường áp suất</li>
+            <li>✔️ Đo lường dung tích</li>
+            <li>✔️ Đo lường hóa lý</li>
+            <li>✔️ Đo lường điện</li>
+            <li>✔️ Đo lường lưu lượng</li>
+            <li>✔️ Đo lường quang học</li>
+          </ul>
+        </div>
+
+        {/* Phần hình ảnh bên phải */}
+        <div style={{ flex: "1", textAlign: "center" }}>
+          <img
+            src={service10} // Đường dẫn hình ảnh
+            alt="Thiết bị đo lường"
+            style={{
+              maxWidth: "100%",
+              borderRadius: "10px",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            }}
+          />
         </div>
       </div>
+
+      {/* Phần "Câu hỏi thường gặp" */}
+      <div
+        style={{
+          maxWidth: "1200px",
+          margin: "40px auto",
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "20px",
+        }}
+      >
+        {/* Phần danh sách câu hỏi */}
+        <div style={{ flex: "2" }}>
+          <h2 style={{ fontSize: "24px", color: "#333", fontWeight: "bold" }}>
+            Câu hỏi thường gặp!
+          </h2>
+          <div
+            style={{
+              border: "1px solid #ddd",
+              borderRadius: "5px",
+              overflow: "hidden",
+            }}
+          >
+            <ul style={{ listStyle: "none", margin: "0", padding: "0" }}>
+              {[
+                {
+                  question: "Hiệu chuẩn là gì? Kiểm định là gì?",
+                  answer:
+                    "Hiệu chuẩn là hoạt động xác định, thiết lập mối quan hệ giữa giá trị đo của chuẩn đo lường, chuẩn phương tiện đo với giá trị đo của thiết bị - phương tiện cần đo. Kiểm định là hoạt động đánh giá, xác nhận đặc tính kỹ thuật đo lường của phương tiện đo theo yêu cầu kỹ thuật đo lường.",
+                },
+                {
+                  question: "Làm sao để xác định các điểm hiệu chuẩn?",
+                  answer:
+                    "Trước tiên, bạn cần đọc kỹ những khuyến cáo của nhà sản xuất. Sau đó, tùy theo tình hình, bạn cần phải xác định điểm hiệu chuẩn phụ thuộc vào chức năng, dải đo và mức độ đo mà thiết bị sẽ được sử dụng trong suốt thời gian hiệu chuẩn.",
+                },
+                {
+                  question: "Làm thế nào để quyết định thời gian hiệu chuẩn cho thiết bị?",
+                  answer:
+                    "Trước tiên vẫn là làm theo hướng dẫn của nhà sản xuất. Nếu như bạn có dữ liệu về việc hiệu chỉnh thiết bị của các năm trước đó, hãy phân tích những dữ liệu đó và điều chỉnh sao cho tần suất hiệu chuẩn thiết bị lần tới trong khoảng thời gian như những lần trước. Tần suất hiệu chuẩn cho các thiết bị đo điện phổ biết nhất là 1 năm một lần.",
+                },
+                {
+                  question:
+                    "Mitest tư vấn, đánh giá những dây chuyền công nghệ, thiết bị sản xuất nào?",
+                  answer:
+                    "Mitest có đội ngũ với nhiều kinh nghiệm trong việc tư vấn, đánh giá các dây chuyền công nghệ, thiết bị sản xuất dược phẩm, thực phẩm chức năng, mỹ phẩm, thực phẩm.",
+                },
+              ].map((item, index) => (
+                <li
+                  key={index}
+                  onClick={() => toggleQuestion(index)}
+                  style={{
+                    padding: "15px 20px",
+                    borderBottom: "1px solid #ddd",
+                    cursor: "pointer",
+                    backgroundColor: "#fff",
+                    color: "#222",
+                    fontSize: "18px", // Tăng font chữ câu hỏi
+                  }}
+                >
+                  ➤ {item.question}
+                  {expandedQuestion === index && (
+                    <p
+                      style={{
+                        marginTop: "10px",
+                        fontSize: "16px", // Tăng font chữ câu trả lời
+                        color: "#555",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      {item.answer}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Phần liên hệ */}
+        <div style={{ flex: "1", backgroundColor: "#f8d7da", borderRadius: "10px", padding: "20px" }}>
+          <h3 style={{ fontSize: "20px", color: "#c21f1f", fontWeight: "bold" }}>
+            Liên hệ với Mitest
+          </h3>
+          <form>
+            <input
+              type="text"
+              placeholder="Họ và tên"
+              style={{
+                width: "100%",
+                padding: "15px",
+                margin: "10px 0",
+                borderRadius: "5px",
+                border: "1px solid #ddd",
+                fontSize: "16px",
+              }}
+            />
+            <input
+              type="text"
+              placeholder="Số điện thoại"
+              style={{
+                width: "100%",
+                padding: "15px",
+                margin: "10px 0",
+                borderRadius: "5px",
+                border: "1px solid #ddd",
+                fontSize: "16px",
+              }}
+            />
+            <textarea
+              placeholder="Bạn có nhắn nhủ gì với chúng tôi?!"
+              style={{
+                width: "100%",
+                padding: "15px",
+                margin: "10px 0",
+                borderRadius: "5px",
+                border: "1px solid #ddd",
+                fontSize: "16px",
+                height: "80px",
+              }}
+            ></textarea>
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                padding: "15px",
+                backgroundColor: "#c21f1f",
+                color: "#fff",
+                borderRadius: "5px",
+                border: "none",
+                cursor: "pointer",
+                fontSize: "16px",
+              }}
+            >
+              Gửi tin nhắn
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <NewSection/>
     </div>
   );
-};
+}
 
 export default HomePage;

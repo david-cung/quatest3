@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Header.css";
-import MainLogo from "../assets/logo/MainLogo.png";
+import MainLogo from "../assets/logo/MainLogo.jpg";
 
 const Header = () => {
   const [showAboutDropdown, setShowAboutDropdown] = useState(false);

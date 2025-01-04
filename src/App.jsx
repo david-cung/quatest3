@@ -6,13 +6,14 @@ import Home from "./pages/Home";
 import ServicePage from "./pages/ServicePage";
 import Contact from "./pages/Contact";
 import IntroPage from "./pages/IntroPage";
+import FixedContact from "./components/FixedContact"; // Import FixedContact component
 
 const App = () => {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-      <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<IntroPage />} />
         <Route path="/services" element={<ServicePage />} />
@@ -20,6 +21,7 @@ const App = () => {
         {/* Thêm các route khác nếu cần */}
       </Routes>
       <Footer />
+      <FixedContact /> {/* Ensure FixedContact is rendered on all pages */}
     </BrowserRouter>
   );
 };
