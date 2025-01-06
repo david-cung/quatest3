@@ -14,6 +14,7 @@ const Header = () => {
     textDecoration: "none",
     fontSize: "16px",
     fontWeight: "bold",
+    cursor: "pointer",
   };
 
   const dropdownStyle = {
@@ -42,6 +43,7 @@ const Header = () => {
     display: "block",
     whiteSpace: "nowrap",
     borderBottom: "1px solid #ddd", // Footer border for each element
+    cursor: "pointer",
   };
 
   return (
@@ -94,39 +96,37 @@ const Header = () => {
             }}
           >
             <li style={{ position: "relative", margin: "0 15px" }}>
-              <a href="home" style={linkStyle}>
+              <span
+                style={linkStyle}
+                onClick={() => navigate("/home")} // Replace href with navigate
+              >
                 TRANG CHỦ
-              </a>
+              </span>
             </li>
             <li
               style={{ position: "relative", margin: "0 15px" }}
               onMouseEnter={() => setShowAboutDropdown(true)}
               onMouseLeave={() => setShowAboutDropdown(false)}
             >
-              <a href="about" style={linkStyle}>
+              <span
+                style={linkStyle}
+                onClick={() => navigate("/about")} // Replace href with navigate
+              >
                 GIỚI THIỆU
-              </a>
+              </span>
               {showAboutDropdown && (
                 <ul style={dropdownStyle}>
-                  <li>
-                    <a href="about-overview" style={dropdownItemStyle}>
-                      Giới thiệu chung
-                    </a>
+                  <li onClick={() => navigate("/about-overview")}>
+                    <span style={dropdownItemStyle}>Giới thiệu chung</span>
                   </li>
-                  <li>
-                    <a href="about-activities" style={dropdownItemStyle}>
-                      Các hoạt động
-                    </a>
+                  <li onClick={() => navigate("/about-activities")}>
+                    <span style={dropdownItemStyle}>Các hoạt động</span>
                   </li>
-                  <li>
-                    <a href="about-capabilities" style={dropdownItemStyle}>
-                      Năng lực
-                    </a>
+                  <li onClick={() => navigate("/about-capabilities")}>
+                    <span style={dropdownItemStyle}>Năng lực</span>
                   </li>
-                  <li>
-                    <a href="about-policy" style={dropdownItemStyle}>
-                      Chính sách chất lượng
-                    </a>
+                  <li onClick={() => navigate("/about-policy")}>
+                    <span style={dropdownItemStyle}>Chính sách chất lượng</span>
                   </li>
                 </ul>
               )}
@@ -136,48 +136,54 @@ const Header = () => {
               onMouseEnter={() => setShowServicesDropdown(true)}
               onMouseLeave={() => setShowServicesDropdown(false)}
             >
-              <a href="services" style={linkStyle}>
+              <span
+                style={linkStyle}
+                onClick={() => navigate("/services")} // Replace href with navigate
+              >
                 DỊCH VỤ
-              </a>
+              </span>
               {showServicesDropdown && (
                 <ul style={dropdownStyle}>
-                  <li>
-                    <a href="services-types" style={dropdownItemStyle}>
-                      Hiệu chuẩn, kiểm định
-                    </a>
+                  <li onClick={() => navigate("/services-types")}>
+                    <span style={dropdownItemStyle}>Hiệu chuẩn, kiểm định</span>
                   </li>
-                  <li>
-                    <a href="services-products" style={dropdownItemStyle}>
-                      Hiệu chuẩn tận nơi
-                    </a>
+                  <li onClick={() => navigate("/services-products")}>
+                    <span style={dropdownItemStyle}>Hiệu chuẩn tận nơi</span>
                   </li>
-                  <li>
-                    <a href="services-training" style={dropdownItemStyle}>
+                  <li onClick={() => navigate("/services-training")}>
+                    <span style={dropdownItemStyle}>
                       Đào tạo và huấn luyện
-                    </a>
+                    </span>
                   </li>
-                  <li>
-                    <a href="services-maintenance" style={dropdownItemStyle}>
-                      Bảo trì-sửa chữa
-                    </a>
+                  <li onClick={() => navigate("/services-maintenance")}>
+                    <span style={dropdownItemStyle}>Bảo trì-sửa chữa</span>
                   </li>
                 </ul>
               )}
             </li>
             <li style={{ position: "relative", margin: "0 15px" }}>
-              <a href="#news" style={linkStyle}>
+              <span
+                style={linkStyle}
+                onClick={() => navigate("/news")} // Replace href with navigate
+              >
                 TIN TỨC
-              </a>
+              </span>
             </li>
             <li style={{ position: "relative", margin: "0 15px" }}>
-              <a href="#faq" style={linkStyle}>
+              <span
+                style={linkStyle}
+                onClick={() => navigate("/faq")} // Replace href with navigate
+              >
                 HỎI ĐÁP
-              </a>
+              </span>
             </li>
             <li style={{ position: "relative", margin: "0 15px" }}>
-              <a href="contact" style={linkStyle}>
+              <span
+                style={linkStyle}
+                onClick={() => navigate("/contact")} // Replace href with navigate
+              >
                 LIÊN HỆ
-              </a>
+              </span>
             </li>
           </ul>
         </nav>
