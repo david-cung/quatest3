@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MainLogo from "../assets/logo/MainLogo.jpg";
 
 const Header = () => {
   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
   const [showServicesDropdown, setShowServicesDropdown] = useState(false);
+
+  const navigate = useNavigate(); // React Router's navigation hook
 
   // Extracted styles for reuse
   const linkStyle = {
@@ -66,7 +69,10 @@ const Header = () => {
         }}
       >
         {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div
+          style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+          onClick={() => navigate("/")} // Navigate to the home page
+        >
           <img
             src={MainLogo}
             alt="Logo"
