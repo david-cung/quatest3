@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Để chuyển hướng trang
 
 const ServicePage = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Hook để chuyển hướng
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -20,6 +22,10 @@ const ServicePage = () => {
 
     fetchServices();
   }, []);
+
+  const handleReadMore = (serviceId) => {
+    navigate(`/service/${serviceId}`); // Chuyển hướng đến trang chi tiết
+  };
 
   return (
     <div
@@ -51,9 +57,9 @@ const ServicePage = () => {
           style={{
             display: "flex",
             flexWrap: "wrap",
-            gap: "30px", // Tăng khoảng cách giữa các item
+            gap: "30px",
             justifyContent: "center",
-            maxWidth: "1600px", // Tăng chiều rộng tối đa
+            maxWidth: "1600px",
             padding: "0 20px",
             boxSizing: "border-box",
           }}
@@ -66,43 +72,60 @@ const ServicePage = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 backgroundColor: "#fff",
-                borderRadius: "10px", // Để bo góc
-                boxShadow: "0 6px 8px rgba(0, 0, 0, 0.1)", // Tăng độ mờ của bóng
-                padding: "20px", // Tăng padding
-                maxWidth: "400px", // Tăng chiều rộng tối đa của từng item
+                borderRadius: "10px",
+                boxShadow: "0 6px 8px rgba(0, 0, 0, 0.1)",
+                padding: "20px",
+                maxWidth: "400px",
                 textAlign: "center",
-                transition: "transform 0.3s ease", // Hiệu ứng khi hover
+                transition: "transform 0.3s ease",
               }}
             >
               <div
                 style={{
                   width: "100%",
-                  height: "200px", // Tăng chiều cao của ảnh
+                  height: "200px",
                   backgroundImage: `url(${service.image})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  borderRadius: "10px", // Tăng độ bo góc của ảnh
+                  borderRadius: "10px",
                 }}
               ></div>
               <h3
                 style={{
-                  fontSize: "24px", // Tăng kích thước chữ tiêu đề
+                  fontSize: "24px",
                   fontWeight: "bold",
                   color: "#333",
-                  margin: "15px 0 10px", // Tăng khoảng cách
+                  margin: "15px 0 10px",
                 }}
               >
                 {service.title}
               </h3>
               <p
                 style={{
-                  fontSize: "16px", // Tăng kích thước chữ mô tả
+                  fontSize: "16px",
                   color: "#666",
                   margin: 0,
+                  textAlign: "justify", // Can add text alignment for better appearance
                 }}
               >
-                {service.description}
+                {/* Hiển thị một phần nội dung từ content */}
+                {service.content?.slice(0, 150)}...
               </p>
+              <button
+                style={{
+                  marginTop: "10px",
+                  padding: "10px 20px",
+                  backgroundColor: "#0056a8",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  transition: "background-color 0.3s",
+                }}
+                onClick={() => handleReadMore(service.id)} // Chuyển hướng khi nhấn "Đọc tiếp"
+              >
+                Đọc tiếp
+              </button>
             </div>
           ))}
         </div>
