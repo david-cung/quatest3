@@ -57,7 +57,7 @@ const Header = () => {
         left: 0,
         width: "100%",
         zIndex: 1000,
-        height: "100px",
+        height: "120px", // Increased height to accommodate the larger logo
         boxSizing: "border-box",
       }}
     >
@@ -78,9 +78,12 @@ const Header = () => {
           <img
             src={MainLogo}
             alt="Logo"
-            style={{ height: "40px", marginRight: "10px" }}
+            style={{
+              height: "80px", // Increased the logo height
+              marginRight: "15px", // Added spacing between the logo and text
+            }}
           />
-          <span>
+          <span style={{ fontSize: "20px", fontWeight: "bold" }}>
             INTEST<sup>®</sup>
           </span>
         </div>

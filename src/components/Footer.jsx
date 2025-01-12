@@ -1,11 +1,14 @@
+import Banner from "./Banner";
 
 function Footer() {
   return (
-    <footer style={{ backgroundColor: "#fefefe", padding: "40px 20px", borderTop: "3px solid #f04e31" }}>
+    <footer style={{ backgroundColor: "#fefefe", padding: "0" }}> {/* Remove footer padding */}
+      {/* Banner now renders outside any constraints */}
+      <Banner />
       <div
         style={{
           maxWidth: "1200px",
-          margin: "0 auto",
+          margin: "40px auto 0", // Top margin for spacing after the banner
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-start",

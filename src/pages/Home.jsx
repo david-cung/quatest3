@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import images from "../utils/imageImports";
 import NewSection from "../components/NewSection";
 
@@ -204,7 +204,7 @@ function HomePage() {
         </div>
 
         {/* Phần liên hệ */}
-        <div style={{ flex: "1", backgroundColor: "#f8d7da", borderRadius: "10px", padding: "20px" }}>
+        {/* <div style={{ flex: "1", backgroundColor: "#f8d7da", borderRadius: "10px", padding: "20px" }}>
           <h3 style={{ fontSize: "20px", color: "#c21f1f", fontWeight: "bold" }}>
             Liên hệ với Intest
           </h3>
@@ -261,10 +261,11 @@ function HomePage() {
               Gửi tin nhắn
             </button>
           </form>
-        </div>
+        </div> */}
       </div>
 
       <NewSection/>
+
     </div>
   );
 }

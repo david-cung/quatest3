@@ -1,18 +1,36 @@
-import images from "../utils/imageImports";
-
-const { new1, new2, new3, new4, new5, new6, new7, new8 } = images;
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function NewSection() {
-    const newsData = [
-        { image: new1, title: "HIỆU CHUẨN MÁY ĐO ĐỘ ẨM" },
-        { image: new2, title: "HIỆU CHUẨN PAME ĐO NGOÀI" },
-        { image: new3, title: "Tại sao cần hiệu chuẩn đo lường các loại cân" },
-        { image: new4, title: "HIỆU CHUẨN ĐỒNG HỒ SO" },
-        { image: new5, title: "HIỆU CHUẨN ĐỒNG HỒ ÁP SUẤT" },
-        { image: new6, title: "HIỆU CHUẨN NHIỆT KẾ – THIẾT KẾ ĐIỆN TỬ" },
-        { image: new7, title: "HIỆU CHUẨN LỰC" },
-        { image: new8, title: "HIỆU CHUẨN THIẾT BỊ ĐO ĐỘ ỒN" },
-    ];
+    const [newsData, setNewsData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchNews = async () => {
+            try {
+                const response = await axios.get("/v1/news"); 
+                setNewsData(response.data);
+                console.log('Success1', response.data);
+                setIsLoading(false);
+            } catch (err) {
+                console.error("Error fetching news:", err);
+                setError("Không thể tải dữ liệu, vui lòng thử lại sau.");
+                setIsLoading(false);
+            }
+        };
+
+        fetchNews();
+    }, []);
+
+    if (isLoading) {
+        return <div style={{ textAlign: "center", padding: "20px" }}>Đang tải...</div>;
+    }
+
+    if (error) {
+        return <div style={{ textAlign: "center", padding: "20px", color: "red" }}>{error}</div>;
+    }
+
     return (
         <div style={{ marginTop: "40px", padding: "20px 0", backgroundColor: "#fff" }}>
             <h2 style={{ fontSize: "26px", color: "#333", fontWeight: "bold", marginBottom: "20px", textAlign: "center" }}>
@@ -27,7 +45,7 @@ export default function NewSection() {
                     margin: "0 auto",
                 }}
             >
-                {newsData.map((news, index) => (
+                {newsData?.data.map((news, index) => (
                     <div
                         key={index}
                         style={{
