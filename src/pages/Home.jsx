@@ -42,14 +42,13 @@ function HomePage() {
   return (
     <div
       style={{
-        backgroundColor: "#ffffff", // Nền trắng
+        backgroundColor: "#ffffff",
         padding: "40px 20px",
+        paddingTop: "120px",
       }}
     >
-      {/* Phần ảnh tự động chuyển đổi */}
       <AutoSweetImages />
 
-      {/* Container chính */}
       <div
         style={{
           display: "flex",
@@ -59,7 +58,6 @@ function HomePage() {
           alignItems: "center",
         }}
       >
-        {/* Phần mô tả bên trái */}
         <div style={{ flex: "2" }}>
           <h2 style={{ fontSize: "22px", color: "#555", fontWeight: "bold" }}>
             GIỚI THIỆU VỀ INTEST
@@ -93,7 +91,7 @@ function HomePage() {
               listStyle: "none",
               padding: "0",
               display: "grid",
-              gridTemplateColumns: "1fr 1fr", // Hiển thị 2 cột
+              gridTemplateColumns: "1fr 1fr",
               gap: "10px",
               fontSize: "16px",
               color: "#333",
@@ -112,10 +110,9 @@ function HomePage() {
           </ul>
         </div>
 
-        {/* Phần hình ảnh bên phải */}
         <div style={{ flex: "1", textAlign: "center" }}>
           <img
-            src={service10} // Đường dẫn hình ảnh
+            src={service10}
             alt="Thiết bị đo lường"
             style={{
               maxWidth: "100%",
@@ -126,7 +123,6 @@ function HomePage() {
         </div>
       </div>
 
-      {/* Phần "Câu hỏi thường gặp" */}
       <div
         style={{
           maxWidth: "1200px",
@@ -136,7 +132,6 @@ function HomePage() {
           gap: "20px",
         }}
       >
-        {/* Phần danh sách câu hỏi */}
         <div style={{ flex: "2" }}>
           <h2 style={{ fontSize: "24px", color: "#333", fontWeight: "bold" }}>
             Câu hỏi thường gặp!
@@ -181,7 +176,7 @@ function HomePage() {
                     cursor: "pointer",
                     backgroundColor: "#fff",
                     color: "#222",
-                    fontSize: "18px", // Tăng font chữ câu hỏi
+                    fontSize: "18px",
                   }}
                 >
                   ➤ {item.question}
@@ -189,7 +184,7 @@ function HomePage() {
                     <p
                       style={{
                         marginTop: "10px",
-                        fontSize: "16px", // Tăng font chữ câu trả lời
+                        fontSize: "16px",
                         color: "#555",
                         lineHeight: "1.8",
                       }}
@@ -202,70 +197,9 @@ function HomePage() {
             </ul>
           </div>
         </div>
-
-        {/* Phần liên hệ */}
-        {/* <div style={{ flex: "1", backgroundColor: "#f8d7da", borderRadius: "10px", padding: "20px" }}>
-          <h3 style={{ fontSize: "20px", color: "#c21f1f", fontWeight: "bold" }}>
-            Liên hệ với Intest
-          </h3>
-          <form>
-            <input
-              type="text"
-              placeholder="Họ và tên"
-              style={{
-                width: "100%",
-                padding: "15px",
-                margin: "10px 0",
-                borderRadius: "5px",
-                border: "1px solid #ddd",
-                fontSize: "16px",
-              }}
-            />
-            <input
-              type="text"
-              placeholder="Số điện thoại"
-              style={{
-                width: "100%",
-                padding: "15px",
-                margin: "10px 0",
-                borderRadius: "5px",
-                border: "1px solid #ddd",
-                fontSize: "16px",
-              }}
-            />
-            <textarea
-              placeholder="Bạn có nhắn nhủ gì với chúng tôi?!"
-              style={{
-                width: "100%",
-                padding: "15px",
-                margin: "10px 0",
-                borderRadius: "5px",
-                border: "1px solid #ddd",
-                fontSize: "16px",
-                height: "80px",
-              }}
-            ></textarea>
-            <button
-              type="submit"
-              style={{
-                width: "100%",
-                padding: "15px",
-                backgroundColor: "#c21f1f",
-                color: "#fff",
-                borderRadius: "5px",
-                border: "none",
-                cursor: "pointer",
-                fontSize: "16px",
-              }}
-            >
-              Gửi tin nhắn
-            </button>
-          </form>
-        </div> */}
       </div>
 
-      <NewSection/>
-
+      <NewSection />
     </div>
   );
 }

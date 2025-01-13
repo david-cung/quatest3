@@ -14,7 +14,7 @@ html, body {
     margin: 0;
     box-sizing: border-box;
     margin: 0 auto;
-  padding-top: 70px; /* Prevent the header from overlapping */
+    padding-top: 120px; /* Prevent the header from overlapping */
   }
   
   h1 {
