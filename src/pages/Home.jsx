@@ -32,6 +32,7 @@ const AutoSweetImages = () => {
 
 function HomePage() {
   const [expandedQuestion, setExpandedQuestion] = useState(null);
+  const [isHovering, setIsHovering] = useState(false);
 
   const toggleQuestion = (questionIndex) => {
     setExpandedQuestion(
@@ -47,8 +48,10 @@ function HomePage() {
         paddingTop: "120px",
       }}
     >
+      {/* Phần ảnh tự động chuyển đổi */}
       <AutoSweetImages />
 
+      {/* Container chính */}
       <div
         style={{
           display: "flex",
@@ -58,6 +61,7 @@ function HomePage() {
           alignItems: "center",
         }}
       >
+        {/* Phần mô tả bên trái */}
         <div style={{ flex: "2" }}>
           <h2 style={{ fontSize: "22px", color: "#555", fontWeight: "bold" }}>
             GIỚI THIỆU VỀ INTEST
@@ -110,14 +114,26 @@ function HomePage() {
           </ul>
         </div>
 
-        <div style={{ flex: "1", textAlign: "center" }}>
+        {/* Phần hình ảnh bên phải */}
+        <div
+          style={{
+            flex: "1",
+            textAlign: "center",
+          }}
+        >
           <img
             src={service10}
             alt="Thiết bị đo lường"
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
             style={{
               maxWidth: "100%",
               borderRadius: "10px",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+              transform: isHovering ? "scale(1.05)" : "scale(1)",
+              boxShadow: isHovering
+                ? "0 8px 16px rgba(0, 0, 0, 0.2)"
+                : "0 4px 8px rgba(0, 0, 0, 0.1)",
             }}
           />
         </div>
