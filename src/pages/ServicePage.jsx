@@ -43,7 +43,7 @@ const ServicePage = () => {
           Dịch vụ
         </h1>
         <p style={{ fontSize: "18px", color: "#555", margin: "10px 0 0" }}>
-          QUATEST 3 thực hiện các hoạt động cung cấp dịch vụ kỹ thuật theo các
+          INTEST 3 thực hiện các hoạt động cung cấp dịch vụ kỹ thuật theo các
           lĩnh vực tiêu chuẩn đo lường chất lượng.
         </p>
       </div>
