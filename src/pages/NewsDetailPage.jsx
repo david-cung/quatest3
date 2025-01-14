@@ -46,10 +46,11 @@ const NewsDetailPage = () => {
             {service?.title}
           </h1>
 
-          {/* Hiển thị Content */}
-          <p style={{ marginBottom: "20px", fontSize: "18px", lineHeight: "1.6" }}>
-            {service?.content}
-          </p>
+          {/* Render Content với dangerouslySetInnerHTML */}
+          <div
+            style={{ marginBottom: "20px", fontSize: "18px", lineHeight: "1.6", textAlign: "left", color: "#333" }}
+            dangerouslySetInnerHTML={{ __html: service?.content }}
+          ></div>
 
           {/* Hiển thị Image */}
           <div
