@@ -7,14 +7,19 @@ export default function NewSection() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [hoverIndex, setHoverIndex] = useState(null);
+    const [page, setPage] = useState(1);  // Add page state to track the current page
 
-    const navigate = useNavigate(); // Khởi tạo hook để điều hướng
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchNews = async () => {
             try {
-                const response = await axios.get("/v1/news");
-                setNewsData(response.data);
+                const response = await axios.get(`/v1/news?page=${page}&limit=8`);  // Pass the page and limit as query params
+                if (page === 1) {
+                    setNewsData(response.data);  // For the first page, replace the data
+                } else {
+                    setNewsData((prevData) => [...prevData, ...response.data]);  // For subsequent pages, append the new data
+                }
                 console.log("Success", response.data);
                 setIsLoading(false);
             } catch (err) {
@@ -25,11 +30,15 @@ export default function NewSection() {
         };
 
         fetchNews();
-    }, []);
+    }, [page]);  // Re-fetch data whenever the page changes
 
     const handleNavigate = (newsId) => {
-        navigate(`/news/${newsId}`); // Điều hướng tới trang chi tiết
-        window.scrollTo(0, 0); // Cuộn lên đầu trang
+        navigate(`/news/${newsId}`);
+        window.scrollTo(0, 0);
+    };
+
+    const handleLoadMore = () => {
+        setPage((prevPage) => prevPage + 1);  // Increase the page number to load the next set of news
     };
 
     if (isLoading) {
@@ -62,13 +71,12 @@ export default function NewSection() {
                     margin: "0 auto",
                 }}
             >
-                {newsData?.data.map((news, index) => (
+                {newsData.data?.map((news, index) => (
                     <div
                         key={index}
                         style={{
                             backgroundColor: "#fff",
                             borderRadius: "10px",
-                            // boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                             overflow: "hidden",
                             textAlign: "center",
                             transition: "transform 0.3s ease, box-shadow 0.3s ease",
@@ -92,7 +100,7 @@ export default function NewSection() {
                                 transform: hoverIndex === index ? "scale(1.1)" : "scale(1)",
                                 cursor: "pointer",
                             }}
-                            onClick={() => handleNavigate(news.id)} // Điều hướng khi click ảnh
+                            onClick={() => handleNavigate(news.id)}
                         />
                         <h3
                             style={{
@@ -103,7 +111,7 @@ export default function NewSection() {
                                 fontWeight: "bold",
                                 cursor: "pointer",
                             }}
-                            onClick={() => handleNavigate(news.id)} // Điều hướng khi click tiêu đề
+                            onClick={() => handleNavigate(news.id)}
                         >
                             {news.title}
                         </h3>
@@ -121,6 +129,7 @@ export default function NewSection() {
                         cursor: "pointer",
                         fontSize: "18px",
                     }}
+                    onClick={handleLoadMore}  // Load more news when the button is clicked
                 >
                     Trang sau »
                 </button>

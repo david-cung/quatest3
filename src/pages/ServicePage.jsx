@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Để chuyển hướng trang
+import { useNavigate } from "react-router-dom"; // To navigate between pages
 
 const ServicePage = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Hook để chuyển hướng
+  const navigate = useNavigate(); // Hook to navigate
 
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get("/v1/posts");
+        const response = await axios.get("/v1/services");
         setServices(response.data); // Assuming the API returns a list of services
       } catch (err) {
         setError(err.response ? err.response.data.message : err.message);
@@ -24,7 +24,7 @@ const ServicePage = () => {
   }, []);
 
   const handleReadMore = (serviceId) => {
-    navigate(`/service/${serviceId}`); // Chuyển hướng đến trang chi tiết
+    navigate(`/service/${serviceId}`); // Navigate to the detail page
   };
 
   return (
@@ -108,9 +108,18 @@ const ServicePage = () => {
                   textAlign: "justify", // Can add text alignment for better appearance
                 }}
               >
-                {/* Hiển thị một phần nội dung từ content */}
+                {/* Render a snippet of the content */}
                 {service.content?.slice(0, 150)}...
               </p>
+              <div
+                style={{
+                  fontSize: "16px",
+                  color: "#666",
+                  marginTop: "15px",
+                  textAlign: "justify",
+                }}
+                dangerouslySetInnerHTML={{ __html: service.content }} // Display HTML content
+              ></div>
               <button
                 style={{
                   marginTop: "10px",
@@ -122,7 +131,7 @@ const ServicePage = () => {
                   cursor: "pointer",
                   transition: "background-color 0.3s",
                 }}
-                onClick={() => handleReadMore(service.id)} // Chuyển hướng khi nhấn "Đọc tiếp"
+                onClick={() => handleReadMore(service.id)} // Navigate to the service detail page
               >
                 Đọc tiếp
               </button>

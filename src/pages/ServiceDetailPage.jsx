@@ -11,7 +11,7 @@ const ServiceDetailPage = () => {
   useEffect(() => {
     const fetchServiceDetail = async () => {
       try {
-        const response = await axios.get(`/v1/posts/${serviceId}`);
+        const response = await axios.get(`/v1/services/${serviceId}`);
         setService(response.data.data); // Dữ liệu dịch vụ chi tiết
       } catch (err) {
         setError(err.response ? err.response.data.message : err.message);
