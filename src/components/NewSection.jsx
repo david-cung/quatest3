@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function NewSection() {
     const [newsData, setNewsData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [hoverIndex, setHoverIndex] = useState(null); // Thêm trạng thái để theo dõi hover
+    const [hoverIndex, setHoverIndex] = useState(null);
+
+    const navigate = useNavigate(); // Khởi tạo hook để điều hướng
 
     useEffect(() => {
         const fetchNews = async () => {
@@ -23,6 +26,11 @@ export default function NewSection() {
 
         fetchNews();
     }, []);
+
+    const handleNavigate = (newsId) => {
+        console.log("HandleNavigate", newsId);
+        navigate(`/news/${newsId}`); // Điều hướng tới trang chi tiết
+    };
 
     if (isLoading) {
         return <div style={{ textAlign: "center", padding: "20px" }}>Đang tải...</div>;
@@ -70,8 +78,8 @@ export default function NewSection() {
                                     ? "0 8px 16px rgba(0, 0, 0, 0.2)"
                                     : "0 4px 8px rgba(0, 0, 0, 0.1)",
                         }}
-                        onMouseEnter={() => setHoverIndex(index)} // Xử lý khi hover
-                        onMouseLeave={() => setHoverIndex(null)} // Xử lý khi rời chuột
+                        onMouseEnter={() => setHoverIndex(index)}
+                        onMouseLeave={() => setHoverIndex(null)}
                     >
                         <img
                             src={news.image}
@@ -81,8 +89,10 @@ export default function NewSection() {
                                 height: "200px",
                                 objectFit: "cover",
                                 transition: "transform 0.3s ease",
-                                transform: hoverIndex === index ? "scale(1.1)" : "scale(1)", // Phóng to ảnh khi hover
+                                transform: hoverIndex === index ? "scale(1.1)" : "scale(1)",
+                                cursor: "pointer",
                             }}
+                            onClick={() => handleNavigate(news.id)} // Điều hướng khi click ảnh
                         />
                         <h3
                             style={{
@@ -91,7 +101,9 @@ export default function NewSection() {
                                 padding: "15px",
                                 margin: "0",
                                 fontWeight: "bold",
+                                cursor: "pointer",
                             }}
+                            onClick={() => handleNavigate(news.id)} // Điều hướng khi click tiêu đề
                         >
                             {news.title}
                         </h3>
