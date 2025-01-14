@@ -23,7 +23,7 @@ const images = {
   introduce2: createImageURL("../assets/introduceHome/introduce2.png"),
   introduce3: createImageURL("../assets/introduceHome/introduce3.png"),
   introduce4: createImageURL("../assets/introduceHome/introduce4.jpg"),
-  intro: createImageURL("../assets/intro/intro.jpg"),
+  intro1: createImageURL("../assets/intro/intro1.jpg"),
   new8: createImageURL("../assets/news/nhiet.jpg"),
 };
 

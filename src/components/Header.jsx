@@ -117,22 +117,6 @@ const Header = () => {
               >
                 GIỚI THIỆU
               </span>
-              {showAboutDropdown && (
-                <ul style={dropdownStyle}>
-                  <li onClick={() => navigate("/about-overview")}>
-                    <span style={dropdownItemStyle}>Giới thiệu chung</span>
-                  </li>
-                  <li onClick={() => navigate("/about-activities")}>
-                    <span style={dropdownItemStyle}>Các hoạt động</span>
-                  </li>
-                  <li onClick={() => navigate("/about-capabilities")}>
-                    <span style={dropdownItemStyle}>Năng lực</span>
-                  </li>
-                  <li onClick={() => navigate("/about-policy")}>
-                    <span style={dropdownItemStyle}>Chính sách chất lượng</span>
-                  </li>
-                </ul>
-              )}
             </li>
             <li
               style={{ position: "relative", margin: "0 15px" }}
