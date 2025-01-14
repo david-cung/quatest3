@@ -28,8 +28,8 @@ export default function NewSection() {
     }, []);
 
     const handleNavigate = (newsId) => {
-        console.log("HandleNavigate", newsId);
         navigate(`/news/${newsId}`); // Điều hướng tới trang chi tiết
+        window.scrollTo(0, 0); // Cuộn lên đầu trang
     };
 
     if (isLoading) {
