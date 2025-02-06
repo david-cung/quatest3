@@ -88,7 +88,7 @@ const NewsDetailPage = () => {
             <h1 style={{ marginBottom: "20px", fontSize: "32px", fontWeight: "bold", color: 'black' }}>
               {service?.title || "Tin tức không có tiêu đề"} {/* Fallback nếu thiếu title */}
             </h1>
-            <div
+            <div 
               style={{
                 marginBottom: "20px",
                 fontSize: "18px",
@@ -99,6 +99,7 @@ const NewsDetailPage = () => {
               }}
               dangerouslySetInnerHTML={{ __html: service?.content || "<p>Không có nội dung.</p>" }}
             ></div>
+            <p></p>
             {service?.image && (
               <div
                 style={{
