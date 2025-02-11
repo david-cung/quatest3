@@ -23,7 +23,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         {/* Thêm các route khác nếu cần */}
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
       <FixedContact /> {/* Ensure FixedContact is rendered on all pages */}
     </BrowserRouter>
   );

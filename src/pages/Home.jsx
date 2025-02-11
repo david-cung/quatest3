@@ -477,53 +477,81 @@ function HomePage() {
               <img src="https://mitest.vn/wp-content/uploads/2025/01/MAY-DO-DO-AM-VL-4.jpg"></img>
             </div>
             <div className="thumbnail-title">
-              <h3 >
-                <a >
-                  HIỆU CHUẨN MÁY ĐO ĐỘ ẨM
-                </a>
+              <h3>
+                <a>HIỆU CHUẨN MÁY ĐO ĐỘ ẨM</a>
               </h3>
             </div>
           </div>
           <div className="new-colums">
-          <div class="thumbnail-img">
+            <div class="thumbnail-img">
               <img src="https://mitest.vn/wp-content/uploads/2025/01/MAY-DO-DO-AM-VL-4.jpg"></img>
             </div>
             <div className="thumbnail-title">
-              <h3 >
-                <a >
-                  HIỆU CHUẨN MÁY ĐO ĐỘ ẨM
-                </a>
+              <h3>
+                <a>HIỆU CHUẨN MÁY ĐO ĐỘ ẨM</a>
               </h3>
             </div>
           </div>
           <div className="new-colums">
-          <div class="thumbnail-img">
+            <div class="thumbnail-img">
               <img src="https://mitest.vn/wp-content/uploads/2025/01/MAY-DO-DO-AM-VL-4.jpg"></img>
             </div>
             <div className="thumbnail-title">
-              <h3 >
-                <a >
-                  HIỆU CHUẨN MÁY ĐO ĐỘ ẨM
-                </a>
+              <h3>
+                <a>HIỆU CHUẨN MÁY ĐO ĐỘ ẨM</a>
               </h3>
             </div>
           </div>
           <div className="new-colums">
-          <div class="thumbnail-img">
+            <div class="thumbnail-img">
               <img src="https://mitest.vn/wp-content/uploads/2025/01/MAY-DO-DO-AM-VL-4.jpg"></img>
             </div>
             <div className="thumbnail-title">
-              <h3 >
-                <a >
-                  HIỆU CHUẨN MÁY ĐO ĐỘ ẨM
-                </a>
+              <h3>
+                <a>HIỆU CHUẨN MÁY ĐO ĐỘ ẨM</a>
               </h3>
             </div>
           </div>
         </div>
       </div>
+      <section className="elementor-inner-section">
+        <div className="elementor-container-feedback ">
+          <div className="elementor-inner-contailer">
+            <div>
+              <h2 class="elementor-heading-title elementor-size-default">
+              NHỮNG CON SỐ ẤN TƯỢNG
+              </h2>
+            </div>
+            <div className="elementor-inner-number">
+              <h2 class="elementor-heading-title elementor-size-default">
+              10+
+              </h2>
+              <span>
+                Kinh nghiệm
+              </span>
+            </div>
+            <div  className="elementor-inner-number">
+              <h2 class="elementor-heading-title elementor-size-default">
+              150+
+              
+              </h2>
+              <span>
+                Dự Án
+              </span>
+            </div>
+            <div  className="elementor-inner-number">
+              <h2 class="elementor-heading-title elementor-size-default">
+              99%
+              </h2>
+              <span>
+               Khách hàng hài lòng
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      {/* <NewSection /> */}
+      <NewSection />
     </div>
   );
 }

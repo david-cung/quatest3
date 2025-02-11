@@ -77,8 +77,6 @@
   width: 50%;
 }
 .inform-question .elementor-widget-wrap {
-  background-color: #ed252c;
-  background-image: url("../assets/images/onsite.jpeg");
   height: 100%;
   border-radius: 20px 20px 20px 20px;
 }
@@ -86,11 +84,12 @@
   margin-top: 10px;
 }
 .elementor-background-overlay {
-  background-color: #ed252c;
-  opacity: 0.72;
+  background-color: #104199;
+
   height: 100%;
   border-radius: 20px 20px 20px 20px;
   padding: 0px 40px;
+  box-shadow: 0 10px 4px rgba(0, 0, 0, 0.1); /* Bóng mờ */
 }
 .question {
   padding-top: 50px;
@@ -257,4 +256,46 @@
 }
 .thumbnail-title h3 a {
   color: #3a3a3a;
+}
+.elementor-inner-section {
+  margin-top: 20px;
+  background-color: #ed252c;
+  background-image: url("../assets/images/Calibration-1.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 200px;
+
+  width: 100%;
+}
+.elementor-inner-contailer {
+  width: 100%;
+  max-width: 1140px;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+
+  height: 200px;
+
+  align-items: center;
+  justify-content: space-between;
+}
+.elementor-inner-contailer h2 {
+  color: #104199;
+}
+.elementor-inner-contailer span {
+  color: #104199;
+  margin-top: -10px;
+  font-size: 20px;
+}
+.elementor-inner-number {
+  display: flex;
+  flex-direction: column;
+
+  height: 200px;
+  align-items: center;
+}
+.elementor-inner-number h2 {
+  font-size: 70px;
+  display: inline-block;
+  line-height: 10px;
 }
