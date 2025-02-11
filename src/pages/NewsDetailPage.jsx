@@ -89,7 +89,7 @@ const NewsDetailPage = () => {
               {service?.title || "Tin tức không có tiêu đề"} {/* Fallback nếu thiếu title */}
             </h1>
             <div 
-              style={{
+              style={{ 
                 marginBottom: "20px",
                 fontSize: "18px",
                 lineHeight: "1.6",
