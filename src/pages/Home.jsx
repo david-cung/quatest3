@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import images from "../utils/imageImports";
 import NewSection from "../components/NewSection";
+import "./Home.css";
 
 const { service10, introduce1, introduce2, introduce3, introduce4 } = images;
 
@@ -84,11 +85,11 @@ function HomePage() {
               margin: "10px 0 20px",
             }}
           >
-            Intest là một trong những công ty hiệu chuẩn thiết bị đo lường uy tín
-            tại khu vực miền Trung Tây Nguyên. Đến với Intest, bạn sẽ được trải
-            nghiệm dịch vụ chất lượng, tận nơi, tận nhà máy. Bằng dịch vụ chuyên
-            nghiệp nhất, chúng tôi tin tưởng sẽ đáp ứng được mọi yêu cầu của
-            khách hàng.
+            Intest là một trong những công ty hiệu chuẩn thiết bị đo lường uy
+            tín tại khu vực miền Trung Tây Nguyên. Đến với Intest, bạn sẽ được
+            trải nghiệm dịch vụ chất lượng, tận nơi, tận nhà máy. Bằng dịch vụ
+            chuyên nghiệp nhất, chúng tôi tin tưởng sẽ đáp ứng được mọi yêu cầu
+            của khách hàng.
           </p>
           <ul
             style={{
@@ -138,84 +139,391 @@ function HomePage() {
           />
         </div>
       </div>
+      <section className="elementor-section">
+        <div className="element">
+          <div className="elementor-container ">
+            <div className="elementor-column ">
+              <div className="elementor-column-icon ">
+                <span className="elementor-icon">
+                  <i aria-hidden="true" class="far fa-clock"></i>
+                </span>
+              </div>
+              <div className="elementor-column-title ">
+                <h3 class="elementor-icon-box-title">
+                  <span>NHANH CHÓNG </span>
+                </h3>
+              </div>
+              <div className="elementor-description">
+                <p class="elementor-icon-box-description">
+                  Đáp ứng kịp thời yêu cầu của khách hàng, thời gian cung cấp
+                  kết quả nhanh chóng và thuận tiện.
+                </p>
+              </div>
+            </div>
+            <div className="elementor-column ">
+              <div className="elementor-column-icon ">
+                <span className="elementor-icon">
+                  <i aria-hidden="true" class="fas fa-spell-check"></i>
+                </span>
+              </div>
+              <div className="elementor-column-title ">
+                <h3 class="elementor-icon-box-title">
+                  <span>CHÍNH XÁC </span>
+                </h3>
+              </div>
+              <div className="elementor-description">
+                <p class="elementor-icon-box-description">
+                  Đảm bảo tính chính xác của kết quả kiểm định, hiệu chuẩn, giúp
+                  khách hàng đánh giá và sử dụng thiết bị phù hợp.
+                </p>
+              </div>
+            </div>
+            <div className="elementor-column ">
+              <div className="elementor-column-icon ">
+                <span className="elementor-icon">
+                  <i aria-hidden="true" class="fas fa-funnel-dollar"></i>
+                </span>
+              </div>
+              <div className="elementor-column-title ">
+                <h3 class="elementor-icon-box-title">
+                  <span>HIỆU QUẢ </span>
+                </h3>
+              </div>
+              <div className="elementor-description">
+                <p class="elementor-icon-box-description">
+                  Sử dụng thiết bị tân tiến, đạt chuẩn, đánh giá chính xác hoạt
+                  động của từng máy móc thiết bị hiện nay.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "40px auto",
-          display: "flex",
-          justifyContent: "space-between",
-          gap: "20px",
-        }}
-      >
-        <div style={{ flex: "2" }}>
-          <h2 style={{ fontSize: "24px", color: "#333", fontWeight: "bold" }}>
-            Câu hỏi thường gặp!
-          </h2>
-          <div
-            style={{
-              border: "1px solid #ddd",
-              borderRadius: "5px",
-              overflow: "hidden",
-            }}
-          >
-            <ul style={{ listStyle: "none", margin: "0", padding: "0" }}>
-              {[
-                {
-                  question: "Hiệu chuẩn là gì? Kiểm định là gì?",
-                  answer:
-                    "Hiệu chuẩn là hoạt động xác định, thiết lập mối quan hệ giữa giá trị đo của chuẩn đo lường, chuẩn phương tiện đo với giá trị đo của thiết bị - phương tiện cần đo. Kiểm định là hoạt động đánh giá, xác nhận đặc tính kỹ thuật đo lường của phương tiện đo theo yêu cầu kỹ thuật đo lường.",
-                },
-                {
-                  question: "Làm sao để xác định các điểm hiệu chuẩn?",
-                  answer:
-                    "Trước tiên, bạn cần đọc kỹ những khuyến cáo của nhà sản xuất. Sau đó, tùy theo tình hình, bạn cần phải xác định điểm hiệu chuẩn phụ thuộc vào chức năng, dải đo và mức độ đo mà thiết bị sẽ được sử dụng trong suốt thời gian hiệu chuẩn.",
-                },
-                {
-                  question: "Làm thế nào để quyết định thời gian hiệu chuẩn cho thiết bị?",
-                  answer:
-                    "Trước tiên vẫn là làm theo hướng dẫn của nhà sản xuất. Nếu như bạn có dữ liệu về việc hiệu chỉnh thiết bị của các năm trước đó, hãy phân tích những dữ liệu đó và điều chỉnh sao cho tần suất hiệu chuẩn thiết bị lần tới trong khoảng thời gian như những lần trước. Tần suất hiệu chuẩn cho các thiết bị đo điện phổ biết nhất là 1 năm một lần.",
-                },
-                {
-                  question:
-                    "Intest tư vấn, đánh giá những dây chuyền công nghệ, thiết bị sản xuất nào?",
-                  answer:
-                    "Intest có đội ngũ với nhiều kinh nghiệm trong việc tư vấn, đánh giá các dây chuyền công nghệ, thiết bị sản xuất dược phẩm, thực phẩm chức năng, mỹ phẩm, thực phẩm.",
-                },
-              ].map((item, index) => (
-                <li
-                  key={index}
-                  onClick={() => toggleQuestion(index)}
-                  style={{
-                    padding: "15px 20px",
-                    borderBottom: "1px solid #ddd",
-                    cursor: "pointer",
-                    backgroundColor: "#fff",
-                    color: "#222",
-                    fontSize: "18px",
-                  }}
-                >
-                  ➤ {item.question}
-                  {expandedQuestion === index && (
-                    <p
-                      style={{
-                        marginTop: "10px",
-                        fontSize: "16px",
-                        color: "#555",
-                        lineHeight: "1.8",
-                      }}
+      <div className="element section-inform-question">
+        <div className="element-question">
+          <div className="question">
+            <h2 style={{ fontSize: "24px", color: "#333", fontWeight: "bold" }}>
+              Câu hỏi thường gặp!
+            </h2>
+            <div
+              style={{
+                border: "1px solid #ddd",
+                borderRadius: "5px",
+                overflow: "hidden",
+              }}
+            >
+              <ul style={{ listStyle: "none", margin: "0", padding: "0" }}>
+                {[
+                  {
+                    question: "Hiệu chuẩn là gì? Kiểm định là gì?",
+                    answer:
+                      "Hiệu chuẩn là hoạt động xác định, thiết lập mối quan hệ giữa giá trị đo của chuẩn đo lường, chuẩn phương tiện đo với giá trị đo của thiết bị - phương tiện cần đo. Kiểm định là hoạt động đánh giá, xác nhận đặc tính kỹ thuật đo lường của phương tiện đo theo yêu cầu kỹ thuật đo lường.",
+                  },
+                  {
+                    question: "Làm sao để xác định các điểm hiệu chuẩn?",
+                    answer:
+                      "Trước tiên, bạn cần đọc kỹ những khuyến cáo của nhà sản xuất. Sau đó, tùy theo tình hình, bạn cần phải xác định điểm hiệu chuẩn phụ thuộc vào chức năng, dải đo và mức độ đo mà thiết bị sẽ được sử dụng trong suốt thời gian hiệu chuẩn.",
+                  },
+                  {
+                    question:
+                      "Làm thế nào để quyết định thời gian hiệu chuẩn cho thiết bị?",
+                    answer:
+                      "Trước tiên vẫn là làm theo hướng dẫn của nhà sản xuất. Nếu như bạn có dữ liệu về việc hiệu chỉnh thiết bị của các năm trước đó, hãy phân tích những dữ liệu đó và điều chỉnh sao cho tần suất hiệu chuẩn thiết bị lần tới trong khoảng thời gian như những lần trước. Tần suất hiệu chuẩn cho các thiết bị đo điện phổ biết nhất là 1 năm một lần.",
+                  },
+                  {
+                    question:
+                      "Intest tư vấn, đánh giá những dây chuyền công nghệ, thiết bị sản xuất nào?",
+                    answer:
+                      "Intest có đội ngũ với nhiều kinh nghiệm trong việc tư vấn, đánh giá các dây chuyền công nghệ, thiết bị sản xuất dược phẩm, thực phẩm chức năng, mỹ phẩm, thực phẩm.",
+                  },
+                ].map((item, index) => (
+                  <li
+                    key={index}
+                    onClick={() => toggleQuestion(index)}
+                    style={{
+                      padding: "15px 20px",
+                      borderBottom: "1px solid #ddd",
+                      cursor: "pointer",
+                      backgroundColor: "#fff",
+                      color: "#222",
+                      fontSize: "18px",
+                    }}
+                  >
+                    ➤ {item.question}
+                    {expandedQuestion === index && (
+                      <p
+                        style={{
+                          marginTop: "10px",
+                          fontSize: "16px",
+                          color: "#555",
+                          lineHeight: "1.8",
+                        }}
+                      >
+                        {item.answer}
+                      </p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="inform-question">
+            <div className="elementor-widget-wrap">
+              <div className="elementor-background-overlay">
+                <div className="question-heading">
+                  <h2 class="elementor-heading-title elementor-size-default">
+                    Liên hệ với Mitest
+                  </h2>
+                </div>
+                <div className="form-input">
+                  <div className="wpforms-field-container">
+                    <div
+                      id="wpforms-327-field_0-container"
+                      class="wpforms-field wpforms-field-name"
+                      data-field-id="0"
                     >
-                      {item.answer}
-                    </p>
-                  )}
-                </li>
-              ))}
-            </ul>
+                      <input
+                        type="text"
+                        id="wpforms-327-field_0"
+                        class="wpforms-field-large"
+                        name="wpforms[fields][0]"
+                        placeholder="Họ và tên"
+                      ></input>
+                    </div>
+                    <div
+                      id="wpforms-327-field_0-container"
+                      class="wpforms-field wpforms-field-name"
+                      data-field-id="0"
+                    >
+                      <input
+                        type="text"
+                        id="wpforms-327-field_0"
+                        class="wpforms-field-large"
+                        name="wpforms[fields][0]"
+                        placeholder="Số điện thoại"
+                      ></input>
+                    </div>
+                    <div
+                      id="wpforms-327-field_0-container"
+                      class="wpforms-field wpforms-field-name"
+                      data-field-id="0"
+                    >
+                      <textarea
+                        id="wpforms-327-field_2"
+                        class="wpforms-field-small"
+                        name="wpforms[fields][2]"
+                        placeholder="Bạn có nhắn nhủ gì với chúng tôi?!"
+                        spellcheck="false"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <NewSection />
+      <section className="elementor-customer-feedback">
+        <div className="elementor-container-feedback ">
+          <div className="feedback-content-contailer">
+            <div className="feedback-title ">
+              <h2 class="elementor-heading-title elementor-size-default">
+                Cảm nhận của khách hàng!
+              </h2>
+            </div>
+            <div className="feedback-detail">
+              <div className="feedback-content-colum">
+                <div className="feedback-widget-wrap">
+                  <div className="feedback-rating">
+                    <div
+                      class="elementor-star-rating"
+                      title="4.9/5"
+                      itemtype="http://schema.org/Rating"
+                      itemscope=""
+                      itemprop="reviewRating"
+                    >
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-9"></i>{" "}
+                    </div>
+                  </div>
+                  <div className="feedback-content">
+                    <div class="elementor-testimonial-content">
+                      Tôi đã tin tưởng và sử dụng dịch vụ hiểu chuẩn thiết bị
+                      của Mitest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
+                      giá cả cạnh tranh.
+                    </div>
+                  </div>
+                  <div className="feedback-name">
+                    <div class="elementor-testimonial-name">
+                      Nguyễn Minh Tới
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="feedback-content-colum">
+                {" "}
+                <div className="feedback-widget-wrap">
+                  <div className="feedback-rating">
+                    <div
+                      class="elementor-star-rating"
+                      title="4.9/5"
+                      itemtype="http://schema.org/Rating"
+                      itemscope=""
+                      itemprop="reviewRating"
+                    >
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-9"></i>{" "}
+                    </div>
+                  </div>
+                  <div className="feedback-content">
+                    <div class="elementor-testimonial-content">
+                      Tôi đã tin tưởng và sử dụng dịch vụ hiểu chuẩn thiết bị
+                      của Mitest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
+                      giá cả cạnh tranh.
+                    </div>
+                  </div>
+                  <div className="feedback-name">
+                    <div class="elementor-testimonial-name">
+                      Nguyễn Minh Tới
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="feedback-content-colum">
+                {" "}
+                <div className="feedback-widget-wrap">
+                  <div className="feedback-rating">
+                    <div
+                      class="elementor-star-rating"
+                      title="4.9/5"
+                      itemtype="http://schema.org/Rating"
+                      itemscope=""
+                      itemprop="reviewRating"
+                    >
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-9"></i>{" "}
+                    </div>
+                  </div>
+                  <div className="feedback-content">
+                    <div class="elementor-testimonial-content">
+                      Tôi đã tin tưởng và sử dụng dịch vụ hiểu chuẩn thiết bị
+                      của Mitest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
+                      giá cả cạnh tranh.
+                    </div>
+                  </div>
+                  <div className="feedback-name">
+                    <div class="elementor-testimonial-name">
+                      Nguyễn Minh Tới
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="feedback-content-colum">
+                <div className="feedback-widget-wrap">
+                  <div className="feedback-rating">
+                    <div
+                      class="elementor-star-rating"
+                      title="4.9/5"
+                      itemtype="http://schema.org/Rating"
+                      itemscope=""
+                      itemprop="reviewRating"
+                    >
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-full"></i>
+                      <i class="elementor-star-9"></i>{" "}
+                    </div>
+                  </div>
+                  <div className="feedback-content">
+                    <div class="elementor-testimonial-content">
+                      Tôi đã tin tưởng và sử dụng dịch vụ hiểu chuẩn thiết bị
+                      của Mitest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
+                      giá cả cạnh tranh.
+                    </div>
+                  </div>
+                  <div className="feedback-name">
+                    <div class="elementor-testimonial-name">
+                      Nguyễn Minh Tới
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div className="element element-new">
+        <div className="new-title">
+          <h2 class="uael-heading">
+            <span>TIN TỨC</span>
+          </h2>
+          <div className="uael-separator"></div>
+        </div>
+        <div className="new-container">
+          <div className="new-colums">
+            <div class="thumbnail-img">
+              <img src="https://mitest.vn/wp-content/uploads/2025/01/MAY-DO-DO-AM-VL-4.jpg"></img>
+            </div>
+            <div className="thumbnail-title">
+              <h3 >
+                <a >
+                  HIỆU CHUẨN MÁY ĐO ĐỘ ẨM
+                </a>
+              </h3>
+            </div>
+          </div>
+          <div className="new-colums">
+          <div class="thumbnail-img">
+              <img src="https://mitest.vn/wp-content/uploads/2025/01/MAY-DO-DO-AM-VL-4.jpg"></img>
+            </div>
+            <div className="thumbnail-title">
+              <h3 >
+                <a >
+                  HIỆU CHUẨN MÁY ĐO ĐỘ ẨM
+                </a>
+              </h3>
+            </div>
+          </div>
+          <div className="new-colums">
+          <div class="thumbnail-img">
+              <img src="https://mitest.vn/wp-content/uploads/2025/01/MAY-DO-DO-AM-VL-4.jpg"></img>
+            </div>
+            <div className="thumbnail-title">
+              <h3 >
+                <a >
+                  HIỆU CHUẨN MÁY ĐO ĐỘ ẨM
+                </a>
+              </h3>
+            </div>
+          </div>
+          <div className="new-colums">
+          <div class="thumbnail-img">
+              <img src="https://mitest.vn/wp-content/uploads/2025/01/MAY-DO-DO-AM-VL-4.jpg"></img>
+            </div>
+            <div className="thumbnail-title">
+              <h3 >
+                <a >
+                  HIỆU CHUẨN MÁY ĐO ĐỘ ẨM
+                </a>
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <NewSection /> */}
     </div>
   );
 }

@@ -1,0 +1,260 @@
+.elementor-section {
+  background-color: #ed252c;
+  background-image: url("../assets//images/mitest-banner.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 300px;
+}
+.element {
+  max-width: 1140px;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+}
+.element .elementor-container {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  gap: 20px;
+}
+.element .elementor-container .elementor-column {
+  width: 33%;
+  margin-top: 50px;
+  margin-bottom: 40%;
+}
+.elementor-icon {
+  color: #69727d;
+  display: inline-block;
+  font-size: 50px;
+  line-height: 1;
+  text-align: center;
+  transition: all 0.3s;
+  fill: #ffffff;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+.elementor-column-icon {
+  display: flex;
+  justify-content: center;
+}
+.elementor-icon-box-title {
+  color: #ffffff;
+}
+.elementor-column-title {
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+}
+.elementor-icon-box-description {
+  color: #ffffff;
+  font-weight: 600;
+  text-align: center;
+  font-size: 18px;
+}
+.elementor-icon-box-description {
+  height: 100px;
+  display: flex;
+  margin-top: 0px;
+  justify-content: center;
+}
+.element-question {
+  display: flex;
+  gap: 20px;
+
+  width: 100%;
+  padding-top: 10px;
+  height: 450px;
+}
+.element-question .question {
+  width: 50%;
+}
+.inform-question {
+  width: 50%;
+}
+.inform-question .elementor-widget-wrap {
+  background-color: #ed252c;
+  background-image: url("../assets/images/onsite.jpeg");
+  height: 100%;
+  border-radius: 20px 20px 20px 20px;
+}
+.section-inform-question {
+  margin-top: 10px;
+}
+.elementor-background-overlay {
+  background-color: #ed252c;
+  opacity: 0.72;
+  height: 100%;
+  border-radius: 20px 20px 20px 20px;
+  padding: 0px 40px;
+}
+.question {
+  padding-top: 50px;
+}
+.question-heading {
+  padding-top: 20px;
+}
+.question-heading h2 {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.3em;
+  color: #ffffff;
+}
+.wpforms-field-container {
+  background: none;
+  border: 0 none;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  float: none;
+  font-size: 100%;
+  height: auto;
+  letter-spacing: normal;
+  list-style: none;
+  outline: none;
+  position: static;
+  text-decoration: none;
+  text-indent: 0;
+  text-shadow: none;
+  text-transform: none;
+  width: auto;
+  visibility: visible;
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
+}
+.wpforms-field-large {
+  width: 80%;
+  height: 40px;
+  background-color: white !important; /* Màu nền trắng */
+  color: black; /* Màu chữ đen */
+  font-size: 16px;
+  border-radius: 4px; /* Góc bo tròn */
+
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bóng mờ */
+
+  color: #ffffff;
+}
+.wpforms-field-small {
+  width: 80%;
+  height: 100px;
+  font-size: 16px;
+  border-radius: 4px; /* Góc bo tròn */
+}
+.elementor-customer-feedback {
+  margin-top: 20px;
+  background-color: #ed252c;
+  background-image: url("../assets/images/Calibration-service-1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 400px;
+
+  width: 100%;
+}
+.feedback-title h2 {
+  color: #104199;
+}
+.feedback-content-contailer {
+  width: 100%;
+  max-width: 1140px;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
+  height: 400px;
+}
+.feedback-content-colum {
+  width: 25%;
+  display: flex;
+  min-height: 1px;
+  position: relative;
+}
+.feedback-detail {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  gap: 20px;
+  height: 250px;
+}
+.feedback-widget-wrap {
+  display: flex;
+  border-radius: 20px;
+  padding: 10px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+
+  width: 100%;
+  background-color: #ffffff8c;
+}
+.elementor-testimonial-content {
+  font-size: 16px;
+  font-style: italic;
+}
+.feedback-rating {
+  height: 30px;
+}
+.elementor-testimonial-name {
+  display: block;
+  line-height: 1.5;
+  font-weight: bold;
+}
+.feedback-content {
+  flex: 1;
+}
+.uael-separator {
+  border-top-color: #ed252c;
+  border-top-style: solid;
+  height: 10px;
+  width: 20%;
+}
+.uael-heading {
+  height: 20px;
+}
+.new-title {
+  display: flex;
+  flex-direction: column;
+}
+.new-container {
+  display: flex;
+  gap: 20px;
+}
+.new-colums {
+  width: 25%;
+}
+.element-new {
+  display: flex;
+  flex-direction: column;
+}
+.thumbnail-img {
+  position: relative;
+  padding-bottom: calc(0.6 * 100%);
+  width: 100%;
+}
+.thumbnail-img img {
+  position: absolute;
+  -o-object-fit: cover;
+  object-fit: cover;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.thumbnail-title h3 a {
+  color: #3a3a3a;
+}
