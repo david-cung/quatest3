@@ -9,7 +9,7 @@ const images = {
   service7: new URL("../assets/services/service7.jpg", import.meta.url).href,
   service8: new URL("../assets/services/service8.jpg", import.meta.url).href,
   service9: new URL("../assets/services/service9.jpg", import.meta.url).href,
-  service10: new URL("../assets/services/Marine.jpeg", import.meta.url).href,
+  service10: new URL("../assets/services/Rectangle.jpg", import.meta.url).href,
   new1: new URL("../assets/news/1.18.jpg", import.meta.url).href,
   new2: new URL("../assets/news/AP-KE-3.jpg", import.meta.url).href,
   new3: new URL("../assets/news/CAN.jpg", import.meta.url).href,

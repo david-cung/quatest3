@@ -3,7 +3,7 @@ import images from "../utils/imageImports";
 import NewSection from "../components/NewSection";
 import "./Home.css";
 
-const { service10, introduce1,introduce3, introduce4 } = images;
+const { service10, introduce1, introduce3, introduce4 } = images;
 
 const AutoSweetImages = () => {
   const images = [introduce1, introduce3, introduce4];
@@ -36,481 +36,89 @@ function HomePage() {
   const [isHovering, setIsHovering] = useState(false);
 
   const toggleQuestion = (questionIndex) => {
-    setExpandedQuestion(
-      expandedQuestion === questionIndex ? null : questionIndex
-    );
+    setExpandedQuestion(expandedQuestion === questionIndex ? null : questionIndex);
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "#ffffff",
-        padding: "40px 20px",
-        paddingTop: "120px",
-      }}
-    >
-      {/* Phần ảnh tự động chuyển đổi */}
+    <div style={{ backgroundColor: "#fafafa", padding: "40px 20px", paddingTop: "120px" }}>
       <AutoSweetImages />
-
-      {/* Container chính */}
-      <div
-        style={{
-          display: "flex",
-          maxWidth: "1200px",
-          margin: "40px auto",
-          gap: "20px",
-          alignItems: "center",
-        }}
-      >
-        {/* Phần mô tả bên trái */}
+      
+      <div style={{
+        display: "flex", maxWidth: "1200px", margin: "40px auto", gap: "20px", alignItems: "center"
+      }}>
         <div style={{ flex: "2" }}>
-          <h2 style={{ fontSize: "22px", color: "#555", fontWeight: "bold" }}>
-            GIỚI THIỆU VỀ INTEST
-          </h2>
-          <h1
-            style={{
-              fontSize: "28px",
-              color: "#222",
-              fontWeight: "bold",
-              margin: "10px 0",
-            }}
-          >
-            DỊCH VỤ KIỂM ĐỊNH HIỆU CHUẨN ĐO LƯỜNG TRÊN TOÀN QUỐC
+          <h2 style={{ fontSize: "22px", color: "#555", fontWeight: "bold" }}>GIỚI THIỆU VỀ INTEST</h2>
+          <h1 style={{ fontSize: "28px", color: "#222", fontWeight: "bold", margin: "10px 0" }}>
+            CÔNG TY CỔ PHẦN HIỆU CHUẨN INTEST là đơn vị cung cấp dịch vụ hiệu chuẩn thiết bị, máy móc đạt
+            chất lượng cao với mong muốn đem lại cho khách hàng những dịch vụ chất lượng, nhanh chóng và hiệu quả.
           </h1>
-          <p
-            style={{
-              fontSize: "18px",
-              color: "#555",
-              lineHeight: "1.8",
-              margin: "10px 0 20px",
-            }}
-          >
-            Intest là một trong những công ty hiệu chuẩn thiết bị đo lường uy
-            tín tại khu vực miền Trung Tây Nguyên. Đến với Intest, bạn sẽ được
-            trải nghiệm dịch vụ chất lượng, tận nơi, tận nhà máy. Bằng dịch vụ
-            chuyên nghiệp nhất, chúng tôi tin tưởng sẽ đáp ứng được mọi yêu cầu
-            của khách hàng.
+          <p style={{ fontSize: "18px", color: "#555", lineHeight: "1.8", margin: "10px 0 20px" }}>
+            MICROTECH chuyên cung cấp dịch vụ hiệu chuẩn máy móc và các thiết bị đo lường trong các lĩnh vực:
           </p>
-          <ul
-            style={{
-              listStyle: "none",
-              padding: "0",
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "10px",
-              fontSize: "16px",
-              color: "#333",
-            }}
-          >
-            <li>✔️ Đo lường lực</li>
-            <li>✔️ Đo lường khối lượng</li>
-            <li>✔️ Đo lường độ dài</li>
-            <li>✔️ Đo lường nhiệt</li>
-            <li>✔️ Đo lường áp suất</li>
-            <li>✔️ Đo lường dung tích</li>
-            <li>✔️ Đo lường hóa lý</li>
-            <li>✔️ Đo lường điện</li>
-            <li>✔️ Đo lường lưu lượng</li>
-            <li>✔️ Đo lường quang học</li>
+          <ul style={{
+            listStyle: "none", padding: "0", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px",
+            fontSize: "16px", color: "#333"
+          }}>
+            <li>- Khối lượng - Lực - Áp suất - Dung Tích</li>
+            <li>- Kích thước</li>
+            <li>- Nhiệt độ - Độ ẩm</li>
+            <li>- Hóa -Lý</li>
+            <li>- Điện - Điện tử</li>
+            <li>- Đo lường dung tích</li>
+            <li>- Thời gian - Tần số</li>
           </ul>
         </div>
 
-        {/* Phần hình ảnh bên phải */}
-        <div
-          style={{
-            flex: "1",
-            textAlign: "center",
-          }}
-        >
+        <div style={{ flex: "1", textAlign: "center" }}>
           <img
             src={service10}
             alt="Thiết bị đo lường"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
             style={{
-              maxWidth: "100%",
-              borderRadius: "10px",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+              maxWidth: "100%", borderRadius: "10px", transition: "transform 0.3s ease, box-shadow 0.3s ease",
               transform: isHovering ? "scale(1.05)" : "scale(1)",
-              boxShadow: isHovering
-                ? "0 8px 16px rgba(0, 0, 0, 0.2)"
-                : "0 4px 8px rgba(0, 0, 0, 0.1)",
+              boxShadow: isHovering ? "0 8px 16px rgba(0, 0, 0, 0.2)" : "0 4px 8px rgba(0, 0, 0, 0.1)"
             }}
           />
         </div>
       </div>
-      <section className="elementor-section">
-        <div className="element">
-          <div className="elementor-container ">
-            <div className="elementor-column ">
-              <div className="elementor-column-icon ">
-                <span className="elementor-icon">
-                  <i aria-hidden="true" class="far fa-clock"></i>
-                </span>
-              </div>
-              <div className="elementor-column-title ">
-                <h3 class="elementor-icon-box-title">
-                  <span>NHANH CHÓNG </span>
-                </h3>
-              </div>
-              <div className="elementor-description">
-                <p class="elementor-icon-box-description">
-                  Đáp ứng kịp thời yêu cầu của khách hàng, thời gian cung cấp
-                  kết quả nhanh chóng và thuận tiện.
-                </p>
-              </div>
-            </div>
-            <div className="elementor-column ">
-              <div className="elementor-column-icon ">
-                <span className="elementor-icon">
-                  <i aria-hidden="true" class="fas fa-spell-check"></i>
-                </span>
-              </div>
-              <div className="elementor-column-title ">
-                <h3 class="elementor-icon-box-title">
-                  <span>CHÍNH XÁC </span>
-                </h3>
-              </div>
-              <div className="elementor-description">
-                <p class="elementor-icon-box-description">
-                  Đảm bảo tính chính xác của kết quả kiểm định, hiệu chuẩn, giúp
-                  khách hàng đánh giá và sử dụng thiết bị phù hợp.
-                </p>
-              </div>
-            </div>
-            <div className="elementor-column ">
-              <div className="elementor-column-icon ">
-                <span className="elementor-icon">
-                  <i aria-hidden="true" class="fas fa-funnel-dollar"></i>
-                </span>
-              </div>
-              <div className="elementor-column-title ">
-                <h3 class="elementor-icon-box-title">
-                  <span>HIỆU QUẢ </span>
-                </h3>
-              </div>
-              <div className="elementor-description">
-                <p class="elementor-icon-box-description">
-                  Sử dụng thiết bị tân tiến, đạt chuẩn, đánh giá chính xác hoạt
-                  động của từng máy móc thiết bị hiện nay.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <div className="element section-inform-question">
-        <div className="element-question">
-          <div className="question">
-            <h2 style={{ fontSize: "24px", color: "#333", fontWeight: "bold" }}>
-              Câu hỏi thường gặp!
-            </h2>
-            <div
-              style={{
-                border: "1px solid #ddd",
-                borderRadius: "5px",
-                overflow: "hidden",
-              }}
-            >
-              <ul style={{ listStyle: "none", margin: "0", padding: "0" }}>
-                {[
-                  {
-                    question: "Hiệu chuẩn là gì? Kiểm định là gì?",
-                    answer:
-                      "Hiệu chuẩn là hoạt động xác định, thiết lập mối quan hệ giữa giá trị đo của chuẩn đo lường, chuẩn phương tiện đo với giá trị đo của thiết bị - phương tiện cần đo. Kiểm định là hoạt động đánh giá, xác nhận đặc tính kỹ thuật đo lường của phương tiện đo theo yêu cầu kỹ thuật đo lường.",
-                  },
-                  {
-                    question: "Làm sao để xác định các điểm hiệu chuẩn?",
-                    answer:
-                      "Trước tiên, bạn cần đọc kỹ những khuyến cáo của nhà sản xuất. Sau đó, tùy theo tình hình, bạn cần phải xác định điểm hiệu chuẩn phụ thuộc vào chức năng, dải đo và mức độ đo mà thiết bị sẽ được sử dụng trong suốt thời gian hiệu chuẩn.",
-                  },
-                  {
-                    question:
-                      "Làm thế nào để quyết định thời gian hiệu chuẩn cho thiết bị?",
-                    answer:
-                      "Trước tiên vẫn là làm theo hướng dẫn của nhà sản xuất. Nếu như bạn có dữ liệu về việc hiệu chỉnh thiết bị của các năm trước đó, hãy phân tích những dữ liệu đó và điều chỉnh sao cho tần suất hiệu chuẩn thiết bị lần tới trong khoảng thời gian như những lần trước. Tần suất hiệu chuẩn cho các thiết bị đo điện phổ biết nhất là 1 năm một lần.",
-                  },
-                  {
-                    question:
-                      "Intest tư vấn, đánh giá những dây chuyền công nghệ, thiết bị sản xuất nào?",
-                    answer:
-                      "Intest có đội ngũ với nhiều kinh nghiệm trong việc tư vấn, đánh giá các dây chuyền công nghệ, thiết bị sản xuất dược phẩm, thực phẩm chức năng, mỹ phẩm, thực phẩm.",
-                  },
-                ].map((item, index) => (
-                  <li
-                    key={index}
-                    onClick={() => toggleQuestion(index)}
-                    style={{
-                      padding: "15px 20px",
-                      borderBottom: "1px solid #ddd",
-                      cursor: "pointer",
-                      backgroundColor: "#fff",
-                      color: "#222",
-                      fontSize: "18px",
-                    }}
-                  >
-                    ➤ {item.question}
-                    {expandedQuestion === index && (
-                      <p
-                        style={{
-                          marginTop: "10px",
-                          fontSize: "16px",
-                          color: "#555",
-                          lineHeight: "1.8",
-                        }}
-                      >
-                        {item.answer}
-                      </p>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className="inform-question">
-            <div className="elementor-widget-wrap">
-              <div className="elementor-background-overlay">
-                <div className="question-heading">
-                  <h2 class="elementor-heading-title elementor-size-default">
-                    Liên hệ với Intest
-                  </h2>
-                </div>
-                <div className="form-input">
-                  <div className="wpforms-field-container">
-                    <div
-                      id="wpforms-327-field_0-container"
-                      class="wpforms-field wpforms-field-name"
-                      data-field-id="0"
-                    >
-                      <input
-                        type="text"
-                        id="wpforms-327-field_0"
-                        class="wpforms-field-large"
-                        name="wpforms[fields][0]"
-                        placeholder="Họ và tên"
-                      ></input>
-                    </div>
-                    <div
-                      id="wpforms-327-field_0-container"
-                      class="wpforms-field wpforms-field-name"
-                      data-field-id="0"
-                    >
-                      <input
-                        type="text"
-                        id="wpforms-327-field_0"
-                        class="wpforms-field-large"
-                        name="wpforms[fields][0]"
-                        placeholder="Số điện thoại"
-                      ></input>
-                    </div>
-                    <div
-                      id="wpforms-327-field_0-container"
-                      class="wpforms-field wpforms-field-name"
-                      data-field-id="0"
-                    >
-                      <textarea
-                        id="wpforms-327-field_2"
-                        class="wpforms-field-small"
-                        name="wpforms[fields][2]"
-                        placeholder="Bạn có nhắn nhủ gì với chúng tôi?!"
-                        spellcheck="false"
-                      ></textarea>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div style={{ marginLeft: "300px", marginRight: "300px",  textAlign: "justify" }}>
+      <p
+        style={{
+          fontSize: "18px",
+          color: "#555",
+          lineHeight: "1.8",
+          margin: "20px 0",
+        }}
+      >
+        INTEST với đội ngũ nhân viên có kinh nghiệm lâu năm trong lĩnh vực hiệu chuẩn đo lường, 
+        được đào tạo chuyên môn ở Viện Đo Lường Việt Nam (VMI), Trung tâm Kỹ thuật Tiêu Chuẩn Đo lường 
+        Chất lượng 3 (QUATEST 3), Trung Tâm Đào Tạo Nghiệp Vụ Tiêu Chuẩn Đo Lường Chất Lượng (QTC) 
+        cùng với sự đầu tư về máy móc, thiết bị hiện đại.
+        <br /><br />
+        Chúng tôi luôn luôn phát triển để nâng cao kiến thức và chất lượng dịch vụ, lắng nghe và tư vấn 
+        cho khách hàng giải pháp tối ưu nhất mang lại hiệu quả kinh tế cao. Luôn đảm bảo tuân thủ theo 
+        các yêu cầu về quản lý và năng lực kỹ thuật cùng với hệ thống quản lý chất lượng để đưa ra kết 
+        quả đo lường có độ tin cậy cao được Quốc Tế thừa nhận.
+        <br /><br />
+        Cảm ơn Quý Khách hàng đã luôn tin tưởng và ủng hộ chúng tôi!
+      </p>
       </div>
 
-      <section className="elementor-customer-feedback">
-        <div className="elementor-container-feedback ">
-          <div className="feedback-content-contailer">
-            <div className="feedback-title ">
-              <h2 class="elementor-heading-title elementor-size-default">
-                Cảm nhận của khách hàng!
-              </h2>
-            </div>
-            <div className="feedback-detail">
-              <div className="feedback-content-colum">
-                <div className="feedback-widget-wrap">
-                  <div className="feedback-rating">
-                    <div
-                      class="elementor-star-rating"
-                      title="4.9/5"
-                      itemtype="http://schema.org/Rating"
-                      itemscope=""
-                      itemprop="reviewRating"
-                    >
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-9"></i>{" "}
-                    </div>
-                  </div>
-                  <div className="feedback-content">
-                    <div class="elementor-testimonial-content">
-                      Tôi đã tin tưởng và sử dụng dịch vụ hiểu chuẩn thiết bị
-                      của Intest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
-                      giá cả cạnh tranh.
-                    </div>
-                  </div>
-                  <div className="feedback-name">
-                    <div class="elementor-testimonial-name">
-                      Nguyễn Minh Tới
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="feedback-content-colum">
-                {" "}
-                <div className="feedback-widget-wrap">
-                  <div className="feedback-rating">
-                    <div
-                      class="elementor-star-rating"
-                      title="4.9/5"
-                      itemtype="http://schema.org/Rating"
-                      itemscope=""
-                      itemprop="reviewRating"
-                    >
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-9"></i>{" "}
-                    </div>
-                  </div>
-                  <div className="feedback-content">
-                    <div class="elementor-testimonial-content">
-                      Tôi đã tin tưởng và sử dụng dịch vụ hiểu chuẩn thiết bị
-                      của Intest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
-                      giá cả cạnh tranh.
-                    </div>
-                  </div>
-                  <div className="feedback-name">
-                    <div class="elementor-testimonial-name">
-                      Nguyễn Minh Tới
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="feedback-content-colum">
-                {" "}
-                <div className="feedback-widget-wrap">
-                  <div className="feedback-rating">
-                    <div
-                      class="elementor-star-rating"
-                      title="4.9/5"
-                      itemtype="http://schema.org/Rating"
-                      itemscope=""
-                      itemprop="reviewRating"
-                    >
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-9"></i>{" "}
-                    </div>
-                  </div>
-                  <div className="feedback-content">
-                    <div class="elementor-testimonial-content">
-                      Tôi đã tin tưởng và sử dụng dịch vụ hiểu chuẩn thiết bị
-                      của Intest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
-                      giá cả cạnh tranh.
-                    </div>
-                  </div>
-                  <div className="feedback-name">
-                    <div class="elementor-testimonial-name">
-                      Nguyễn Minh Tới
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="feedback-content-colum">
-                <div className="feedback-widget-wrap">
-                  <div className="feedback-rating">
-                    <div
-                      class="elementor-star-rating"
-                      title="4.9/5"
-                      itemtype="http://schema.org/Rating"
-                      itemscope=""
-                      itemprop="reviewRating"
-                    >
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-full"></i>
-                      <i class="elementor-star-9"></i>{" "}
-                    </div>
-                  </div>
-                  <div className="feedback-content">
-                    <div class="elementor-testimonial-content">
-                      Tôi đã tin tưởng và sử dụng dịch vụ hiểu chuẩn thiết bị
-                      của Intest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
-                      giá cả cạnh tranh.
-                    </div>
-                  </div>
-                  <div className="feedback-name">
-                    <div class="elementor-testimonial-name">
-                      Nguyễn Minh Tới
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
       <div className="element element-new">
         <div className="new-title">
-          <h2 class="uael-heading">
+          <h2 className="uael-heading">
             <span>TIN TỨC</span>
           </h2>
           <div className="uael-separator"></div>
         </div>
-      <NewSection />
-        
+        <NewSection />
       </div>
-      <section className="elementor-inner-section">
-        <div className="elementor-container-feedback ">
-          <div className="elementor-inner-contailer">
-            <div>
-              <h2 class="elementor-heading-title elementor-size-default">
-              NHỮNG CON SỐ ẤN TƯỢNG
-              </h2>
-            </div>
-            <div className="elementor-inner-number">
-              <h2 class="elementor-heading-title elementor-size-default">
-              10+
-              </h2>
-              <span>
-                Kinh nghiệm
-              </span>
-            </div>
-            <div  className="elementor-inner-number">
-              <h2 class="elementor-heading-title elementor-size-default">
-              150+
-              
-              </h2>
-              <span>
-                Dự Án
-              </span>
-            </div>
-            <div  className="elementor-inner-number">
-              <h2 class="elementor-heading-title elementor-size-default">
-              99%
-              </h2>
-              <span>
-               Khách hàng hài lòng
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
 
+     
     </div>
   );
 }
