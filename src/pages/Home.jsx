@@ -53,7 +53,7 @@ function HomePage() {
             chất lượng cao với mong muốn đem lại cho khách hàng những dịch vụ chất lượng, nhanh chóng và hiệu quả.
           </h1>
           <p style={{ fontSize: "18px", color: "#555", lineHeight: "1.8", margin: "10px 0 20px" }}>
-            MICROTECH chuyên cung cấp dịch vụ hiệu chuẩn máy móc và các thiết bị đo lường trong các lĩnh vực:
+          INTEST chuyên cung cấp dịch vụ hiệu chuẩn máy móc và các thiết bị đo lường trong các lĩnh vực:
           </p>
           <ul style={{
             listStyle: "none", padding: "0", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px",
