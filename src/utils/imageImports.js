@@ -19,10 +19,14 @@ const images = {
   new5: new URL("../assets/news/hc-may-do-do-on.jpg", import.meta.url).href,
   new6: new URL("../assets/news/LUC-4.jpg", import.meta.url).href,
   new7: new URL("../assets/news/MAY-DO-DO-AM-VL-4.jpg", import.meta.url).href,
-  introduce1: createImageURL("../assets/introduceHome/introduce1.png"),
-  introduce2: createImageURL("../assets/introduceHome/introduce2.png"),
-  introduce3: createImageURL("../assets/introduceHome/introduce3.png"),
-  introduce4: createImageURL("../assets/introduceHome/introduce4.jpg"),
+  introduce1: new URL("../assets/introduceHome/introduce1.png", import.meta.url)
+    .href,
+  introduce2: new URL("../assets/introduceHome/introduce2.png", import.meta.url)
+    .href,
+  introduce3: new URL("../assets/introduceHome/introduce3.png", import.meta.url)
+    .href,
+  introduce4: new URL("../assets/introduceHome/introduce4.jpg", import.meta.url)
+    .href,
   intro1: createImageURL("../assets/intro/intro1.jpg"),
   new8: createImageURL("../assets/news/nhiet.jpg"),
 };
