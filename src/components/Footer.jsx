@@ -58,7 +58,7 @@ function Footer() {
                 className="fas fa-envelope"
                 style={{ marginRight: "10px", color: "#fca311", fontSize: "20px" }}
               ></i>
-              <span>info@mitest.vn</span>
+              <span>info@intest.vn</span>
             </li>
           </ul>
 
