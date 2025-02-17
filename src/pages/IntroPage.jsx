@@ -104,18 +104,18 @@ const IntroPage = () => {
           </ul>
           <p style={{ ...styles.paragraph, paddingTop: "20px" }}>
             Với năng lực hiểu rõ bản chất về kiểm định và hiệu chuẩn thiết bị đo
-            lường, Mitest tự tin mang đến quý khách hàng một giải pháp dịch vụ
+            lường, Intest tự tin mang đến quý khách hàng một giải pháp dịch vụ
             toàn diện, đầy đủ và chính xác nhất cho các vấn đề liên quan đến máy
             móc thiết bị. Đội ngũ chuyên viên, kỹ thuật viên được đào tạo có chuyên
             môn, có chứng chỉ sẽ đến tận nơi để khảo sát các máy móc thiết bị trước
             khi hiệu chuẩn.
           </p>
           <p style={styles.paragraph}>
-            Đến với Mitest, bạn sẽ được trải nghiệm dịch vụ chất lượng, tiết kiệm
+            Đến với Intest, bạn sẽ được trải nghiệm dịch vụ chất lượng, tiết kiệm
             tối đa về chi phí với quy trình làm việc chuyên nghiệp và phục vụ tận
             tâm. Các dịch vụ hiệu chuẩn của chúng tôi đạt chứng chỉ tiêu chuẩn quốc
             tế ISO/IEC 17025: 2017. Chính vì vậy, nếu bạn đang tìm đối tác hiệu
-            chuẩn chính xác thì Mitest chính là sự lựa chọn rất đáng cân nhắc.
+            chuẩn chính xác thì Intest chính là sự lựa chọn rất đáng cân nhắc.
           </p>
         </div>
         <div style={styles.imageContainer}>

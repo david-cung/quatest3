@@ -273,7 +273,7 @@ function HomePage() {
               <div className="elementor-background-overlay">
                 <div className="question-heading">
                   <h2 class="elementor-heading-title elementor-size-default">
-                    Liên hệ với Mitest
+                    Liên hệ với Intest
                   </h2>
                 </div>
                 <div className="form-input">
@@ -354,7 +354,7 @@ function HomePage() {
                   <div className="feedback-content">
                     <div class="elementor-testimonial-content">
                       Tôi đã tin tưởng và sử dụng dịch vụ hiểu chuẩn thiết bị
-                      của Mitest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
+                      của Intest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
                       giá cả cạnh tranh.
                     </div>
                   </div>
@@ -386,7 +386,7 @@ function HomePage() {
                   <div className="feedback-content">
                     <div class="elementor-testimonial-content">
                       Tôi đã tin tưởng và sử dụng dịch vụ hiểu chuẩn thiết bị
-                      của Mitest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
+                      của Intest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
                       giá cả cạnh tranh.
                     </div>
                   </div>
@@ -418,7 +418,7 @@ function HomePage() {
                   <div className="feedback-content">
                     <div class="elementor-testimonial-content">
                       Tôi đã tin tưởng và sử dụng dịch vụ hiểu chuẩn thiết bị
-                      của Mitest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
+                      của Intest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
                       giá cả cạnh tranh.
                     </div>
                   </div>
@@ -449,7 +449,7 @@ function HomePage() {
                   <div className="feedback-content">
                     <div class="elementor-testimonial-content">
                       Tôi đã tin tưởng và sử dụng dịch vụ hiểu chuẩn thiết bị
-                      của Mitest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
+                      của Intest nhiều năm nay. Dịch vụ nhanh chóng, chính xác,
                       giá cả cạnh tranh.
                     </div>
                   </div>
@@ -471,48 +471,8 @@ function HomePage() {
           </h2>
           <div className="uael-separator"></div>
         </div>
-        <div className="new-container">
-          <div className="new-colums">
-            <div class="thumbnail-img">
-              <img src="https://mitest.vn/wp-content/uploads/2025/01/MAY-DO-DO-AM-VL-4.jpg"></img>
-            </div>
-            <div className="thumbnail-title">
-              <h3>
-                <a>HIỆU CHUẨN MÁY ĐO ĐỘ ẨM</a>
-              </h3>
-            </div>
-          </div>
-          <div className="new-colums">
-            <div class="thumbnail-img">
-              <img src="https://mitest.vn/wp-content/uploads/2025/01/MAY-DO-DO-AM-VL-4.jpg"></img>
-            </div>
-            <div className="thumbnail-title">
-              <h3>
-                <a>HIỆU CHUẨN MÁY ĐO ĐỘ ẨM</a>
-              </h3>
-            </div>
-          </div>
-          <div className="new-colums">
-            <div class="thumbnail-img">
-              <img src="https://mitest.vn/wp-content/uploads/2025/01/MAY-DO-DO-AM-VL-4.jpg"></img>
-            </div>
-            <div className="thumbnail-title">
-              <h3>
-                <a>HIỆU CHUẨN MÁY ĐO ĐỘ ẨM</a>
-              </h3>
-            </div>
-          </div>
-          <div className="new-colums">
-            <div class="thumbnail-img">
-              <img src="https://mitest.vn/wp-content/uploads/2025/01/MAY-DO-DO-AM-VL-4.jpg"></img>
-            </div>
-            <div className="thumbnail-title">
-              <h3>
-                <a>HIỆU CHUẨN MÁY ĐO ĐỘ ẨM</a>
-              </h3>
-            </div>
-          </div>
-        </div>
+      <NewSection />
+        
       </div>
       <section className="elementor-inner-section">
         <div className="elementor-container-feedback ">
@@ -551,7 +511,6 @@ function HomePage() {
         </div>
       </section>
 
-      <NewSection />
     </div>
   );
 }
