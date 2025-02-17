@@ -3,10 +3,10 @@ import images from "../utils/imageImports";
 import NewSection from "../components/NewSection";
 import "./Home.css";
 
-const { service10, introduce1, introduce2, introduce3, introduce4 } = images;
+const { service10, introduce1,introduce3, introduce4 } = images;
 
 const AutoSweetImages = () => {
-  const images = [introduce1, introduce2, introduce3, introduce4];
+  const images = [introduce1, introduce3, introduce4];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
