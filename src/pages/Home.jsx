@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import images from "../utils/imageImports";
 import NewSection from "../components/NewSection";
+import Services from "../components/Services";
 import "./Home.css";
 
 const { service10, introduce1, introduce3, introduce4 } = images;
@@ -117,7 +118,7 @@ function HomePage() {
         </div>
         <NewSection />
       </div>
-
+      <Services/>
      
     </div>
   );
