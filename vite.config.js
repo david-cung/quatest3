@@ -7,8 +7,8 @@ export default defineConfig({
   server: {
     port: 3001, // Change to your desired port
     proxy: {
-      "/api/v1": {
-        target: "http://localhost:3000",
+      "/v1": {
+        target: "http://localhost:3000/api",
         changeOrigin: true,
         secure: true,
       },
