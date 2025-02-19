@@ -41,7 +41,7 @@ function HomePage() {
   };
 
   return (
-    <div style={{ backgroundColor: "#fafafa", padding: "40px 20px", paddingTop: "120px" }}>
+    <div style={{ backgroundColor: "#fafafa",  paddingTop: "120px" }}>
       <AutoSweetImages />
       
       <div style={{
@@ -108,7 +108,8 @@ function HomePage() {
       </p>
       </div>
 
-
+      <Services/>
+      
       <div className="element element-new">
         <div className="new-title">
           <h2 className="uael-heading">
@@ -118,7 +119,6 @@ function HomePage() {
         </div>
         <NewSection />
       </div>
-      <Services/>
      
     </div>
   );

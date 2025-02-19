@@ -1,15 +1,8 @@
 // imageImports.js
 const images = {
-  service1: new URL("../assets/services/service1.png", import.meta.url).href,
-  service2: new URL("../assets/services/service2.png", import.meta.url).href,
-  service3: new URL("../assets/services/service3.jpg", import.meta.url).href,
-  service4: new URL("../assets/services/service4.jpg", import.meta.url).href,
-  service5: new URL("../assets/services/service5.jpg", import.meta.url).href,
-  service6: new URL("../assets/services/service6.png", import.meta.url).href,
-  service7: new URL("../assets/services/service7.jpg", import.meta.url).href,
-  service8: new URL("../assets/services/service8.jpg", import.meta.url).href,
-  service9: new URL("../assets/services/service9.jpg", import.meta.url).href,
+  service1: new URL("../assets/services/bg-dichvu.jpg", import.meta.url).href,
   service10: new URL("../assets/services/Rectangle.jpg", import.meta.url).href,
+
   new1: new URL("../assets/news/1.18.jpg", import.meta.url).href,
   new2: new URL("../assets/news/AP-KE-3.jpg", import.meta.url).href,
   new3: new URL("../assets/news/CAN.jpg", import.meta.url).href,
