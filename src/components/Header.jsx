@@ -77,15 +77,38 @@ const Header = () => {
         >
           <img
             src={MainLogo}
-            alt="Logo"
+            alt='Logo'
             style={{
               height: "80px", // Increased the logo height
               marginRight: "15px", // Added spacing between the logo and text
             }}
           />
-          <span style={{ fontSize: "20px", fontWeight: "bold" }}>
-            INTEST<sup>®</sup>
+         <div>
+         <span
+            style={{
+              fontSize: "20px",
+              fontWeight: "bold",
+              color: "#032c57",
+              display: "block", // Đảm bảo xuống dòng
+              textAlign: "center", // Căn giữa nếu cần
+              whiteSpace: "pre-line", // Giữ nguyên xuống dòng
+            }}
+          >
+            CÔNG TY CỔ PHẦN HIỆU CHUẨN INTEST
           </span>
+          <span
+            style={{
+              fontSize: "16px",
+              color: "#032c57",
+              display: "block", // Đảm bảo xuống dòng
+              textAlign: "center", // Căn giữa nếu cần
+              whiteSpace: "pre-line", // Giữ nguyên xuống dòng
+            }}
+          >
+          161 Quang Trung, P. Trần Phú, Tp. Quảng Ngãi
+
+          </span>
+         </div>
         </div>
 
         {/* Navigation */}
@@ -96,6 +119,7 @@ const Header = () => {
               display: "flex",
               margin: 0,
               padding: 0,
+              color: "#032c57",
             }}
           >
             <li style={{ position: "relative", margin: "0 15px" }}>
@@ -138,9 +162,7 @@ const Header = () => {
                     <span style={dropdownItemStyle}>Hiệu chuẩn tận nơi</span>
                   </li>
                   <li onClick={() => navigate("/services-training")}>
-                    <span style={dropdownItemStyle}>
-                      Đào tạo và huấn luyện
-                    </span>
+                    <span style={dropdownItemStyle}>Đào tạo và huấn luyện</span>
                   </li>
                   <li onClick={() => navigate("/services-maintenance")}>
                     <span style={dropdownItemStyle}>Bảo trì-sửa chữa</span>

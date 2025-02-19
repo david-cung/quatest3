@@ -13,7 +13,7 @@ const AutoSweetImages = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000);
+    }, 6000);
     return () => clearInterval(interval);
   }, [images.length]);
 
@@ -25,6 +25,7 @@ const AutoSweetImages = () => {
         style={{
           maxWidth: "100%",
           borderRadius: "10px",
+          height: '700px',
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
       />
@@ -70,16 +71,17 @@ function HomePage() {
           </ul>
         </div>
 
-        <div style={{ flex: "1", textAlign: "center" }}>
+        <div style={{ maxWidth: "400px", textAlign: "center" }}>
           <img
             src={service10}
             alt="Thiết bị đo lường"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
             style={{
-              maxWidth: "100%", borderRadius: "10px", transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              transform: isHovering ? "scale(1.05)" : "scale(1)",
-              boxShadow: isHovering ? "0 8px 16px rgba(0, 0, 0, 0.2)" : "0 4px 8px rgba(0, 0, 0, 0.1)"
+              width: "100%",
+              maxWidth: "300px",
+              transition: "transform 0.3s ease-in-out",
+              transform: isHovering ? "scale(1.1)" : "scale(1)"
             }}
           />
         </div>
@@ -108,18 +110,17 @@ function HomePage() {
       </p>
       </div>
 
-      <Services/>
+      <Services />
       
-      <div className="element element-new">
-        <div className="new-title">
-          <h2 className="uael-heading">
+      <div style={{ textAlign: "center", marginTop: "40px", padding: "20px" }}>
+        <div>
+          <h2 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "10px" }}>
             <span>TIN TỨC</span>
           </h2>
-          <div className="uael-separator"></div>
+          <div style={{ width: "50px", height: "3px", backgroundColor: "#000", margin: "auto" }}></div>
         </div>
         <NewSection />
       </div>
-     
     </div>
   );
 }

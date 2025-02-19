@@ -17,7 +17,7 @@ export default function Services() {
         const fetchNews = async () => {
             try {
                 const response = await axios.get(`/v1/services`);
-                setNewsData(response.data.data.slice(0, 4)); // Hiển thị tối đa 4 item
+                setNewsData(response.data.data.slice(0, 5)); // Hiển thị tối đa 4 item
                 setIsLoading(false);
             } catch (err) {
                 console.error("Error fetching news:", err);
