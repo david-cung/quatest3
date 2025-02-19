@@ -10,7 +10,6 @@ export default function Services() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [hoverIndex, setHoverIndex] = useState(null);
-    const [page, setPage] = useState(1);
 
     const navigate = useNavigate();
 
@@ -18,12 +17,7 @@ export default function Services() {
         const fetchNews = async () => {
             try {
                 const response = await axios.get(`/v1/services`);
-                if (page === 1) {
-                    setNewsData(response.data);
-                } else {
-                    setNewsData((prevData) => [...prevData, ...response.data]);
-                }
-                console.log("Success", response.data);
+                setNewsData(response.data.data.slice(0, 4)); // Hiển thị tối đa 4 item
                 setIsLoading(false);
             } catch (err) {
                 console.error("Error fetching news:", err);
@@ -33,15 +27,11 @@ export default function Services() {
         };
 
         fetchNews();
-    }, [page]);
+    }, []);
 
     const handleNavigate = (newsId) => {
         navigate(`/services/${newsId}`);
         window.scrollTo(0, 0);
-    };
-
-    const handleLoadMore = () => {
-        setPage((prevPage) => prevPage + 1);
     };
 
     if (isLoading) {
@@ -53,113 +43,88 @@ export default function Services() {
     }
 
     return (
-      <div
-        style={{
-          width: "100%",
-          height: "60vh",
-          backgroundImage: `url(${service1})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "scroll",
-        }}
-      >
         <div
-          style={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-            padding: "20px",
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            borderRadius: "10px",
-          }}
+            style={{
+                width: "100%",
+                height: "60vh",
+                backgroundImage: `url(${service1})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundAttachment: "scroll",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                padding: "20px",
+            }}
         >
-          <h2
-            style={{
-              fontSize: "26px",
-              color: "#333",
-              fontWeight: "bold",
-              marginBottom: "20px",
-              textAlign: "center",
-              letterSpacing: "1.5px",
-              backdropFilter: "blur(5px)",
-              padding: "10px",
-            }}
-          >
-            DỊCH VỤ
-          </h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "20px",
-            }}
-          >
-            {newsData.data?.map((news, index) => (
-              <div
-                key={index}
+            <h2
                 style={{
-                  backgroundColor: "#fff",
-                  borderRadius: "10px",
-                  overflow: "hidden",
-                  textAlign: "center",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                  transform: hoverIndex === index ? "scale(1.05)" : "scale(1)",
-                  boxShadow:
-                    hoverIndex === index
-                      ? "0 8px 16px rgba(0, 0, 0, 0.2)"
-                      : "0 4px 8px rgba(0, 0, 0, 0.1)",
-                }}
-                onMouseEnter={() => setHoverIndex(index)}
-                onMouseLeave={() => setHoverIndex(null)}
-              >
-                <img
-                  src={news.image}
-                  alt={news.title}
-                  style={{
-                    width: "100%",
-                    height: "250px",
-                    objectFit: "cover",
-                    transition: "transform 0.3s ease",
-                    transform: hoverIndex === index ? "scale(1.1)" : "scale(1)",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => handleNavigate(news.id)}
-                />
-                <h3
-                  style={{
-                    fontSize: "22px",
-                    color: "#222",
-                    padding: "15px",
-                    margin: "0",
+                    fontSize: "26px",
+                    color: "#fff",
                     fontWeight: "bold",
-                    cursor: "pointer",
-                    letterSpacing: "1.2px",
-                  }}
-                  onClick={() => handleNavigate(news.id)}
-                >
-                  {news.title}
-                </h3>
-              </div>
-            ))}
-          </div>
-          <div style={{ marginTop: "20px", textAlign: "center" }}>
-            <button
-              style={{
-                padding: "12px 24px",
-                backgroundColor: "#c21f1f",
-                color: "#fff",
-                borderRadius: "5px",
-                border: "none",
-                cursor: "pointer",
-                fontSize: "18px",
-                letterSpacing: "1px",
-              }}
-              onClick={handleLoadMore}
+                    marginBottom: "20px",
+                    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)", // Làm nổi bật tiêu đề
+                }}
             >
-              Trang sau »
-            </button>
-          </div>
+                DỊCH VỤ
+            </h2>
+            <div
+                style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(4, 1fr)",
+                    gap: "20px",
+                    width: "80%", // Đảm bảo vừa phải
+                }}
+            >
+                {newsData.map((news, index) => (
+                    <div
+                        key={index}
+                        style={{
+                            borderRadius: "10px",
+                            overflow: "hidden",
+                            textAlign: "center",
+                            transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                            transform: hoverIndex === index ? "scale(1.05)" : "scale(1)",
+                            boxShadow:
+                                hoverIndex === index
+                                    ? "0 8px 16px rgba(0, 0, 0, 0.3)"
+                                    : "0 4px 8px rgba(0, 0, 0, 0.1)",
+                        }}
+                        onMouseEnter={() => setHoverIndex(index)}
+                        onMouseLeave={() => setHoverIndex(null)}
+                    >
+                        <img
+                            src={news.image}
+                            alt={news.title}
+                            style={{
+                                width: "100%",
+                                height: "250px",
+                                objectFit: "cover",
+                                transition: "transform 0.3s ease",
+                                transform: hoverIndex === index ? "scale(1.1)" : "scale(1)",
+                                cursor: "pointer",
+                                borderRadius: "10px",
+                            }}
+                            onClick={() => handleNavigate(news.id)}
+                        />
+                        <h3
+                            style={{
+                                fontSize: "18px",
+                                color: "#fff",
+                                marginTop: "10px",
+                                cursor: "pointer",
+                                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+                            }}
+                            onClick={() => handleNavigate(news.id)}
+                        >
+                            {news.title}
+                        </h3>
+                    </div>
+                ))}
+            </div>
         </div>
-      </div>
     );
 }
