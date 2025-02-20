@@ -18,8 +18,7 @@ function Footer() {
         {/* Phần thông tin tổng quan */}
         <div style={{ flex: "1 1 60%", paddingRight: "20px", marginBottom: "20px" }}>
           <h2 style={{ fontSize: "28px", color: "#333", fontWeight: "bold", marginBottom: "15px" }}>
-            CÔNG TY CỔ PHẦN KIỂM ĐỊNH HIỆU CHUẨN ĐO LƯỜNG MIỀN TRUNG TÂY NGUYÊN
-          </h2>
+            Công ty cổ phần Kiểm định Hiệu chuẩn Đo lường Khu vực 2          </h2>
           <p style={{ fontSize: "18px", color: "#555", lineHeight: "1.8" }}>
             Intest là đơn vị chuyên các giải pháp toàn diện từ hiệu chuẩn, kiểm định thiết bị đến bảo trì – sửa chữa,
             đào tạo và huấn luyện. Nhờ áp dụng những công nghệ đứng đầu xu hướng, thiết bị hiệu chuẩn hiện đại, Intest

@@ -85,7 +85,7 @@ const IntroPage = () => {
       >
         <div style={styles.text}>
           <p style={styles.paragraph}>
-            Công ty Cổ phần Kiểm định Hiệu chuẩn Đo lường miền Trung Tây Nguyên –
+            Công ty cổ phần Kiểm định Hiệu chuẩn Đo lường Khu vực 2 –
             Intest tự hào là một trong những đơn vị hoạt động trong lĩnh vực hiệu
             chuẩn thiết bị, kiểm định, đào tạo và huấn luyện, bảo trì và sửa chữa
             các thiết bị đo, các thiết bị máy móc chuyên dụng cho đa dạng lĩnh vực
