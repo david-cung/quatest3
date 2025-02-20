@@ -37,21 +37,21 @@ function Footer() {
                 className="fas fa-map-marker-alt"
                 style={{ marginRight: "10px", color: "#f04e31", fontSize: "20px" }}
               ></i>
-              <span>161 Quang Trung, P. Trần Phú, Tp. Quảng Ngãi</span>
+              <span>Thôn Diên Niên, xã Tịnh Sơn, huyện Sơn Tịnh, tỉnh Quảng Ngãi</span>
             </li>
             <li style={{ fontSize: "18px", color: "#555", marginBottom: "10px", display: "flex", alignItems: "center" }}>
               <i
                 className="fas fa-phone-alt"
                 style={{ marginRight: "10px", color: "#4caf50", fontSize: "20px" }}
               ></i>
-              <span>035 8330 160</span>
+              <span>098 7852 752</span>
             </li>
             <li style={{ fontSize: "18px", color: "#555", marginBottom: "10px", display: "flex", alignItems: "center" }}>
               <i
                 className="fas fa-comments"
                 style={{ marginRight: "10px", color: "#0078d7", fontSize: "20px" }}
               ></i>
-              <span>Zalo: 035 8330 160</span>
+              <span>Zalo: 098 7852 752</span>
             </li>
             <li style={{ fontSize: "18px", color: "#555", marginBottom: "10px", display: "flex", alignItems: "center" }}>
               <i

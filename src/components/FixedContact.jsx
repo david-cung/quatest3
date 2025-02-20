@@ -29,11 +29,11 @@ function FixedContact() {
             style={{ color: "white", fontSize: "20px", marginRight: "10px" }}
           ></i>
           <span style={{ color: "white", fontSize: "16px", fontWeight: "bold" }}>
-            098 7852 752
+           098 7852 752
           </span>
         </div>
         {/* Phone 2 */}
-        <div
+        {/* <div
           style={{
             display: "flex",
             alignItems: "center",
@@ -50,7 +50,7 @@ function FixedContact() {
           <span style={{ color: "white", fontSize: "16px", fontWeight: "bold" }}>
             035 4934 953
           </span>
-        </div>
+        </div> */}
       </div>
 
       {/* Icon Zalo và Messenger bên phải */}

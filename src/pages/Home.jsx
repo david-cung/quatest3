@@ -51,7 +51,7 @@ function HomePage() {
         <div style={{ flex: "2" }}>
           <h2 style={{ fontSize: "22px", color: "#555", fontWeight: "bold" }}>GIỚI THIỆU VỀ INTEST</h2>
           <h1 style={{ fontSize: "28px", color: "#222", fontWeight: "bold", margin: "10px 0" }}>
-            CÔNG TY CỔo PHẦN HIỆU CHUẨN INTEST là đơn vị cung cấp dịch vụ hiệu chuẩn thiết bị, máy móc đạt
+            INTEST là đơn vị cung cấp dịch vụ hiệu chuẩn thiết bị, máy móc đạt
             chất lượng cao với mong muốn đem lại cho khách hàng những dịch vụ chất lượng, nhanh chóng và hiệu quả.
           </h1>
           <p style={{ fontSize: "18px", color: "#555", lineHeight: "1.8", margin: "10px 0 20px" }}>

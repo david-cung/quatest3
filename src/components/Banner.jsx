@@ -47,7 +47,7 @@ const Banner = () => {
           display: "inline-block",
         }}
       >
-        📞 035 8330 160
+        📞 098 7852 752
       </div>
     </div>
   );
