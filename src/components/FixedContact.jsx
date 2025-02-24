@@ -67,7 +67,7 @@ function FixedContact() {
       >
         {/* Icon Zalo */}
         <a
-          href="https://zalo.me/0358330160"
+          href="https://zalo.me/0987852752"
           target="_blank"
           rel="noopener noreferrer"
           style={{
