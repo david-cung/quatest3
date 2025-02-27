@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3001, // Change to your desired port
     proxy: {
       "/v1": {
-        target: "http://localhost:3000/api",
+        target: "https://intest.vn/api",
         changeOrigin: true,
         secure: true,
       },
