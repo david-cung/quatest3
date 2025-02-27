@@ -94,7 +94,7 @@ const Header = () => {
               whiteSpace: "pre-line", // Giữ nguyên xuống dòng
             }}
           >
-            CÔNG TY CỔ PHẦN HIỆU CHUẨN INTEST
+             Công ty cổ phần kiểm định hiệu chuẩn đo lường khu vực 2 (INTEST)
           </span>
           <span
             style={{
