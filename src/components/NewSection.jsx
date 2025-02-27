@@ -14,7 +14,7 @@ export default function NewSection() {
     useEffect(() => {
         const fetchNews = async () => {
             try {
-                const response = await axios.get(`/v1/news?page=${page}&limit=8`);  // Pass the page and limit as query params
+                const response = await axios.get(`/api/v1/news?page=${page}&limit=8`);  // Pass the page and limit as query params
                 if (page === 1) {
                     setNewsData(response.data);  // For the first page, replace the data
                 } else {

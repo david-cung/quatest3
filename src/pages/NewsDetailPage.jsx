@@ -17,7 +17,7 @@ const NewsDetailPage = () => {
     // Fetch chi tiết tin tức
     const fetchServiceDetail = async () => {
       try {
-        const response = await axios.get(`/v1/news/${newsId}`);
+        const response = await axios.get(`/api/v1/news/${newsId}`);
         setService(response.data.data);
       } catch (err) {
         setError(err.response ? err.response.data.message : err.message);
@@ -29,7 +29,7 @@ const NewsDetailPage = () => {
     // Fetch danh sách tin tức
     const fetchRelatedNews = async () => {
       try {
-        const response = await axios.get("/v1/news");
+        const response = await axios.get("/api/v1/news");
         setRelatedNews(response.data.data.slice(0, 5)); // Lấy 5 tin tức đầu tiên
         setFilteredNews(response.data.data.slice(0, 5)); // Khởi tạo với 5 tin tức đầu tiên
       } catch (err) {

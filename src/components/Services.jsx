@@ -16,7 +16,7 @@ export default function Services() {
     useEffect(() => {
         const fetchNews = async () => {
             try {
-                const response = await axios.get(`api/v1/services`);
+                const response = await axios.get(`api/api/v1/services`);
                 setNewsData(response.data.data.slice(0, 5)); // Hiển thị tối đa 4 item
                 setIsLoading(false);
             } catch (err) {

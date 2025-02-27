@@ -11,7 +11,7 @@ const ServicePage = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get("/v1/services");
+        const response = await axios.get("/api/v1/services");
         setServices(response.data); // Assuming the API returns a list of services
       } catch (err) {
         setError(err.response ? err.response.data.message : err.message);
