@@ -24,7 +24,6 @@ export default function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (!formData.email || !formData.password) {
       return dispatch(signInFailure("Please fill all the required fields"));
     }
@@ -36,11 +35,10 @@ export default function SignIn() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
       const data = await res.json();
 
       if (!res.ok) {
-        return dispatch(signInFailure(data.message || "Login failed"));
+        return dispatch(signInFailure(data.message));
       }
 
       localStorage.setItem("token", data.data.accessToken);
@@ -52,62 +50,49 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col bg-gray-100">
-      {/* Header */}
-      <header className="w-full bg-white shadow-md p-4 text-center font-semibold text-lg">
-        My Website
-      </header>
+    <div className="h-screen w-screen bg-gray-100 flex items-center justify-center">
+      <div className="p-6 max-w-md w-full bg-white shadow-lg rounded-lg">
+        <h1 className="text-center text-xl font-semibold mb-4">Sign In</h1>
 
-      {/* Main Content */}
-      <main className="flex-1 flex justify-center items-center">
-        <div className="p-5 max-w-3xl w-full mx-auto bg-white shadow-lg rounded-lg">
-          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-            <div>
-              <Label value="Email" />
-              <TextInput
-                type="email"
-                placeholder="name@company.com"
-                id="email"
-                onChange={handleChange}
-                autoComplete="email"
-                required
-              />
-            </div>
-            <div>
-              <Label value="Password" />
-              <TextInput
-                type="password"
-                placeholder="********"
-                id="password"
-                onChange={handleChange}
-                autoComplete="current-password"
-                required
-              />
-            </div>
-            <Button gradientDuoTone="purpleToPink" type="submit" disabled={loading}>
-              {loading ? (
-                <>
-                  <Spinner size="sm" />
-                  <span className="pl-3">Loading...</span>
-                </>
-              ) : (
-                "Sign In"
-              )}
-            </Button>
-          </form>
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          {/* Email */}
+          <div>
+            <Label value="Email" />
+            <TextInput
+              type="email"
+              placeholder="name@company.com"
+              id="email"
+              onChange={handleChange}
+            />
+          </div>
 
-          {errorMessage && (
-            <Alert className="mt-5" color="blue">
-              {errorMessage}
-            </Alert>
-          )}
-        </div>
-      </main>
+          {/* Password */}
+          <div>
+            <Label value="Password" />
+            <TextInput
+              type="password"
+              placeholder="********"
+              id="password"
+              onChange={handleChange}
+            />
+          </div>
 
-      {/* Footer */}
-      <footer className="w-full bg-white shadow-md p-4 text-center text-sm">
-        © 2025 My Website. All rights reserved.
-      </footer>
+          {/* Submit Button */}
+          <Button gradientDuoTone="purpleToPink" type="submit" disabled={loading}>
+            {loading ? (
+              <>
+                <Spinner size="sm" />
+                <span className="pl-3">Loading...</span>
+              </>
+            ) : (
+              "Sign In"
+            )}
+          </Button>
+        </form>
+
+        {/* Error Message */}
+        {errorMessage && <Alert className="mt-5" color="failure">{errorMessage}</Alert>}
+      </div>
     </div>
   );
 }
