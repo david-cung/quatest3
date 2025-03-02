@@ -1,6 +1,6 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   signInStart,
@@ -30,7 +30,7 @@ export default function SignIn() {
 
     try {
       dispatch(signInStart());
-      const res = await fetch("/v1/auth/login", {
+      const res = await fetch("/api/v1/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -50,48 +50,120 @@ export default function SignIn() {
   };
 
   return (
-    <div className="h-screen w-screen bg-gray-100 flex items-center justify-center">
-      <div className="p-6 max-w-md w-full bg-white shadow-lg rounded-lg">
-        <h1 className="text-center text-xl font-semibold mb-4">Sign In</h1>
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#f4f4f4",
+      }}
+    >
+      <div
+        style={{
+          padding: "32px",
+          backgroundColor: "white",
+          borderRadius: "12px",
+          boxShadow: "0 6px 12px rgba(0,0,0,0.15)",
+          minWidth: "400px",
+          textAlign: "center",
+        }}
+      >
+        <h1 style={{ fontSize: "24px", color: "#333", marginBottom: "16px" }}>
+          Đăng nhập
+        </h1>
 
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+          }}
+          onSubmit={handleSubmit}
+        >
           {/* Email */}
-          <div>
-            <Label value="Email" />
+          <div style={{ textAlign: "left" }}>
+            <Label style={{ fontSize: "16px", fontWeight: "500" }} value="Email" />
             <TextInput
               type="email"
               placeholder="name@company.com"
               id="email"
               onChange={handleChange}
+              style={{
+                padding: "12px",
+                fontSize: "16px",
+                borderRadius: "6px",
+                border: "1px solid #bbb",
+                outline: "none",
+                backgroundColor: "#f8f9fa",
+                color: "#333",
+                width: "100%",
+                transition: "border-color 0.3s",
+              }}
+              onFocus={(e) => (e.target.style.borderColor = "#007bff")}
+              onBlur={(e) => (e.target.style.borderColor = "#bbb")}
             />
           </div>
 
           {/* Password */}
-          <div>
-            <Label value="Password" />
+          <div style={{ textAlign: "left" }}>
+            <Label style={{ fontSize: "16px", fontWeight: "500" }} value="Mật khẩu" />
             <TextInput
               type="password"
               placeholder="********"
               id="password"
               onChange={handleChange}
+              style={{
+                padding: "12px",
+                fontSize: "16px",
+                borderRadius: "6px",
+                border: "1px solid #bbb",
+                outline: "none",
+                backgroundColor: "#f8f9fa",
+                color: "#333",
+                width: "100%",
+                transition: "border-color 0.3s",
+              }}
+              onFocus={(e) => (e.target.style.borderColor = "#007bff")}
+              onBlur={(e) => (e.target.style.borderColor = "#bbb")}
             />
           </div>
 
           {/* Submit Button */}
-          <Button gradientDuoTone="purpleToPink" type="submit" disabled={loading}>
+          <Button
+            type="submit"
+            disabled={loading}
+            style={{
+              padding: "12px",
+              fontSize: "18px",
+              fontWeight: "bold",
+              borderRadius: "6px",
+              border: "none",
+              backgroundColor: "#007bff",
+              color: "white",
+              cursor: "pointer",
+              transition: "background-color 0.3s",
+            }}
+            onMouseOver={(e) => (e.target.style.backgroundColor = "#0056b3")}
+            onMouseOut={(e) => (e.target.style.backgroundColor = "#007bff")}
+          >
             {loading ? (
               <>
                 <Spinner size="sm" />
-                <span className="pl-3">Loading...</span>
+                <span style={{ paddingLeft: "8px" }}>Đang tải...</span>
               </>
             ) : (
-              "Sign In"
+              "Đăng nhập"
             )}
           </Button>
         </form>
 
         {/* Error Message */}
-        {errorMessage && <Alert className="mt-5" color="failure">{errorMessage}</Alert>}
+        {errorMessage && (
+          <Alert style={{ marginTop: "16px", color: "#d9534f" }}>
+            {errorMessage}
+          </Alert>
+        )}
       </div>
     </div>
   );
