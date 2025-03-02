@@ -8,12 +8,14 @@ import IntroPage from "./pages/IntroPage";
 import ServiceDetailPage from "./pages/ServiceDetailPage";
 import FixedContact from "./components/FixedContact"; // Import FixedContact component
 import NewsDetailPage from "./pages/NewsDetailPage";
-
+import SignIn from "./pages/SignIn";
+ 
 const App = () => {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
+        <Route path='/sign-in' element={<SignIn />} />
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<IntroPage />} />
