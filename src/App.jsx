@@ -9,7 +9,8 @@ import ServiceDetailPage from "./pages/ServiceDetailPage";
 import FixedContact from "./components/FixedContact"; // Import FixedContact component
 import NewsDetailPage from "./pages/NewsDetailPage";
 import SignIn from "./pages/SignIn";
- 
+import PrivateRoute from "./components/PrivateRoute";
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -23,7 +24,16 @@ const App = () => {
         <Route path="/service/:serviceId" element={<ServiceDetailPage />} />
         <Route path="/news/:newsId" element={<NewsDetailPage />} />
         <Route path="/contact" element={<Contact />} />
-        {/* Thêm các route khác nếu cần */}
+        <Route element={<PrivateRoute />}>
+          <Route path='/dashboard' element={<Dashboard />} />
+          {/* <Route path='/add-service' element={<CreateService />} />
+          <Route path='/list-service' element={<ServiceList />} />
+          <Route path='/edit-service/:id' element={<EditService />} />
+          <Route path='/detail-service/:id' element={<ServiceDetailPage />} />
+          <Route path='/add-news' element={<CreateNews />} />
+          <Route path='/edit-news/:id' element={<EditNews />} />
+          <Route path='/detail-news/:id' element={<NewDetailPage />} /> */}
+        </Route>
       </Routes>
       <Footer />
       <FixedContact /> {/* Ensure FixedContact is rendered on all pages */}
