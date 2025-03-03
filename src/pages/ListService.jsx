@@ -1,28 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import React from "react";
 
-interface Post {
-  id: string;
-  title: string;
-  image: string;
-  content: string;
-  updatedAt: string;
-  category: string; // New field to store service type (category)
-}
-
-export default function NewsList() {
-  const [services, setPosts] = useState<Post[]>([]);
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<
-    string | null
-  >(null);
+export default function ServiceList() {
+  const [services, setPosts] = useState([]);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("/v1/news", {
+        const response = await axios.get("/v1/services", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -36,21 +24,21 @@ export default function NewsList() {
     fetchPosts();
   }, []);
 
-  const handleDelete = (id: string) => {
+  const handleDelete = (id) => {
     setShowDeleteConfirmation(id);
   };
 
-  const confirmDelete = async (id: string) => {
+  const confirmDelete = async (id) => {
     try {
       await axios.delete(`/v1/services/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      setPosts(services.filter((news) => news.id !== id));
+      setPosts(services.filter((service) => service.id !== id));
       setShowDeleteConfirmation(null);
     } catch (error) {
-      console.error("Error deleting news:", error);
+      console.error("Error deleting service:", error);
     }
   };
 
@@ -58,12 +46,12 @@ export default function NewsList() {
     setShowDeleteConfirmation(null);
   };
 
-  const handleEdit = (id: string) => {
-    navigate(`/edit-news/${id}`);
+  const handleEdit = (id) => {
+    navigate(`/edit-service/${id}`);
   };
 
   const handleAddService = () => {
-    navigate("/add-news"); // Navigate to the "Add Service" page
+    navigate("/add-service"); // Navigate to the "Add Service" page
   };
 
   return (
@@ -96,7 +84,7 @@ export default function NewsList() {
             fontSize: "16px",
           }}
         >
-          Thêm tin tức
+          Thêm dịch vụ
         </button>
       </div>
 
@@ -149,7 +137,7 @@ export default function NewsList() {
                 color: "white",
               }}
             >
-              Loại Tin tức {/* New column for service type */}
+              Loại Dịch Vụ {/* New column for service type */}
             </th>
             <th
               style={{
@@ -164,9 +152,9 @@ export default function NewsList() {
           </tr>
         </thead>
         <tbody>
-          {services.map((news) => (
+          {services.map((service) => (
             <tr
-              key={news.id}
+              key={service.id}
               style={{
                 borderBottom: "0.5px solid #ddd",
                 padding: "2px",
@@ -179,7 +167,7 @@ export default function NewsList() {
                   fontSize: "16px",
                 }}
               >
-                {new Date(news.updatedAt).toLocaleDateString()}
+                {new Date(service.updatedAt).toLocaleDateString()}
               </td>
               <td
                 style={{
@@ -188,8 +176,8 @@ export default function NewsList() {
                 }}
               >
                 <img
-                  src={news.image}
-                  alt={news.title}
+                  src={service.image}
+                  alt={service.title}
                   style={{
                     width: "150px",
                     height: "150px",
@@ -207,9 +195,9 @@ export default function NewsList() {
                   color: "blue",
                   textDecoration: "underline",
                 }}
-                onClick={() => navigate(`/detail-service/${news.id}`)}
+                onClick={() => navigate(`/detail-service/${service.id}`)}
               >
-                {news.title}
+                {service.title}
               </td>
               <td
                 style={{
@@ -218,7 +206,7 @@ export default function NewsList() {
                   fontSize: "16px",
                 }}
               >
-                {news.category} {/* Display service type */}
+                {service.category} {/* Display service type */}
               </td>
               <td
                 style={{
@@ -226,11 +214,11 @@ export default function NewsList() {
                   textAlign: "center",
                 }}
               >
-                {showDeleteConfirmation === news.id ? (
+                {showDeleteConfirmation === service.id ? (
                   <div>
                     <p>Bạn có chắc chắn muốn xoá dịch vụ này?</p>
                     <button
-                      onClick={() => confirmDelete(news.id)}
+                      onClick={() => confirmDelete(service.id)}
                       style={{
                         padding: "5px 10px",
                         backgroundColor: "#FF5733",
@@ -260,7 +248,7 @@ export default function NewsList() {
                 ) : (
                   <>
                     <button
-                      onClick={() => handleEdit(news.id)}
+                      onClick={() => handleEdit(service.id)}
                       style={{
                         padding: "5px 10px",
                         backgroundColor: "#FFA500",
@@ -274,7 +262,7 @@ export default function NewsList() {
                       Chỉnh Sửa
                     </button>
                     <button
-                      onClick={() => handleDelete(news.id)}
+                      onClick={() => handleDelete(service.id)}
                       style={{
                         padding: "5px 10px",
                         backgroundColor: "#FF5733",

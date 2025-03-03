@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Alert, Button, TextInput } from "flowbite-react";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
@@ -18,23 +17,22 @@ import {
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import React from "react";
 
 export default function DashProfile() {
-  const { currentUser, loading } = useSelector((state: any) => state.user);
-  const [imageFile, setImageFile] = useState<any>(null);
-  const [imageFileUrl, setImageFileUrl] = useState<string | null>(null);
+  const { currentUser, loading } = useSelector((state) => state.user);
+  const [imageFile, setImageFile] = useState(null);
+  const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadProgress, setImageFileUploadProgress] =
-    useState<any>(null);
-  const [updateUserError, setUpdateUserError] = useState<any>("");
-  const [imageFileUploadError, setImageFileUploadError] = useState<any>(null);
-  const [imageFileUploading, setImageFileUploading] = useState<boolean>(false);
-  const [updateUserSuccess, setUpdateUserSuccess] = useState<string>("");
-  const [formData, setFormData] = useState<any>({});
+    useState(null);
+  const [updateUserError, setUpdateUserError] = useState("");
+  const [imageFileUploadError, setImageFileUploadError] = useState(null);
+  const [imageFileUploading, setImageFileUploading] = useState(false);
+  const [updateUserSuccess, setUpdateUserSuccess] = useState("");
+  const [formData, setFormData] = useState({});
   const filePickerRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useDispatch();
 
-  const handleImageChange = (e: any) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file);
@@ -61,7 +59,6 @@ export default function DashProfile() {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setImageFileUploadProgress(progress.toFixed(0));
       },
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       (error) => {
         setImageFileUploadError(
           "Could not upload image (File must be less than 2MB"
@@ -81,11 +78,11 @@ export default function DashProfile() {
       }
     );
   };
-  const handleChange = (e: any) => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setUpdateUserError(null);
     setUpdateUserSuccess("");
@@ -112,7 +109,7 @@ export default function DashProfile() {
         dispatch(updateSuccess(data));
         setUpdateUserSuccess("User's profile updated successfully");
       }
-    } catch (error: any) {
+    } catch (error) {
       dispatch(updateFailure(error.message));
     }
   };
