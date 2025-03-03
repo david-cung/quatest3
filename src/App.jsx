@@ -10,6 +10,7 @@ import FixedContact from "./components/FixedContact"; // Import FixedContact com
 import NewsDetailPage from "./pages/NewsDetailPage";
 import SignIn from "./pages/SignIn";
 import PrivateRoute from "./components/PrivateRoute";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   return (
