@@ -11,6 +11,11 @@ import NewsDetailPage from "./pages/NewsDetailPage";
 import SignIn from "./pages/SignIn";
 import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./pages/Dashboard";
+import CreateService from "./pages/CreateService";
+import ServiceList from "./pages/ListService";
+import EditService from "./pages/EditService";
+import CreateNews from "./pages/CreateNews";
+import EditNews from "./pages/EditNews";
 
 const App = () => {
   return (
@@ -27,13 +32,12 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
-          {/* <Route path='/add-service' element={<CreateService />} />
+          <Route path='/add-service' element={<CreateService />} />
           <Route path='/list-service' element={<ServiceList />} />
           <Route path='/edit-service/:id' element={<EditService />} />
           <Route path='/detail-service/:id' element={<ServiceDetailPage />} />
           <Route path='/add-news' element={<CreateNews />} />
           <Route path='/edit-news/:id' element={<EditNews />} />
-          <Route path='/detail-news/:id' element={<NewDetailPage />} /> */}
         </Route>
       </Routes>
       <Footer />
