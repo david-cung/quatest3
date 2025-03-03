@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 export default function CreateService() {
   const [contentBlocks, setContentBlocks] = useState([]);
   const [file, setFile] = useState(null);
-  const [imageUploadProgress, setImageFileUploadProgress] = useState<(null);
+  const [imageUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
