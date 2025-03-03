@@ -23,9 +23,8 @@ export default function Dashboard() {
   return (
     <div
       className='min-h-screen flex flex-col'
-      style={{ marginTop: "60px", height: "100vh" }} // Đảm bảo chiều cao toàn bộ màn hình
+      style={{ marginTop: "120px", height: "100vh" }} // Đảm bảo chiều cao toàn bộ màn hình
     >
-      <Header /> {/* Hiển thị header ở trên cùng */}
       <div className='flex flex-grow md:flex-row'>
         <div className='md:w-56 bg-slate-300'>
           <DashSidebar setTab={setTab} />
