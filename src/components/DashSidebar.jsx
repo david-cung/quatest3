@@ -4,7 +4,8 @@ import { HiArrowSmRight, HiDocumentText } from "react-icons/hi";
 import { HiNewspaper } from "react-icons/hi2";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export default function DashSidebar( setTab) {
+// eslint-disable-next-line react/prop-types
+export default function DashSidebar( {setTab}) {
   const location = useLocation();
   const navigate = useNavigate();
   const [tab, setLocalTab] = useState("");
