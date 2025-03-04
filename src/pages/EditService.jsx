@@ -127,7 +127,7 @@ export default function EditService() {
 
   return (
     <div
-      className='p-3 max-w-3xl mx-auto min-h-screen'
+      className='p-3 max-w-3xl mx-auto min-h-screen mt-28'
       style={{ paddingTop: "70px" }}
     >
       <form
