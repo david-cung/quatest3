@@ -24,6 +24,7 @@ const AutoSweetImages = () => {
         alt={`Image ${currentIndex + 1}`}
         style={{
           maxWidth: "100%",
+          height: '500px',
           borderRadius: "10px",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
@@ -33,15 +34,10 @@ const AutoSweetImages = () => {
 };
 
 function HomePage() {
-  const [expandedQuestion, setExpandedQuestion] = useState(null);
   const [isHovering, setIsHovering] = useState(false);
 
-  const toggleQuestion = (questionIndex) => {
-    setExpandedQuestion(expandedQuestion === questionIndex ? null : questionIndex);
-  };
-
   return (
-    <div style={{ backgroundColor: "#fafafa", paddingTop: "120px", padding: "10px" }}>
+    <div style={{ backgroundColor: "#fafafa", paddingTop: "120px" }}>
       <AutoSweetImages />
       
       <div style={{
