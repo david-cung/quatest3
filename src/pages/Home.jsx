@@ -18,16 +18,11 @@ const AutoSweetImages = () => {
   }, [images.length]);
 
   return (
-    <div className="auto-sweet-images">
+    <div className="auto-sweet-images w-full px-4 md:px-8">
       <img
         src={images[currentIndex]}
         alt={`Image ${currentIndex + 1}`}
-        style={{
-          maxWidth: "100%",
-          height: '500px',
-          borderRadius: "10px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-        }}
+        className="w-full h-64 md:h-96 lg:h-[500px] object-cover rounded-lg shadow-md"
       />
     </div>
   );
@@ -37,104 +32,53 @@ function HomePage() {
   const [isHovering, setIsHovering] = useState(false);
 
   return (
-    <div style={{ backgroundColor: "#fafafa", paddingTop: "120px" }}>
+    <div className="bg-[#fafafa] pt-8 md:pt-16 lg:pt-[120px]">
       <AutoSweetImages />
 
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          maxWidth: "1200px",
-          margin: "40px auto",
-          gap: "20px",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ flex: "2", minWidth: "300px" }}>
-          <h2
-            className='font-roboto'
-            style={{
-              fontSize: "22px",
-              color: "#555",
-              fontWeight: "bold",
-              margin: "0 20px",
-            }}
-          >
-            GIỚI THIỆU VỀ INTEST
-          </h2>
-          <h1
-            className='font-roboto'
-            style={{
-              fontSize: "28px",
-              color: "#222",
-              fontWeight: "bold",
-              margin: "10px 20px",
-            }}
-          >
-            INTEST là đơn vị cung cấp dịch vụ hiệu chuẩn thiết bị, máy móc đạt
-            chất lượng cao với mong muốn đem lại cho khách hàng những dịch vụ
-            chất lượng, nhanh chóng và hiệu quả.
-          </h1>
-          <p
-            style={{
-              fontSize: "18px",
-              color: "#555",
-              lineHeight: "1.8",
-              margin: "10px 20px 20px",
-            }}
-          >
-            INTEST chuyên cung cấp dịch vụ hiệu chuẩn máy móc và các thiết bị đo
-            lường trong các lĩnh vực:
-          </p>
-          <ul
-            style={{
-              listStyle: "none",
-              padding: "0 20px",
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "10px",
-              fontSize: "16px",
-              color: "#333",
-            }}
-          >
-            <li>- Khối lượng</li>
-            <li>- Lực - độ cứng</li>
-            <li>- Áp suất</li>
-            <li>- Nhiệt</li>
-            <li>- Điện - Điện tử</li>
-            <li>- Độ dài</li>
-            <li>- Hoá lý</li>
-            <li>- Dung tích - Lưu lượng</li>
-            <li>- Quang học - Bức xạ</li>
-          </ul>
-        </div>
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-0">
+        <div className="flex flex-col md:flex-row gap-8 my-8 md:my-10 lg:my-[40px] items-center">
+          <div className="md:w-2/3 lg:w-2/3">
+            <h2 className="text-lg md:text-xl lg:text-[22px] text-[#555] font-bold mb-2">
+              GIỚI THIỆU VỀ INTEST
+            </h2>
+            <h1 className="text-xl md:text-2xl lg:text-[28px] text-[#222] font-bold mb-4">
+              INTEST là đơn vị cung cấp dịch vụ hiệu chuẩn thiết bị, máy móc đạt
+              chất lượng cao với mong muốn đem lại cho khách hàng những dịch vụ
+              chất lượng, nhanh chóng và hiệu quả.
+            </h1>
+            <p className="text-base md:text-lg lg:text-[18px] text-[#555] leading-relaxed mb-4">
+              INTEST chuyên cung cấp dịch vụ hiệu chuẩn máy móc và các thiết bị đo
+              lường trong các lĩnh vực:
+            </p>
+            <ul className="grid grid-cols-2 gap-2 text-sm md:text-base lg:text-base text-[#333]">
+              <li>- Khối lượng</li>
+              <li>- Lực - độ cứng</li>
+              <li>- Áp suất</li>
+              <li>- Nhiệt</li>
+              <li>- Điện - Điện tử</li>
+              <li>- Độ dài</li>
+              <li>- Hoá lý</li>
+              <li>- Dung tích - Lưu lượng</li>
+              <li>- Quang học - Bức xạ</li>
+            </ul>
+          </div>
 
-        <div
-          style={{ maxWidth: "400px", textAlign: "center", minWidth: "300px" }}
-        >
-          <img
-            src={service10}
-            alt='Thiết bị đo lường'
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
-            style={{
-              width: "100%",
-              maxWidth: "300px",
-              transition: "transform 0.3s ease-in-out",
-              transform: isHovering ? "scale(1.1)" : "scale(1)",
-            }}
-          />
+          <div className="w-full md:w-1/3 flex justify-center">
+            <img
+              src={service10}
+              alt='Thiết bị đo lường'
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+              className={`w-full max-w-[300px] transition-transform duration-300 ease-in-out ${
+                isHovering ? 'scale-110' : 'scale-100'
+              }`}
+            />
+          </div>
         </div>
       </div>
 
-      <div className=' ml-40 mr-36 mb-16'>
-        <p
-          style={{
-            fontSize: "18px",
-            color: "#555",
-            lineHeight: "1.8",
-          }}
-        >
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-0 mb-8 md:mb-12 lg:mb-16">
+        <p className="text-base md:text-lg lg:text-[18px] text-[#555] leading-relaxed">
           INTEST với đội ngũ nhân viên có kinh nghiệm lâu năm trong lĩnh vực
           hiệu chuẩn đo lường, được đào tạo chuyên môn ở Viện Đo Lường Việt Nam
           (VMI), Trung tâm Kỹ thuật Tiêu Chuẩn Đo lường Chất lượng 3 (QUATEST
