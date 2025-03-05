@@ -10,7 +10,7 @@ const images = {
   new5: new URL("../assets/news/hc-may-do-do-on.jpg", import.meta.url).href,
   new6: new URL("../assets/news/LUC-4.jpg", import.meta.url).href,
   new7: new URL("../assets/news/MAY-DO-DO-AM-VL-4.jpg", import.meta.url).href,
-  introduce1: new URL("../assets/introduceHome/introduce1.png", import.meta.url)
+  introduce1: new URL("../assets/introduceHome/introduce1.jpg", import.meta.url)
     .href,
   introduce3: new URL("../assets/introduceHome/introduce3.png", import.meta.url)
     .href,

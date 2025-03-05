@@ -6,7 +6,9 @@ export default {
     "./node_modules/flowbite/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      roboto: ["Roboto", "sans-serif"],
+    },
   },
   // eslint-disable-next-line no-undef
   plugins: [require("flowbite/plugin")],

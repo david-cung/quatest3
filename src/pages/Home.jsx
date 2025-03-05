@@ -51,15 +51,24 @@ function HomePage() {
         }}
       >
         <div style={{ flex: "2", minWidth: "300px" }}>
-          <h2 style={{ fontSize: "22px", color: "#555", fontWeight: "bold" }}>
+          <h2
+            className='font-roboto'
+            style={{
+              fontSize: "22px",
+              color: "#555",
+              fontWeight: "bold",
+              margin: "0 20px",
+            }}
+          >
             GIỚI THIỆU VỀ INTEST
           </h2>
           <h1
+            className='font-roboto'
             style={{
               fontSize: "28px",
               color: "#222",
               fontWeight: "bold",
-              margin: "10px 0",
+              margin: "10px 20px",
             }}
           >
             INTEST là đơn vị cung cấp dịch vụ hiệu chuẩn thiết bị, máy móc đạt
@@ -71,7 +80,7 @@ function HomePage() {
               fontSize: "18px",
               color: "#555",
               lineHeight: "1.8",
-              margin: "10px 0 20px",
+              margin: "10px 20px 20px",
             }}
           >
             INTEST chuyên cung cấp dịch vụ hiệu chuẩn máy móc và các thiết bị đo
@@ -80,7 +89,7 @@ function HomePage() {
           <ul
             style={{
               listStyle: "none",
-              padding: "0",
+              padding: "0 20px",
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
               gap: "10px",
@@ -88,13 +97,15 @@ function HomePage() {
               color: "#333",
             }}
           >
-            <li>- Khối lượng - Lực - Áp suất - Dung Tích</li>
-            <li>- Kích thước</li>
-            <li>- Nhiệt độ - Độ ẩm</li>
-            <li>- Hóa -Lý</li>
+            <li>- Khối lượng</li>
+            <li>- Lực - độ cứng</li>
+            <li>- Áp suất</li>
+            <li>- Nhiệt</li>
             <li>- Điện - Điện tử</li>
-            <li>- Đo lường dung tích</li>
-            <li>- Thời gian - Tần số</li>
+            <li>- Độ dài</li>
+            <li>- Hoá lý</li>
+            <li>- Dung tích - Lưu lượng</li>
+            <li>- Quang học - Bức xạ</li>
           </ul>
         </div>
 
@@ -116,13 +127,12 @@ function HomePage() {
         </div>
       </div>
 
-      <div style={{ margin: "20px", textAlign: "justify" }}>
+      <div className=' ml-40 mr-36 mb-16'>
         <p
           style={{
             fontSize: "18px",
             color: "#555",
             lineHeight: "1.8",
-            margin: "20px 0",
           }}
         >
           INTEST với đội ngũ nhân viên có kinh nghiệm lâu năm trong lĩnh vực
