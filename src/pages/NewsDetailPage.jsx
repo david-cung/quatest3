@@ -1,20 +1,33 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom"; // Để lấy id từ URL
+import { useParams, useNavigate } from "react-router-dom";
+import { ArrowLeft, Search } from 'lucide-react';
 
 const NewsDetailPage = () => {
-  const { newsId } = useParams(); // Lấy id từ URL
+  const { newsId } = useParams();
+  const navigate = useNavigate();
   const [service, setService] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [relatedNews, setRelatedNews] = useState([]); // Danh sách tin tức liên quan
-  const [filteredNews, setFilteredNews] = useState([]); // Tin tức liên quan sau khi tìm kiếm
+  const [relatedNews, setRelatedNews] = useState([]);
+  const [filteredNews, setFilteredNews] = useState([]);
   const [newsLoading, setNewsLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState(""); // Trạng thái tìm kiếm
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth < 768);
+
+  // Handle responsive design
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
-    // Fetch chi tiết tin tức
+    // Fetch news detail
     const fetchServiceDetail = async () => {
       try {
         const response = await axios.get(`/api/v1/news/${newsId}`);
@@ -26,12 +39,12 @@ const NewsDetailPage = () => {
       }
     };
 
-    // Fetch danh sách tin tức
+    // Fetch related news
     const fetchRelatedNews = async () => {
       try {
         const response = await axios.get("/api/v1/news");
-        setRelatedNews(response.data.data.slice(0, 5)); // Lấy 5 tin tức đầu tiên
-        setFilteredNews(response.data.data.slice(0, 5)); // Khởi tạo với 5 tin tức đầu tiên
+        setRelatedNews(response.data.data.slice(0, 5));
+        setFilteredNews(response.data.data.slice(0, 5));
       } catch (err) {
         console.error("Error fetching related news:", err);
       } finally {
@@ -44,147 +57,162 @@ const NewsDetailPage = () => {
   }, [newsId]);
 
   useEffect(() => {
-    // Filter tin tức liên quan khi người dùng nhập vào tìm kiếm
+    // Filter related news based on search query
     const filtered = relatedNews.filter((news) =>
       news.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredNews(filtered);
   }, [searchQuery, relatedNews]);
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        padding: "40px 20px",
-        backgroundColor: "#f7f7f7", // Màu nền xám bên ngoài
-        minHeight: "100vh",
-      }}
-    >
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p style={{ color: "red" }}>{error}</p>
-      ) : (
-        <div
-          style={{
-            display: "flex",
-            maxWidth: "1200px",
-            backgroundColor: "#fff", // Màu nền bên trong
-            borderRadius: "10px",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            overflow: "hidden",
-          }}
+  // Mobile layout
+  if (isMobileView) {
+    return (
+      <div className="container mx-auto px-4 py-6 mt-[70px] bg-gray-50 min-h-screen">
+        {/* Back Button */}
+        <button 
+          onClick={() => navigate(-1)} 
+          className="flex items-center text-blue-600 mb-4"
         >
-          {/* Phần chi tiết tin tức */}
-          <div
-            style={{
-              flex: 2,
-              padding: "20px",
-              borderRight: "1px solid #ddd",
-              minHeight: "400px", // Chiều cao tối thiểu
-            }}
-          >
-            <h1 style={{ marginBottom: "20px", fontSize: "32px", fontWeight: "bold", color: 'black' }}>
-              {service?.title || "Tin tức không có tiêu đề"} {/* Fallback nếu thiếu title */}
-            </h1>
-            <div 
-              style={{ 
-                marginBottom: "20px",
-                fontSize: "18px",
-                lineHeight: "1.6",
-                textAlign: "left",
-                color: "#333",
-                minHeight: "200px", // Nội dung luôn có khoảng trống
-              }}
-              dangerouslySetInnerHTML={{ __html: service?.content || "<p>Không có nội dung.</p>" }}
-            ></div>
-            <p></p>
-            {service?.image && (
-              <div
-                style={{
-                  width: "100%",
-                  height: "400px",
-                  backgroundImage: `url(${service?.image})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  borderRadius: "10px",
-                }}
-              ></div>
-            )}
+          <ArrowLeft className="mr-2" /> Quay lại
+        </button>
+
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500"></div>
           </div>
+        ) : error ? (
+          <p className="text-red-500 text-center">{error}</p>
+        ) : (
+          <div className="bg-white rounded-lg shadow-md p-6">
+            {/* News Title */}
+            <h1 className="text-2xl font-bold mb-4 text-gray-800">
+              {service?.title || "Tin tức không có tiêu đề"}
+            </h1>
 
-          {/* Phần danh sách tin tức liên quan */}
-          <div
-            style={{
-              flex: 1,
-              padding: "20px",
-              backgroundColor: "#fff", // Cập nhật màu nền thành trắng
-            }}
-          >
-            <h2 style={{ marginBottom: "20px", fontSize: "24px", fontWeight: "bold", textAlign: "center" }}>
-              Tin tức khác
-            </h2>
+            {/* News Image */}
+            {service?.image && (
+              <div 
+                className="w-full h-64 bg-cover bg-center rounded-lg mb-4"
+                style={{ backgroundImage: `url(${service.image})` }}
+              />
+            )}
 
-            {/* Tính năng tìm kiếm */}
-            <input
-              type="text"
-              placeholder="Tìm kiếm tin tức..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                width: "90%",
-                padding: "10px",
-                fontSize: "16px",
-                marginBottom: "20px",
-                marginRight: "20px",
-                paddingRight: "10px",
-                borderRadius: "5px",
-                border: "1px solid #ddd",
-                backgroundColor: 'whitesmoke'
-              }}
+            {/* News Content */}
+            <div 
+              className="prose max-w-full mb-6"
+              dangerouslySetInnerHTML={{ __html: service?.content || "<p>Không có nội dung.</p>" }}
             />
 
+            {/* Related News Section */}
+            <div className="mt-8">
+              <h2 className="text-xl font-bold mb-4 text-center">Tin tức khác</h2>
+              
+              {/* Search Input */}
+              <div className="relative mb-4">
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm tin tức..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full p-2 pl-8 border rounded-lg"
+                />
+                <Search className="absolute left-2 top-3 text-gray-400" size={20} />
+              </div>
+
+              {/* Related News List */}
+              {newsLoading ? (
+                <p className="text-center">Đang tải...</p>
+              ) : (
+                <div className="space-y-4">
+                  {filteredNews.map((news) => (
+                    <div 
+                      key={news.id}
+                      className="flex items-center border-b pb-2 cursor-pointer hover:bg-gray-50"
+                      onClick={() => navigate(`/news/${news.id}`)}
+                    >
+                      <img
+                        src={news.image}
+                        alt={news.title}
+                        className="w-20 h-16 object-cover rounded-md mr-4"
+                      />
+                      <p className="text-sm font-semibold">{news.title}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Desktop layout
+  return (
+    <div className="container mx-auto px-4 py-16 mt-[90px] bg-gray-50 min-h-screen">
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500"></div>
+        </div>
+      ) : error ? (
+        <p className="text-red-500 text-center">{error}</p>
+      ) : (
+        <div className="flex bg-white rounded-lg shadow-md overflow-hidden max-w-6xl mx-auto">
+          {/* Main News Content */}
+          <div className="w-2/3 p-8 border-r">
+            <h1 className="text-3xl font-bold mb-6 text-gray-800">
+              {service?.title || "Tin tức không có tiêu đề"}
+            </h1>
+
+            {service?.image && (
+              <div 
+                className="w-full h-96 bg-cover bg-center rounded-lg mb-6"
+                style={{ backgroundImage: `url(${service.image})` }}
+              />
+            )}
+
+            <div 
+              className="prose max-w-full"
+              dangerouslySetInnerHTML={{ __html: service?.content || "<p>Không có nội dung.</p>" }}
+            />
+          </div>
+
+          {/* Related News Section */}
+          <div className="w-1/3 p-6 bg-gray-50">
+            <h2 className="text-2xl font-bold mb-6 text-center">Tin tức khác</h2>
+            
+            {/* Search Input */}
+            <div className="relative mb-6">
+              <input
+                type="text"
+                placeholder="Tìm kiếm tin tức..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full p-2 pl-8 border rounded-lg"
+              />
+              <Search className="absolute left-2 top-3 text-gray-400" size={20} />
+            </div>
+
+            {/* Related News List */}
             {newsLoading ? (
-              <p>Đang tải...</p>
+              <p className="text-center">Đang tải...</p>
             ) : (
-              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              <div className="space-y-4">
                 {filteredNews.map((news) => (
-                  <li
+                  <div 
                     key={news.id}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginBottom: "15px",
-                      cursor: "pointer",
-                      borderBottom: "1px solid #ddd",
-                      paddingBottom: "10px",
-                    }}
+                    className="flex items-center border-b pb-4 cursor-pointer hover:bg-gray-100 rounded-lg p-2"
+                    onClick={() => navigate(`/news/${news.id}`)}
                   >
                     <img
                       src={news.image}
-                      alt={news.title || "Không có tiêu đề"}
-                      style={{
-                        width: "80px",
-                        height: "60px",
-                        objectFit: "cover",
-                        borderRadius: "5px",
-                        marginRight: "10px",
-                      }}
+                      alt={news.title}
+                      className="w-24 h-20 object-cover rounded-md mr-4"
                     />
-                    <p
-                      style={{
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                        color: "#333",
-                        margin: 0,
-                      }}
-                    >
-                      {news.title || "Không có tiêu đề"}
-                    </p>
-                  </li>
+                    <p className="text-md font-semibold">{news.title}</p>
+                  </div>
                 ))}
-              </ul>
+              </div>
             )}
           </div>
         </div>

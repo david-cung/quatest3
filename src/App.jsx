@@ -16,6 +16,7 @@ import ServiceList from "./pages/ListService";
 import EditService from "./pages/EditService";
 import CreateNews from "./pages/CreateNews";
 import EditNews from "./pages/EditNews";
+import NewsGrid from "./pages/NewsGrid"
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/about" element={<IntroPage />} />
         <Route path="/services" element={<ServicePage />} />
         <Route path="/service/:serviceId" element={<ServiceDetailPage />} />
+        <Route path="/news" element={<NewsGrid />} />
         <Route path="/news/:newsId" element={<NewsDetailPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route element={<PrivateRoute />}>

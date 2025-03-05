@@ -31,7 +31,7 @@ export default function EditService() {
     const fetchPost = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`/v1/services/${id}`, {
+        const res = await fetch(`/api/v1/services/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -92,7 +92,7 @@ export default function EditService() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`/v1/services/${id}`, {
+      const res = await fetch(`/api/v1/services/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

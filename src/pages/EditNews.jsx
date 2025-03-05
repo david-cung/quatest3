@@ -31,7 +31,7 @@ export default function EditNews() {
     const fetchPost = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`/v1/news/${id}`, {
+        const res = await fetch(`/api/v1/news/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -92,7 +92,7 @@ export default function EditNews() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`/v1/news/${id}`, {
+      const res = await fetch(`/api/v1/news/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -1,4 +1,3 @@
-// Dashboard.tsx
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import DashSidebar from "../components/DashSidebar";
@@ -19,17 +18,16 @@ export default function Dashboard() {
   }, [location.search]);
 
   return (
-    <div
-      className='min-h-screen flex flex-col'
-      style={{ marginTop: "120px", height: "100vh" }} // Đảm bảo chiều cao toàn bộ màn hình
-    >
-      <div className='flex flex-grow md:flex-row'>
-        <div className='md:w-56 bg-slate-300'>
+    <div className="min-h-screen flex flex-col">
+      <div className="flex flex-grow flex-col md:flex-row mt-[200px] md:mt-0" style={{marginTop: '90px'}}>
+        {/* Sidebar for Mobile and Desktop */}
+        <div className="w-full md:w-56 bg-slate-300">
           <DashSidebar setTab={setTab} />
         </div>
-        <div
-          className='flex-grow flex items-center justify-center bg-gray-100'
-          style={{ padding: "20px", height: "calc(100vh - 60px)" }} // Đảm bảo chiều cao của phần nội dung chính
+
+        {/* Main Content Area */}
+        <div 
+          className="flex-grow flex items-center justify-center bg-gray-100 p-5"
         >
           {tab === "profile" && <DashProfile />}
           {tab === "services" && <ServiceList />}

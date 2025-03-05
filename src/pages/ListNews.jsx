@@ -10,7 +10,7 @@ export default function NewsList() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("/v1/news", {
+        const response = await axios.get("/api/v1/news", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -30,7 +30,7 @@ export default function NewsList() {
 
   const confirmDelete = async (id) => {
     try {
-      await axios.delete(`/v1/services/${id}`, {
+      await axios.delete(`/api/v1/news/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

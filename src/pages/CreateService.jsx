@@ -13,7 +13,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
 
-export default function CreateNews() {
+export default function Createservices() {
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
@@ -63,7 +63,7 @@ export default function CreateNews() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("/v1/services", {
+      const res = await fetch("/api/v1/services", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +78,7 @@ export default function CreateNews() {
       }
       console.log(data);
       setPublishError(null);
-      navigate(`/dashboard?tab=news`, { replace: true });
+      navigate(`/dashboard?tab=services`, { replace: true });
     } catch (error) {
       setPublishError(error.message);
     }

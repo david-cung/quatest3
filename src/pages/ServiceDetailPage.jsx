@@ -29,7 +29,7 @@ const ServiceDetailPage = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        paddingTop: "120px",
+        marginTop: "120px",
         minHeight: "100vh",
         backgroundColor: "#fff",
       }}

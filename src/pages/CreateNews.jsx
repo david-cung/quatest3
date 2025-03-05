@@ -63,7 +63,7 @@ export default function CreateNews() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("/v1/news", {
+      const res = await fetch("/api/v1/news", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -118,7 +118,7 @@ export default function CreateNews() {
             }
           />
 
-          <Select
+          {/* <Select
             onChange={(e) =>
               setFormData({ ...formData, category: e.target.value })
             }
@@ -128,7 +128,7 @@ export default function CreateNews() {
             <option value='Hiệu chuẩn tận nơi'>Hiệu chuẩn tận nơi</option>
             <option value='Đào tạo và huấn luyện'>Đào tạo và huấn luyện</option>
             <option value='Bảo trì-sửa chữa'>Bảo trì-sửa chữa</option>
-          </Select>
+          </Select> */}
         </div>
 
         {/* Upload image section */}
