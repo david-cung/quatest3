@@ -1,202 +1,105 @@
-// src/components/ServicesPage.jsx
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import images from "../utils/imageImports";
+const { service1 } = images;
 
-const ServicesPage = () => {
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function Services() {
+  const [newsData, setNewsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const styles = {
-    container: {
-      maxWidth: '1200px',
-      margin: '0 auto',
-      padding: '20px',
-    },
-    header: {
-      textAlign: 'center',
-      marginBottom: '40px',
-    },
-    headerTitle: {
-      fontSize: '2.5rem',
-      marginBottom: '20px',
-      color: 'white',
-    },
-    dividerContainer: {
-      position: 'relative',
-      height: '4px',
-      backgroundColor: 'transparent',
-      width: '200px',
-      margin: '0 auto',
-    },
-    dividerLine: {
-      position: 'absolute',
-      height: '4px',
-      width: '100px',
-      backgroundColor: '#1e90ff',
-      top: '0',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      borderRadius: '2px',
-    },
-    dividerDot: {
-      position: 'absolute',
-      width: '12px',
-      height: '12px',
-      backgroundColor: '#1e90ff',
-      borderRadius: '50%',
-      top: '-4px',
-      left: '50%',
-      transform: 'translateX(-50%)',
-    },
-    servicesGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-      gap: '20px',
-    },
-    serviceCard: {
-      backgroundColor: 'white',
-      color: '#051d33',
-      borderRadius: '5px',
-      overflow: 'hidden',
-      transition: 'transform 0.3s ease',
-      cursor: 'pointer',
-    },
-    serviceCardHover: {
-      transform: 'translateY(-5px)',
-      boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2)',
-    },
-    serviceImage: {
-      height: '200px',
-      overflow: 'hidden',
-    },
-    serviceImg: {
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-    },
-    serviceContent: {
-      padding: '20px',
-    },
-    serviceTitle: {
-      color: '#051d33',
-      marginBottom: '10px',
-      fontSize: '1.2rem',
-      fontWeight: 'bold',
-    },
-    serviceDescription: {
-      color: '#333',
-      fontSize: '0.9rem',
-      lineHeight: '1.5',
-    },
-    loading: {
-      textAlign: 'center',
-      padding: '50px',
-      fontSize: '1.2rem',
-      color: 'white',
-    },
-    error: {
-      textAlign: 'center',
-      padding: '50px',
-      fontSize: '1.2rem',
-      color: '#ff6b6b',
-    },
-  };
+  const [hoverIndex, setHoverIndex] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchServices = async () => {
+    const fetchNews = async () => {
       try {
-        const response = await axios.get('/api/v1/services');
-        setServices(response.data.data);
-        setLoading(false);
+        const response = await axios.get(`/api/v1/services`);
+        setNewsData(response.data.data.slice(0, 5)); // Hiển thị tối đa 5 item
+        setIsLoading(false);
       } catch (err) {
-        setError('Không thể tải dịch vụ. Vui lòng thử lại sau.');
-        setLoading(false);
+        console.error("Error fetching news:", err);
+        setError("Không thể tải dữ liệu, vui lòng thử lại sau.");
+        setIsLoading(false);
       }
     };
-
-    fetchServices();
+    fetchNews();
   }, []);
 
-  // Event handlers for hover states
-  const handleMouseEnter = (e) => {
-    Object.assign(e.currentTarget.style, {
-      transform: 'translateY(-5px)',
-      boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2)',
-    });
+  const handleNavigate = (serviceId) => {
+    navigate(`/service/${serviceId}`);
+    window.scrollTo(0, 0);
   };
 
-  const handleMouseLeave = (e) => {
-    Object.assign(e.currentTarget.style, {
-      transform: 'translateY(0)',
-      boxShadow: 'none',
-    });
-  };
-
-  if (loading) {
-    return (
-      <div style={styles.container}>
-        <div style={styles.header}>
-          <h1 style={styles.headerTitle}>Dịch vụ của chúng tôi</h1>
-          <div style={styles.dividerContainer}>
-            <div style={styles.dividerLine}></div>
-            <div style={styles.dividerDot}></div>
-          </div>
-        </div>
-        <div style={styles.loading}>Đang tải dịch vụ...</div>
-      </div>
-    );
+  if (isLoading) {
+    return <div style={{ textAlign: "center", padding: "20px" }}>Đang tải...</div>;
   }
 
   if (error) {
-    return (
-      <div style={styles.container}>
-        <div style={styles.header}>
-          <h1 style={styles.headerTitle}>Dịch vụ của chúng tôi</h1>
-          <div style={styles.dividerContainer}>
-            <div style={styles.dividerLine}></div>
-            <div style={styles.dividerDot}></div>
-          </div>
-        </div>
-        <div style={styles.error}>{error}</div>
-      </div>
-    );
+    return <div style={{ textAlign: "center", padding: "20px", color: "red" }}>{error}</div>;
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <h1 style={styles.headerTitle}>Dịch vụ của chúng tôi</h1>
-        <div style={styles.dividerContainer}>
-          <div style={styles.dividerLine}></div>
-          <div style={styles.dividerDot}></div>
-        </div>
-      </div>
-      
-      <div style={styles.servicesGrid}>
-        {services.map((service, index) => (
-          <div 
-            key={index} 
-            style={styles.serviceCard}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+    <div
+      style={{
+        width: "100%",
+        height: "60vh",
+        backgroundImage: `url(${service1})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "scroll",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        padding: "20px",
+      }}
+    >
+      <h2
+        style={{
+          fontSize: "26px",
+          color: "#fff",
+          fontWeight: "bold",
+          marginBottom: "20px",
+          textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)", // Làm nổi bật tiêu đề
+        }}
+      >
+        DỊCH VỤ
+      </h2>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "20px",
+          width: "80%", // Đảm bảo vừa phải
+        }}
+      >
+        {newsData.map((service, index) => (
+          <div
+            key={index}
+            className='bg-white bg-opacity-95 rounded overflow-hidden shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer w-full max-w-xs'
+            onClick={() => handleNavigate(service._id || service.id)}
           >
-            <div style={styles.serviceImage}>
-              <img 
-                src={service.image} 
-                alt={service.title} 
-                style={styles.serviceImg} 
+            <div className='h-40 overflow-hidden'>
+              <img
+                src={service.image}
+                alt={service.title}
+                className='w-full h-full object-cover'
               />
             </div>
-            <div style={styles.serviceContent}>
-              <h3 style={styles.serviceTitle}>{service.title}</h3>
-              <p style={styles.serviceDescription}>{service.description}</p>
+            <div className='p-4'>
+              <h3 className='text-[#051d33] text-lg font-bold mb-2'>
+                {service.title}
+              </h3>
+              <p className='text-gray-700 text-sm leading-relaxed'>
+                {service.description}
+              </p>
             </div>
           </div>
         ))}
       </div>
     </div>
   );
-};
-
-export default ServicesPage;
+}

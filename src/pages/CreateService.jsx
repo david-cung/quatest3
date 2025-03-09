@@ -98,10 +98,10 @@ export default function Createservices() {
 
   return (
     <div
-      className='p-3 max-w-3xl mx-auto min-h-screen'
+      className='p-3 max-w-3xl mx-auto min-h-screen mt-5'
       style={{ paddingTop: "60px" }} // Khoảng cách để tránh bị header che khuất
     >
-      <h1 className='text-center text-3xl my-7 font-semibold'>Tạo tin tức</h1>
+      <h1 className='text-center text-3xl my-7 font-semibold'>Tạo dịch vụ</h1>
       <form
         className='flex flex-col gap-4'
         style={{ minHeight: "calc(100vh - 120px)" }} // Giảm chiều cao của phần header và tạo đủ không gian cho form

@@ -24,7 +24,7 @@ export default function DashSidebar( {setTab}) {
   };
 
   return (
-    <Sidebar className='w-full md:w-56 bg-blue-600 text-white min-h-screen'>
+    <Sidebar className='w-full md:w-56 bg-black min-h-screen'>
       <Sidebar.Items>
         <Sidebar.ItemGroup>
           <Sidebar.Item
@@ -33,7 +33,7 @@ export default function DashSidebar( {setTab}) {
             className={`text-lg cursor-pointer ${
               tab === "services"
                 ? "bg-blue-800 text-yellow-300 font-bold" // Màu nền khi active
-                : "text-white hover:bg-blue-500"
+                : "text-black hover:bg-blue-500"
             }`}
             onClick={() => handleNavigation("services")}
           >
@@ -45,7 +45,7 @@ export default function DashSidebar( {setTab}) {
             className={`text-lg cursor-pointer ${
               tab === "news"
                 ? "bg-blue-800 text-yellow-300 font-bold" // Màu nền khi active
-                : "text-white hover:bg-blue-500"
+                : "text-black hover:bg-blue-500"
             }`}
             onClick={() => handleNavigation("news")}
           >
@@ -57,7 +57,7 @@ export default function DashSidebar( {setTab}) {
             className='cursor-pointer hover:bg-blue-500 text-lg'
             onClick={() => console.log("Sign Out")}
           >
-            Sign Out
+            Đăng xuất
           </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>

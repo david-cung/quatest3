@@ -56,7 +56,7 @@ const Header = () => {
               ]
             },
             { label: "TIN TỨC", path: "/news" },
-            { label: "HỎI ĐÁP", path: "/faq" },
+            { label: "PROFILE", path: "/profile" },
             { label: "LIÊN HỆ", path: "/contact" }
           ].map((item) => (
             <li key={item.label}>
@@ -163,7 +163,7 @@ const Header = () => {
                     ]
                   },
                   { label: "TIN TỨC", path: "/news" },
-                  { label: "HỎI ĐÁP", path: "/faq" },
+                  { label: "PROFILE", path: "/profile" },
                   { label: "LIÊN HỆ", path: "/contact" }
                 ].map((item) => (
                   <li 
