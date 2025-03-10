@@ -17,6 +17,7 @@ import EditService from "./pages/EditService";
 import CreateNews from "./pages/CreateNews";
 import EditNews from "./pages/EditNews";
 import NewsGrid from "./pages/NewsGrid"
+import PDFViewer from "./pages/PDFViewer";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/news" element={<NewsGrid />} />
         <Route path="/news/:newsId" element={<NewsDetailPage />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/profile" element={<PDFViewer />} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/add-service' element={<CreateService />} />

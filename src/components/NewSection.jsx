@@ -20,7 +20,6 @@ export default function NewSection() {
                 } else {
                     setNewsData((prevData) => [...prevData, ...response.data]);  // For subsequent pages, append the new data
                 }
-                console.log("Success", response.data);
                 setIsLoading(false);
             } catch (err) {
                 console.error("Error fetching news:", err);

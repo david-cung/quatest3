@@ -17,7 +17,13 @@ const images = {
   introduce4: new URL("../assets/introduceHome/introduce4.jpg", import.meta.url)
     .href,
   intro1: new URL("../assets/intro/intro1.jpg", import.meta.url).href,
-  new8: new URL("../assets/news/nhiet.jpg", import.meta.url).href,
+  new8: new URL("../assets/logo/2.jpg", import.meta.url).href,
+  logo1: new URL("../assets/logo/4.jpg", import.meta.url).href,
+  logo2: new URL("../assets/logo/6.jpg", import.meta.url).href,
+  logo3: new URL("../assets/logo/7.jpg", import.meta.url).href,
+  logo4: new URL("../assets/logo/9.jpg", import.meta.url).href,
+  logo5: new URL("../assets/logo/10.jpg", import.meta.url).href,
+  logo6: new URL("../assets/logo/15.jpg", import.meta.url).href,
 };
 
 export default images;

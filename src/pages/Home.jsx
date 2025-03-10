@@ -3,6 +3,7 @@ import images from "../utils/imageImports";
 import NewSection from "../components/NewSection";
 import Services from "../components/Services";
 import "./Home.css";
+import ClientLogos from "../components/ClientLogos";
 
 const { service10, introduce1, introduce3, introduce4 } = images;
 
@@ -100,6 +101,8 @@ function HomePage() {
       <Services />
 
       <NewSection />
+
+      {/* <ClientLogos/> */}
     </div>
   );
 }
