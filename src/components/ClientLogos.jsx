@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
+const logos = [
+  { id: 1, src: "2.jpg", alt: "Bekaert" },
+  { id: 2, src: "logo/4.jpg", alt: "Boiler Master" },
+  { id: 3, src: "logo/6.jpg", alt: "Hop Long" },
+  { id: 4, src: "logo/7.jpg", alt: "Great Honor" },
+  { id: 5, src: "logo/9.jpg", alt: "CS" },
+  { id: 6, src: "logo/10.jpg", alt: "Green Packing" },
+  { id: 7, src: "logo/15.jpg", alt: "Shunfa" },
+  { id: 8, src: "logo/16.jpg", alt: "Hop Long" },
+  { id: 9, src: "logo/20.jpg", alt: "Great Honor" },
+  { id: 10, src: "logo/22.jpg", alt: "CS" },
+  { id: 11, src: "logo/23.jpg", alt: "Green Packing" },
+  { id: 12, src: "logo/24.jpg", alt: "Shunfa" },
+];
+
 const ClientLogos = () => {
   // Sample logo data - replace with your actual logos
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const logos = [
-    { id: 1, src: "2.jpg", alt: "Bekaert" },
-    { id: 2, src: "logo/4.jpg", alt: "Boiler Master" },
-    { id: 3, src: "logo/6.jpg", alt: "Hop Long" },
-    { id: 4, src: "logo/7.jpg", alt: "Great Honor" },
-    { id: 5, src: "logo/9.jpg", alt: "CS" },
-    { id: 6, src: "logo/10.jpg", alt: "Green Packing" },
-    { id: 7, src: "logo/15.jpg", alt: "Shunfa" },
-    { id: 8, src: "logo/16.jpg", alt: "Hop Long" },
-    { id: 9, src: "logo/20.jpg", alt: "Great Honor" },
-    { id: 10, src: "logo/22.jpg", alt: "CS" },
-    { id: 11, src: "logo/23.jpg", alt: "Green Packing" },
-    { id: 12, src: "logo/24.jpg", alt: "Shunfa" },
-    
-  ];
+  
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleLogos, setVisibleLogos] = useState([]);
@@ -53,9 +54,9 @@ const ClientLogos = () => {
   };
 
   return (
-    <div className="w-full py-12 bg-gray-50">
+    <div className="w-full py-16 bg-gray-50"> {/* Increased vertical padding */}
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-bold text-center text-blue-800 mb-8">
+        <h2 className="text-3xl font-bold text-center text-blue-800 mb-12"> {/* Larger text, more margin */}
           KHÁCH HÀNG THÂN THIẾT
         </h2>
         
@@ -71,16 +72,16 @@ const ClientLogos = () => {
           </button>
           
           {/* Logo container */}
-          <div className="flex items-center justify-center gap-8 py-4 overflow-hidden">
+          <div className="flex items-center justify-center gap-12 py-8 overflow-hidden"> {/* Increased gap and padding */}
             {visibleLogos.map((logo) => (
               <div 
                 key={logo.id} 
-                className="w-32 h-20 flex items-center justify-center transition-all duration-500 ease-in-out"
+                className="w-40 h-28 flex items-center justify-center transition-all duration-500 ease-in-out" // Increased logo container size
               >
                 <img 
                   src={logo.src} 
                   alt={logo.alt} 
-                  className="max-w-full max-h-full object-contain"
+                  className="max-w-full max-h-full object-contain hover:grayscale-0 transition-all duration-300" // Added grayscale effect with hover
                 />
               </div>
             ))}
@@ -98,7 +99,7 @@ const ClientLogos = () => {
         </div>
         
         {/* Indicators */}
-        <div className="flex justify-center mt-6 gap-2">
+        <div className="flex justify-center mt-8 gap-2"> {/* Increased margin-top */}
           {logos.map((_, index) => (
             <button
               key={index}
