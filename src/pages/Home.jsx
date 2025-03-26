@@ -102,7 +102,7 @@ function HomePage() {
 
       <NewSection />
 
-      {/* <ClientLogos/> */}
+      <ClientLogos/>
     </div>
   );
 }

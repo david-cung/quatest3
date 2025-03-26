@@ -4,13 +4,19 @@ const ClientLogos = () => {
   // Sample logo data - replace with your actual logos
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const logos = [
-    { id: 1, src: "../assets/logo/2.jpg", alt: "Bekaert" },
-    { id: 2, src: "../assets/logo/4.jpg", alt: "Boiler Master" },
-    { id: 3, src: "/path/to/hoplong-logo.png", alt: "Hop Long" },
-    { id: 4, src: "/path/to/greathonor-logo.png", alt: "Great Honor" },
-    { id: 5, src: "/path/to/cs-logo.png", alt: "CS" },
-    { id: 6, src: "/path/to/greenpacking-logo.png", alt: "Green Packing" },
-    { id: 7, src: "/path/to/shunfa-logo.png", alt: "Shunfa" },
+    { id: 1, src: "2.jpg", alt: "Bekaert" },
+    { id: 2, src: "logo/4.jpg", alt: "Boiler Master" },
+    { id: 3, src: "logo/6.jpg", alt: "Hop Long" },
+    { id: 4, src: "logo/7.jpg", alt: "Great Honor" },
+    { id: 5, src: "logo/9.jpg", alt: "CS" },
+    { id: 6, src: "logo/10.jpg", alt: "Green Packing" },
+    { id: 7, src: "logo/15.jpg", alt: "Shunfa" },
+    { id: 8, src: "logo/16.jpg", alt: "Hop Long" },
+    { id: 9, src: "logo/20.jpg", alt: "Great Honor" },
+    { id: 10, src: "logo/22.jpg", alt: "CS" },
+    { id: 11, src: "logo/23.jpg", alt: "Green Packing" },
+    { id: 12, src: "logo/24.jpg", alt: "Shunfa" },
+    
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
