@@ -5,7 +5,7 @@ import { HiNewspaper } from "react-icons/hi2";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-export default function DashSidebar( {setTab}) {
+export default function DashSidebar({ setTab }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [tab, setLocalTab] = useState("");
@@ -21,6 +21,18 @@ export default function DashSidebar( {setTab}) {
   const handleNavigation = (tabName) => {
     setTab(tabName); // Cập nhật trạng thái trong Dashboard
     navigate(`/dashboard?tab=${tabName}`);
+  };
+
+  const handleLogout = () => {
+    // Remove token from localStorage
+    localStorage.removeItem("token");
+    
+    // You might want to clear any other auth-related data
+    // For example, if you have user info stored:
+    localStorage.removeItem("user");
+    
+    // Redirect to login page
+    navigate("/sign-in", { replace: true });
   };
 
   return (
@@ -54,8 +66,8 @@ export default function DashSidebar( {setTab}) {
           <hr className='my-2 border-blue-300' />
           <Sidebar.Item
             icon={HiArrowSmRight}
-            className='cursor-pointer hover:bg-blue-500 text-lg'
-            onClick={() => console.log("Sign Out")}
+            className='cursor-pointer hover:bg-red-500 text-lg transition-colors duration-200'
+            onClick={handleLogout}
           >
             Đăng xuất
           </Sidebar.Item>
