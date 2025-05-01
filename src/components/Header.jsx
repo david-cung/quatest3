@@ -4,6 +4,7 @@ import MainLogo from "../assets/logo/MainLogo.jpg";
 import { Menu, X } from 'lucide-react'; // For hamburger and close icons
 
 const Header = () => {
+  // eslint-disable-next-line no-unused-vars
   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
   const [showServicesDropdown, setShowServicesDropdown] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -12,6 +13,33 @@ const Header = () => {
 
   const handleNavigation = (path) => {
     navigate(path);
+    setIsMobileMenuOpen(false);
+  };
+
+  // Updated function to handle service navigation with parameters
+  const handleServiceNavigation = (category) => {
+    let paramValue = '';
+    
+    // Map service types to their corresponding parameter values
+    switch(category) {
+      case 'Hiệu chuẩn, kiểm định':
+        paramValue = 'calibration';
+        break;
+      case 'Hiệu chuẩn tận nơi':
+        paramValue = 'on-site';
+        break;
+      case 'Đào tạo và huấn luyện':
+        paramValue = 'training';
+        break;
+      case 'Bảo trì-sửa chữa':
+        paramValue = 'maintenance';
+        break;
+      default:
+        paramValue = '';
+    }
+
+    // Navigate to services page with the appropriate parameter
+    navigate(`/services?service-type=${paramValue}`);
     setIsMobileMenuOpen(false);
   };
 
@@ -49,10 +77,10 @@ const Header = () => {
               label: "DỊCH VỤ", 
               path: "/services",
               subItems: [
-                { label: "Hiệu chuẩn, kiểm định", path: "/services-types" },
-                { label: "Hiệu chuẩn tận nơi", path: "/services-products" },
-                { label: "Đào tạo và huấn luyện", path: "/services-training" },
-                { label: "Bảo trì-sửa chữa", path: "/services-maintenance" }
+                { label: "Hiệu chuẩn, kiểm định", category: "Hiệu chuẩn, kiểm định" },
+                { label: "Hiệu chuẩn tận nơi", category: "Hiệu chuẩn tận nơi" },
+                { label: "Đào tạo và huấn luyện", category: "Đào tạo và huấn luyện" },
+                { label: "Bảo trì-sửa chữa", category: "Bảo trì-sửa chữa" }
               ]
             },
             { label: "TIN TỨC", path: "/news" },
@@ -73,7 +101,7 @@ const Header = () => {
                       <li 
                         key={subItem.label} 
                         className="text-sm text-gray-700 cursor-pointer"
-                        onClick={() => handleNavigation(subItem.path)}
+                        onClick={() => handleServiceNavigation(subItem.category)}
                       >
                         {subItem.label}
                       </li>
@@ -156,10 +184,10 @@ const Header = () => {
                     path: "/services", 
                     dropdown: true,
                     items: [
-                      { label: "Hiệu chuẩn, kiểm định", path: "/services-types" },
-                      { label: "Hiệu chuẩn tận nơi", path: "/services-products" },
-                      { label: "Đào tạo và huấn luyện", path: "/services-training" },
-                      { label: "Bảo trì-sửa chữa", path: "/services-maintenance" }
+                      { label: "Hiệu chuẩn, kiểm định", category: "Hiệu chuẩn, kiểm định" },
+                      { label: "Hiệu chuẩn tận nơi", category: "Hiệu chuẩn tận nơi" },
+                      { label: "Đào tạo và huấn luyện", category: "Đào tạo và huấn luyện" },
+                      { label: "Bảo trì-sửa chữa", category: "Bảo trì-sửa chữa" }
                     ]
                   },
                   { label: "TIN TỨC", path: "/news" },
@@ -190,7 +218,7 @@ const Header = () => {
                           <li 
                             key={subItem.label}
                             className="py-2 border-b last:border-b-0 hover:bg-gray-100"
-                            onClick={() => handleNavigation(subItem.path)}
+                            onClick={() => handleServiceNavigation(subItem.category)}
                           >
                             <span className="text-sm text-gray-700 cursor-pointer">
                               {subItem.label}
