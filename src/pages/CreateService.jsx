@@ -124,10 +124,10 @@ export default function Createservices() {
             }
           >
             <option value='uncategorized'>Loại dịch vụ</option>
-            <option value='Hiệu chuẩn, kiểm định'>Hiệu chuẩn, kiểm định</option>
-            <option value='Hiệu chuẩn tận nơi'>Hiệu chuẩn tận nơi</option>
-            <option value='Đào tạo và huấn luyện'>Đào tạo và huấn luyện</option>
-            <option value='Bảo trì-sửa chữa'>Bảo trì-sửa chữa</option>
+            <option value='calibration'>Hiệu chuẩn, kiểm định</option>
+            <option value='on-site'>Hiệu chuẩn tận nơi</option>
+            <option value='training'>Đào tạo và huấn luyện</option>
+            <option value='maintenance'>Bảo trì-sửa chữa</option>
           </Select>
         </div>
 

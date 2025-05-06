@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MainLogo from "../assets/logo/MainLogo.jpg";
 import { Menu, X } from 'lucide-react'; // For hamburger and close icons
 
 const Header = () => {
-  // eslint-disable-next-line no-unused-vars
   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
   const [showServicesDropdown, setShowServicesDropdown] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [serviceData, setServiceData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -16,12 +17,12 @@ const Header = () => {
     setIsMobileMenuOpen(false);
   };
 
-  // Updated function to handle service navigation with parameters
-  const handleServiceNavigation = (category) => {
+  // Updated function to handle service navigation with parameters and API call
+  const handleServiceNavigation = async (serviceType) => {
     let paramValue = '';
     
     // Map service types to their corresponding parameter values
-    switch(category) {
+    switch(serviceType) {
       case 'Hiệu chuẩn, kiểm định':
         paramValue = 'calibration';
         break;
@@ -38,9 +39,37 @@ const Header = () => {
         paramValue = '';
     }
 
-    // Navigate to services page with the appropriate parameter
-    navigate(`/services?service-type=${paramValue}`);
-    setIsMobileMenuOpen(false);
+    try {
+      // Call the API with the appropriate parameter
+      const response = await fetch(`/api/v1/services?category=${paramValue}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any other headers as needed (e.g., authorization)
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+      
+      // Parse the response data
+      const data = await response.json();
+      
+      // You can handle the API response here (e.g., store in state, context, etc.)
+      console.log('Service data received:', data);
+      setServiceData(data);
+      
+      // Navigate to services page with the appropriate parameter
+      navigate(`/services?category=${paramValue}`);
+    } catch (error) {
+      console.error('Error fetching service data:', error);
+      // Handle error (could show a notification, fallback navigation, etc.)
+      navigate(`/services?category=${paramValue}`);
+    } finally {
+      setIsLoading(false);
+      setIsMobileMenuOpen(false);
+    }
   };
 
   const MobileMenu = () => (
@@ -77,10 +106,10 @@ const Header = () => {
               label: "DỊCH VỤ", 
               path: "/services",
               subItems: [
-                { label: "Hiệu chuẩn, kiểm định", category: "Hiệu chuẩn, kiểm định" },
-                { label: "Hiệu chuẩn tận nơi", category: "Hiệu chuẩn tận nơi" },
-                { label: "Đào tạo và huấn luyện", category: "Đào tạo và huấn luyện" },
-                { label: "Bảo trì-sửa chữa", category: "Bảo trì-sửa chữa" }
+                { label: "Hiệu chuẩn, kiểm định", serviceType: "Hiệu chuẩn, kiểm định" },
+                { label: "Hiệu chuẩn tận nơi", serviceType: "Hiệu chuẩn tận nơi" },
+                { label: "Đào tạo và huấn luyện", serviceType: "Đào tạo và huấn luyện" },
+                { label: "Bảo trì-sửa chữa", serviceType: "Bảo trì-sửa chữa" }
               ]
             },
             { label: "TIN TỨC", path: "/news" },
@@ -101,7 +130,7 @@ const Header = () => {
                       <li 
                         key={subItem.label} 
                         className="text-sm text-gray-700 cursor-pointer"
-                        onClick={() => handleServiceNavigation(subItem.category)}
+                        onClick={() => handleServiceNavigation(subItem.serviceType)}
                       >
                         {subItem.label}
                       </li>
@@ -184,10 +213,10 @@ const Header = () => {
                     path: "/services", 
                     dropdown: true,
                     items: [
-                      { label: "Hiệu chuẩn, kiểm định", category: "Hiệu chuẩn, kiểm định" },
-                      { label: "Hiệu chuẩn tận nơi", category: "Hiệu chuẩn tận nơi" },
-                      { label: "Đào tạo và huấn luyện", category: "Đào tạo và huấn luyện" },
-                      { label: "Bảo trì-sửa chữa", category: "Bảo trì-sửa chữa" }
+                      { label: "Hiệu chuẩn, kiểm định", serviceType: "Hiệu chuẩn, kiểm định" },
+                      { label: "Hiệu chuẩn tận nơi", serviceType: "Hiệu chuẩn tận nơi" },
+                      { label: "Đào tạo và huấn luyện", serviceType: "Đào tạo và huấn luyện" },
+                      { label: "Bảo trì-sửa chữa", serviceType: "Bảo trì-sửa chữa" }
                     ]
                   },
                   { label: "TIN TỨC", path: "/news" },
@@ -218,7 +247,7 @@ const Header = () => {
                           <li 
                             key={subItem.label}
                             className="py-2 border-b last:border-b-0 hover:bg-gray-100"
-                            onClick={() => handleServiceNavigation(subItem.category)}
+                            onClick={() => handleServiceNavigation(subItem.serviceType)}
                           >
                             <span className="text-sm text-gray-700 cursor-pointer">
                               {subItem.label}
