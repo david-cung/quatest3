@@ -17,7 +17,43 @@ const Header = () => {
     setIsMobileMenuOpen(false);
   };
 
-  // Updated function to handle service navigation with parameters and API call
+  // Added a new function to handle general service navigation with no parameters
+  const handleGeneralServiceNavigation = async () => {
+    try {
+      setIsLoading(true);
+      // Call the API without parameters
+      const response = await fetch(`/api/v1/services`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any other headers as needed (e.g., authorization)
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+      
+      // Parse the response data
+      const data = await response.json();
+      
+      // Store the service data
+      console.log('General service data received:', data);
+      setServiceData(data);
+      
+      // Navigate to services page without parameters
+      navigate('/services');
+    } catch (error) {
+      console.error('Error fetching general service data:', error);
+      // Handle error (could show a notification, fallback navigation, etc.)
+      navigate('/services');
+    } finally {
+      setIsLoading(false);
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  // Updated function to handle specific service navigation with parameters
   const handleServiceNavigation = async (serviceType) => {
     let paramValue = '';
     
@@ -40,6 +76,7 @@ const Header = () => {
     }
 
     try {
+      setIsLoading(true);
       // Call the API with the appropriate parameter
       const response = await fetch(`/api/v1/services?category=${paramValue}`, {
         method: 'GET',
@@ -121,7 +158,7 @@ const Header = () => {
                 <div>
                   <div 
                     className="font-bold text-[#032c57] cursor-pointer"
-                    onClick={() => handleNavigation(item.path)}
+                    onClick={() => handleGeneralServiceNavigation()} // Updated to call API without parameters
                   >
                     {item.label}
                   </div>
@@ -237,7 +274,13 @@ const Header = () => {
                   >
                     <span 
                       className="text-[#032c57] font-bold cursor-pointer hover:text-blue-600 transition"
-                      onClick={() => handleNavigation(item.path)}
+                      onClick={() => {
+                        if (item.label === "DỊCH VỤ") {
+                          handleGeneralServiceNavigation(); // Call API without parameters
+                        } else {
+                          handleNavigation(item.path);
+                        }
+                      }}
                     >
                       {item.label}
                     </span>
