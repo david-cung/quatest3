@@ -1,180 +1,316 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import MainLogo from "../assets/logo/MainLogo.jpg";
+import { Menu, X } from 'lucide-react'; // For hamburger and close icons
 
-const ServicePage = () => {
+const Header = () => {
+  const [showAboutDropdown, setShowAboutDropdown] = useState(false);
+  const [showServicesDropdown, setShowServicesDropdown] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [serviceData, setServiceData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [currentCategory, setCurrentCategory] = useState('all');
-  
-  const location = useLocation();
-  
-  // Extract category from URL query params
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const category = queryParams.get('category') || 'all';
-    setCurrentCategory(category);
-    
-    // Fetch data based on the URL parameter
-    loadServiceData(category);
-  }, [location.search]);
-  
-  // Listen for content reload events from Header component
-  useEffect(() => {
-    const handleContentReload = (event) => {
-      if (event.detail) {
-        // Always set the service data, even if it's empty array
-        // This ensures we clear previous data when new data is empty
-        setServiceData(event.detail.data || []);
-        setCurrentCategory(event.detail.category);
-        setIsLoading(false);
-        setError(null);
-        
-        console.log("Content reload event received with data:", event.detail.data);
-      }
-    };
-    
-    window.addEventListener('contentReload', handleContentReload);
-    
-    return () => {
-      window.removeEventListener('contentReload', handleContentReload);
-    };
-  }, []);
-  
-  // Function to load service data
-  const loadServiceData = async (category) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    setIsMobileMenuOpen(false);
+  };
+
+  // Added a new function to handle general service navigation with no parameters
+  const handleGeneralServiceNavigation = async () => {
     try {
       setIsLoading(true);
-      
-      // Clear existing data first to prevent showing stale data
-      setServiceData(null);
-      
-      // Construct the appropriate URL based on category
-      const url = category && category !== 'all' 
-        ? `/api/v1/services?category=${category}`
-        : '/api/v1/services';
-        
-      const response = await fetch(url, {
+      // Call the API without parameters
+      const response = await fetch(`/api/v1/services`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          // Add any other headers as needed (e.g., authorization)
         },
-        // Disable cache to always get fresh data
-        cache: 'no-store'
       });
       
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}`);
       }
       
+      // Parse the response data
       const data = await response.json();
-      console.log(`Data loaded for category ${category}:`, data);
       
-      // Even if data is an empty array, we set it to state
+      // Store the service data
+      console.log('General service data received:', data);
       setServiceData(data);
-      setError(null);
+      
+      // Navigate to services page without parameters
+      navigate('/services');
     } catch (error) {
-      console.error('Error loading service data:', error);
-      setError('Không thể tải dữ liệu dịch vụ. Vui lòng thử lại sau.');
-      // Set empty array to clear previous data
-      setServiceData([]);
+      console.error('Error fetching general service data:', error);
+      // Handle error (could show a notification, fallback navigation, etc.)
+      navigate('/services');
     } finally {
       setIsLoading(false);
+      setIsMobileMenuOpen(false);
     }
   };
-  
-  // Function to render service content based on category
-  const renderServiceContent = () => {
-    // Show loading spinner while fetching data
-    if (isLoading) {
-      return <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>;
-    }
+
+  // Updated function to handle specific service navigation with parameters
+  const handleServiceNavigation = async (serviceType) => {
+    let paramValue = '';
     
-    // Show error message if there's an error
-    if (error) {
-      return <div className="text-center text-red-500 p-4">{error}</div>;
+    // Map service types to their corresponding parameter values
+    switch(serviceType) {
+      case 'Hiệu chuẩn, kiểm định':
+        paramValue = 'calibration';
+        break;
+      case 'Hiệu chuẩn tận nơi':
+        paramValue = 'on-site';
+        break;
+      case 'Đào tạo và huấn luyện':
+        paramValue = 'training';
+        break;
+      case 'Bảo trì-sửa chữa':
+        paramValue = 'maintenance';
+        break;
+      default:
+        paramValue = '';
     }
-    
-    // Check explicitly for empty data
-    if (!serviceData) {
-      return <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>;
+
+    try {
+      setIsLoading(true);
+      // Call the API with the appropriate parameter
+      const response = await fetch(`/api/v1/services?category=${paramValue}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any other headers as needed (e.g., authorization)
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+      
+      // Parse the response data
+      const data = await response.json();
+      
+      // You can handle the API response here (e.g., store in state, context, etc.)
+      console.log('Service data received:', data);
+      setServiceData(data);
+      
+      // Navigate to services page with the appropriate parameter
+      navigate(`/services?category=${paramValue}`);
+    } catch (error) {
+      console.error('Error fetching service data:', error);
+      // Handle error (could show a notification, fallback navigation, etc.)
+      navigate(`/services?category=${paramValue}`);
+    } finally {
+      setIsLoading(false);
+      setIsMobileMenuOpen(false);
     }
-    
-    // Check for empty array
-    if (Array.isArray(serviceData) && serviceData.length === 0) {
-      return <div className="text-center p-8 bg-gray-50 rounded-lg border border-gray-200">
-        <p className="text-lg text-gray-600">Không có dữ liệu dịch vụ cho danh mục này.</p>
-        <p className="text-sm text-gray-500 mt-2">Vui lòng chọn một danh mục khác hoặc quay lại sau.</p>
-      </div>;
-    }
-    
-    // Example rendering based on service data
-    // You'll need to modify this to match your actual data structure
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Add a key with unique ID if available instead of index */}
-        {serviceData.map((service, index) => (
-          <div key={service.id || index} className="bg-white rounded-lg shadow-md overflow-hidden">
-            {service.image && (
-              <img 
-                src={service.image} 
-                alt={service.title} 
-                className="w-full h-48 object-cover"
-              />
-            )}
-            <div className="p-4">
-              <h3 className="text-lg font-bold text-[#032c57] mb-2">{service.title}</h3>
-              <p className="text-gray-600 mb-4">{service.description}</p>
-              {service.features && service.features.length > 0 && (
-                <div className="mb-4">
-                  <h4 className="font-medium text-gray-800 mb-2">Tính năng:</h4>
-                  <ul className="list-disc list-inside text-gray-600">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx}>{feature}</li>
+  };
+
+  const MobileMenu = () => (
+    <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
+      <div className="flex justify-between items-center p-4 border-b">
+        <div 
+          className="flex items-center"
+          onClick={() => handleNavigation("/")}
+        >
+          <img
+            src={MainLogo}
+            alt='Logo'
+            className="h-16 mr-4"
+          />
+          <div>
+            <span className="block text-sm font-bold text-[#032c57] text-center">
+              Công ty cổ phần kiểm định hiệu chuẩn đo lường khu vực 2 (INTEST)
+            </span>
+            <span className="block text-xs text-[#032c57] text-center">
+              91 An Dương Vương, phường Trần Phú, TP. Quảng Ngãi
+            </span>
+          </div>
+        </div>
+        <button onClick={() => setIsMobileMenuOpen(false)}>
+          <X size={24} />
+        </button>
+      </div>
+      <nav className="p-4">
+        <ul className="space-y-4">
+          {[
+            { label: "TRANG CHỦ", path: "/home" },
+            { label: "GIỚI THIỆU", path: "/about" },
+            { 
+              label: "DỊCH VỤ", 
+              path: "/services",
+              subItems: [
+                { label: "Hiệu chuẩn, kiểm định", serviceType: "Hiệu chuẩn, kiểm định" },
+                { label: "Hiệu chuẩn tận nơi", serviceType: "Hiệu chuẩn tận nơi" },
+                { label: "Đào tạo và huấn luyện", serviceType: "Đào tạo và huấn luyện" },
+                { label: "Bảo trì-sửa chữa", serviceType: "Bảo trì-sửa chữa" }
+              ]
+            },
+            { label: "TIN TỨC", path: "/news" },
+            { label: "PROFILE", path: "/profile" },
+            { label: "LIÊN HỆ", path: "/contact" }
+          ].map((item) => (
+            <li key={item.label}>
+              {item.subItems ? (
+                <div>
+                  <div 
+                    className="font-bold text-[#032c57] cursor-pointer"
+                    onClick={() => handleGeneralServiceNavigation()} // Updated to call API without parameters
+                  >
+                    {item.label}
+                  </div>
+                  <ul className="pl-4 mt-2 space-y-2">
+                    {item.subItems.map((subItem) => (
+                      <li 
+                        key={subItem.label} 
+                        className="text-sm text-gray-700 cursor-pointer"
+                        onClick={() => handleServiceNavigation(subItem.serviceType)}
+                      >
+                        {subItem.label}
+                      </li>
                     ))}
                   </ul>
                 </div>
-              )}
-              {service.contactInfo && (
-                <div className="border-t pt-3 mt-3">
-                  <p className="text-sm text-gray-500">{service.contactInfo}</p>
+              ) : (
+                <div 
+                  className="font-bold text-[#032c57] cursor-pointer"
+                  onClick={() => handleNavigation(item.path)}
+                >
+                  {item.label}
                 </div>
               )}
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  };
-  
-  // Function to get category title for display
-  const getCategoryTitle = () => {
-    switch(currentCategory) {
-      case 'calibration':
-        return 'Hiệu chuẩn, kiểm định';
-      case 'on-site':
-        return 'Hiệu chuẩn tận nơi';
-      case 'training':
-        return 'Đào tạo và huấn luyện';
-      case 'maintenance':
-        return 'Bảo trì-sửa chữa';
-      default:
-        return 'Tất cả dịch vụ';
-    }
-  };
-  
-  return (
-    <div className="container mx-auto px-4 py-8 mt-24">
-      <h1 className="text-2xl font-bold text-[#032c57] mb-6">{getCategoryTitle()}</h1>
-      
-      {/* Service content will be rendered here */}
-      {renderServiceContent()}
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
+  );
+
+  return (
+    <>
+      {/* Mobile Menu (Hamburger) */}
+      <header className="fixed top-0 left-0 w-full bg-white z-40 lg:hidden">
+        <div className="flex justify-between items-center p-4">
+          <div 
+            className="flex items-center"
+            onClick={() => handleNavigation("/")}
+          >
+            <img
+              src={MainLogo}
+              alt='Logo'
+              className="h-12 mr-2"
+            />
+            <span className="text-sm font-bold text-[#032c57]">INTEST</span>
+          </div>
+          <button onClick={() => setIsMobileMenuOpen(true)}>
+            <Menu size={24} />
+          </button>
+        </div>
+      </header>
+
+      {/* Desktop Navigation */}
+      <header className="hidden lg:block fixed top-0 left-0 w-full bg-white z-40 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-24">
+            {/* Logo and Company Name */}
+            <div 
+              className="flex items-center cursor-pointer"
+              onClick={() => handleNavigation("/")}
+            >
+              <img
+                src={MainLogo}
+                alt='Logo'
+                className="h-20 mr-4"
+              />
+              <div>
+                <span className="block text-lg font-bold text-[#032c57]">
+                  Công ty cổ phần kiểm định hiệu chuẩn đo lường khu vực 2 (INTEST)
+                </span>
+                <span className="block text-sm text-[#032c57]">
+                  91 An Dương Vương, phường Trần Phú, TP. Quảng Ngãi, tỉnh Quảng Ngãi
+                </span>
+              </div>
+            </div>
+
+            {/* Navigation Menu */}
+            <nav>
+              <ul className="flex space-x-6">
+                {[
+                  { label: "TRANG CHỦ", path: "/home" },
+                  { 
+                    label: "GIỚI THIỆU", 
+                    path: "/about", 
+                    dropdown: false 
+                  },
+                  { 
+                    label: "DỊCH VỤ", 
+                    path: "/services", 
+                    dropdown: true,
+                    items: [
+                      { label: "Hiệu chuẩn, kiểm định", serviceType: "Hiệu chuẩn, kiểm định" },
+                      { label: "Hiệu chuẩn tận nơi", serviceType: "Hiệu chuẩn tận nơi" },
+                      { label: "Đào tạo và huấn luyện", serviceType: "Đào tạo và huấn luyện" },
+                      { label: "Bảo trì-sửa chữa", serviceType: "Bảo trì-sửa chữa" }
+                    ]
+                  },
+                  { label: "TIN TỨC", path: "/news" },
+                  { label: "PROFILE", path: "/profile" },
+                  { label: "LIÊN HỆ", path: "/contact" }
+                ].map((item) => (
+                  <li 
+                    key={item.label} 
+                    className="relative group"
+                    onMouseEnter={() => {
+                      if (item.label === "DỊCH VỤ") setShowServicesDropdown(true);
+                      if (item.label === "GIỚI THIỆU") setShowAboutDropdown(true);
+                    }}
+                    onMouseLeave={() => {
+                      setShowServicesDropdown(false);
+                      setShowAboutDropdown(false);
+                    }}
+                  >
+                    <span 
+                      className="text-[#032c57] font-bold cursor-pointer hover:text-blue-600 transition"
+                      onClick={() => {
+                        if (item.label === "DỊCH VỤ") {
+                          handleGeneralServiceNavigation(); // Call API without parameters
+                        } else {
+                          handleNavigation(item.path);
+                        }
+                      }}
+                    >
+                      {item.label}
+                    </span>
+                    {item.dropdown && showServicesDropdown && (
+                      <ul className="absolute top-full left-0 bg-white shadow-lg rounded-md py-2 px-4 min-w-[200px] z-50">
+                        {item.items.map((subItem) => (
+                          <li 
+                            key={subItem.label}
+                            className="py-2 border-b last:border-b-0 hover:bg-gray-100"
+                            onClick={() => handleServiceNavigation(subItem.serviceType)}
+                          >
+                            <span className="text-sm text-gray-700 cursor-pointer">
+                              {subItem.label}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && <MobileMenu />}
+    </>
   );
 };
 
-export default ServicePage;
+export default Header;
