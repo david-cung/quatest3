@@ -5,10 +5,10 @@ import Services from "../components/Services";
 import "./Home.css";
 import ClientLogos from "../components/ClientLogos";
 
-const { service10, introduce1, introduce2, introduce4 } = images;
+const { service10, introduce1, introduce3, introduce4 } = images;
 
 const AutoSweetImages = () => {
-  const images = [introduce4, introduce1, introduce2 ];
+  const images = [introduce4, introduce1, introduce3 ];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {

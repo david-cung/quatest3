@@ -125,9 +125,9 @@ const Header = () => {
             <span className="block text-sm font-bold text-[#032c57] text-center">
               Công ty cổ phần kiểm định hiệu chuẩn đo lường khu vực 2 (INTEST)
             </span>
-            <span className="block text-xs text-[#032c57] text-center">
+            {/* <span className="block text-xs text-[#032c57] text-center">
               91 An Dương Vương, phường Trần Phú, TP. Quảng Ngãi
-            </span>
+            </span> */}
           </div>
         </div>
         <button onClick={() => setIsMobileMenuOpen(false)}>
@@ -229,9 +229,9 @@ const Header = () => {
                 <span className="block text-lg font-bold text-[#032c57]">
                   Công ty cổ phần kiểm định hiệu chuẩn đo lường khu vực 2 (INTEST)
                 </span>
-                <span className="block text-sm text-[#032c57]">
+                {/* <span className="block text-sm text-[#032c57]">
                   91 An Dương Vương, phường Trần Phú, TP. Quảng Ngãi, tỉnh Quảng Ngãi
-                </span>
+                </span> */}
               </div>
             </div>
 
