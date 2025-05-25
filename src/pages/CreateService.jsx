@@ -13,7 +13,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
 
-export default function Createservices() {
+export default function CreateService() {
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);

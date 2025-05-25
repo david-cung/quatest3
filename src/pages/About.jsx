@@ -2,7 +2,7 @@ import { Container, Typography } from "@mui/material";
 
 const About = () => {
   return (
-    <Container>
+    <Container sx={{ mt: 100 }}>
       <Typography variant='h2' gutterBottom>
         Về chúng tôi
       </Typography>
