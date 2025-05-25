@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { Trash2, Edit, Plus, Eye, Calendar, Tag, Search, Filter, Newspaper } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function NewsList() {
   const [news, setNews] = useState([]);
@@ -8,6 +9,8 @@ export default function NewsList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -126,19 +129,16 @@ export default function NewsList() {
   }, []);
 
   const handleEdit = useCallback((id) => {
-    alert(`Chuyển đến trang chỉnh sửa tin tức ID: ${id}`);
-    console.log(`Navigate to /edit-news/${id}`);
-  }, []);
+    navigate(`/edit-news/${id}`);
+  }, [navigate]);
 
   const handleAddNews = useCallback(() => {
-    alert('Chuyển đến trang thêm tin tức mới');
-    console.log('Navigate to /add-news');
-  }, []);
+    navigate('/add-news');
+  }, [navigate]);
 
   const handleViewDetail = useCallback((id) => {
-    alert(`Xem chi tiết tin tức ID: ${id}`);
-    console.log(`Navigate to /detail-news/${id}`);
-  }, []);
+    navigate(`/news/${id}`);
+  }, [navigate]);
 
   if (isLoading) {
     return (
@@ -238,13 +238,19 @@ export default function NewsList() {
               >
                 <div className="flex">
                   {/* Image */}
-                  <div className="relative w-24 h-24 flex-shrink-0">
+                  <div 
+                    className="relative w-24 h-24 flex-shrink-0 cursor-pointer"
+                    onClick={() => handleViewDetail(newsItem.id)}
+                  >
                     <img
                       src={newsItem.image}
                       alt={newsItem.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover hover:opacity-90 transition-opacity"
                       loading="lazy"
                     />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-200 flex items-center justify-center">
+                      <Eye className="w-4 h-4 text-white opacity-0 hover:opacity-100 transition-opacity" />
+                    </div>
                   </div>
                   
                   {/* Content */}
@@ -279,13 +285,13 @@ export default function NewsList() {
                         <div className="flex gap-1">
                           <button
                             onClick={() => confirmDelete(newsItem.id)}
-                            className="flex-1 px-2 py-1 bg-red-500 text-white rounded text-xs font-medium"
+                            className="flex-1 px-2 py-1 bg-red-500 text-white rounded text-xs font-medium hover:bg-red-600 transition-colors"
                           >
                             Xác nhận
                           </button>
                           <button
                             onClick={cancelDelete}
-                            className="flex-1 px-2 py-1 bg-gray-500 text-white rounded text-xs font-medium"
+                            className="flex-1 px-2 py-1 bg-gray-500 text-white rounded text-xs font-medium hover:bg-gray-600 transition-colors"
                           >
                             Huỷ
                           </button>
@@ -294,15 +300,22 @@ export default function NewsList() {
                     ) : (
                       <div className="flex gap-1">
                         <button
+                          onClick={() => handleViewDetail(newsItem.id)}
+                          className="flex-1 flex items-center justify-center gap-1 px-2 py-1 bg-blue-500 text-white rounded text-xs font-medium hover:bg-blue-600 transition-colors"
+                        >
+                          <Eye className="w-3 h-3" />
+                          Xem
+                        </button>
+                        <button
                           onClick={() => handleEdit(newsItem.id)}
-                          className="flex-1 flex items-center justify-center gap-1 px-2 py-1 bg-amber-500 text-white rounded text-xs font-medium"
+                          className="flex-1 flex items-center justify-center gap-1 px-2 py-1 bg-amber-500 text-white rounded text-xs font-medium hover:bg-amber-600 transition-colors"
                         >
                           <Edit className="w-3 h-3" />
                           Sửa
                         </button>
                         <button
                           onClick={() => handleDelete(newsItem.id)}
-                          className="flex-1 flex items-center justify-center gap-1 px-2 py-1 bg-red-500 text-white rounded text-xs font-medium"
+                          className="flex-1 flex items-center justify-center gap-1 px-2 py-1 bg-red-500 text-white rounded text-xs font-medium hover:bg-red-600 transition-colors"
                         >
                           <Trash2 className="w-3 h-3" />
                           Xoá
@@ -324,7 +337,10 @@ export default function NewsList() {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Image Container */}
-                <div className="relative overflow-hidden h-48">
+                <div 
+                  className="relative overflow-hidden h-48 cursor-pointer"
+                  onClick={() => handleViewDetail(newsItem.id)}
+                >
                   <img
                     src={newsItem.image}
                     alt={newsItem.title}
@@ -333,7 +349,10 @@ export default function NewsList() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <button
-                    onClick={() => handleViewDetail(newsItem.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleViewDetail(newsItem.id);
+                    }}
                     className="absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 hover:bg-white/30"
                   >
                     <Eye className="w-4 h-4 text-white" />
@@ -387,15 +406,22 @@ export default function NewsList() {
                   ) : (
                     <div className="flex gap-2">
                       <button
+                        onClick={() => handleViewDetail(newsItem.id)}
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transform hover:scale-105 transition-all duration-200 font-medium text-sm"
+                      >
+                        <Eye className="w-4 h-4" />
+                        Xem
+                      </button>
+                      <button
                         onClick={() => handleEdit(newsItem.id)}
-                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transform hover:scale-105 transition-all duration-200 font-medium"
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transform hover:scale-105 transition-all duration-200 font-medium text-sm"
                       >
                         <Edit className="w-4 h-4" />
                         Sửa
                       </button>
                       <button
                         onClick={() => handleDelete(newsItem.id)}
-                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transform hover:scale-105 transition-all duration-200 font-medium"
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transform hover:scale-105 transition-all duration-200 font-medium text-sm"
                       >
                         <Trash2 className="w-4 h-4" />
                         Xoá
