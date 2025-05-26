@@ -5,11 +5,11 @@ import Services from "../components/Services";
 import "./Home.css";
 import ClientLogos from "../components/ClientLogos";
 
-const { service10, introduce1, introduce3, introduce4 } = images;
+const { service10,introduce3 } = images;
 
 // Memoized AutoSweetImages component for better performance
 const AutoSweetImages = () => {
-  const imageList = useMemo(() => [introduce4, introduce1, introduce3], []);
+  const imageList = useMemo(() => [introduce3], []);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
