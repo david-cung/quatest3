@@ -53,7 +53,7 @@ const Contact = () => {
     {
       icon: <EmailIcon className="w-5 h-5 text-red-600" />,
       label: "Email",
-      value: "info@intest.vn"
+      value: "sale@mitest.vn"
     }
   ];
 
@@ -241,7 +241,7 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Map Section (Updated) */}
+        {/* Map Section (Optional) */}
         <div className="mt-8 sm:mt-12 md:mt-16">
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="p-6 sm:p-8 text-center border-b border-gray-200">
@@ -254,7 +254,7 @@ const Contact = () => {
             </div>
             <div className="h-64 sm:h-80 md:h-96 relative overflow-hidden">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3854.396821234567!2d108.79197378234567!3d15.125578834567891!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3169ad3b3996aaab%3A0x33d6277893e93951!2zQ8O0bmcgVHkgQ-G7lSBQaOG6p24gS2nhu4NtIMSQ4buLbmggSGnhu4d1IENodeG6qW4gxJBvIEzGsOG7nW5nIE1p4buBbiBUcnVuZyBUw6J5IE5ndXnDqm4!5e0!3m2!1svi!2svn!4v1685123456789!5m2!1svi!2svn"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.7234567890123!2d108.79123456789012!3d15.123456789012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTXCsDA3JzI0LjQiTiAxMDjCsDQ3JzI4LjQiRQ!5e0!3m2!1svi!2svn!4v1234567890123!5m2!1svi!2svn"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -271,7 +271,7 @@ const Contact = () => {
                   <LocationOnIcon className="w-5 h-5 sm:w-6 sm:h-6 text-red-600 flex-shrink-0 mt-0.5" />
                   <div>
                     <h4 className="font-semibold text-gray-800 text-sm sm:text-base">
-                      CÔNG TY CỔ PHẦN KIỂM ĐỊNH HIỆU CHUẨN ĐO LƯỜNG MIỀN TRUNG TÂY NGUYÊN
+                      CÔNG TY CỔ PHẦN KIỂM ĐỊNH HIỆU CHUẨN ĐO LƯỜNG KHU VỰC 2
                     </h4>
                     <p className="text-xs sm:text-sm text-gray-600 mt-1">
                       91 An Dương Vương, phường Trần Phú, TP. Quảng Ngãi, tỉnh Quảng Ngãi
@@ -283,7 +283,7 @@ const Contact = () => {
               {/* Directions Button */}
               <div className="absolute bottom-4 right-4">
                 <a
-                  href="https://www.google.com/maps/place/C%C3%B4ng+Ty+C%E1%BB%95+Ph%E1%BA%A7n+Ki%E1%BB%83m+%C4%90%E1%BB%8Bnh+Hi%E1%BB%87u+Chu%E1%BA%A9n+%C4%90o+L%C6%B0%E1%BB%9Dng+Mi%E1%BB%81n+Trung+T%C3%A2y+Nguy%C3%AAn/@15.125753,108.793973,19z/"
+                  href="https://www.google.com/maps/dir//91+An+Dương+Vương,+Trần+Phú,+Quảng+Ngãi"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-xs sm:text-sm font-medium flex items-center space-x-1 sm:space-x-2"
