@@ -53,7 +53,7 @@ const Contact = () => {
     {
       icon: <EmailIcon className="w-5 h-5 text-red-600" />,
       label: "Email",
-      value: "sale@mitest.vn"
+      value: "info@intest.vn"
     }
   ];
 
