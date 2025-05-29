@@ -58,9 +58,9 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-20 pb-8 sm:pt-24 sm:py-12 md:py-16 lg:py-20">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-32 pb-8 sm:pt-36 sm:py-12 md:py-16 lg:py-20">
       {/* Header Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 mb-8 sm:mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 mb-8 sm:mb-12 mt-16 sm:mt-20 md:mt-24 lg:mt-28">
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
             Liên Hệ Với Chúng Tôi
