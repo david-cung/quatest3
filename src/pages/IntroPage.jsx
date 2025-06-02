@@ -67,7 +67,8 @@ const IntroPage = () => {
                       "Hiệu chuẩn lĩnh vực nhiệt",
                       "Hiệu chuẩn lĩnh vực hóa lý",
                       "Hiệu chuẩn lĩnh vực cơ",
-                      "Hiệu chuẩn lĩnh vực áp suất – dung tích – lưu lượng",
+                      "Hiệu chuẩn lĩnh vực áp suất",
+                      "Hiệu chuẩn lĩnh vực dung tích – lưu lượng",
                       "Hiệu chuẩn lĩnh vực quang học – bức xạ",
                       "Hiệu chuẩn lĩnh vực điện"
                     ].map((item, index) => (
