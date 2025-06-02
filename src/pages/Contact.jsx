@@ -5,6 +5,9 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import MessageIcon from '@mui/icons-material/Message';
 import EmailIcon from '@mui/icons-material/Email';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -12,26 +15,89 @@ const Contact = () => {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isHovered, setIsHovered] = useState(null);
+  
+  // States cho popup
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupType, setPopupType] = useState('success'); // 'success' hoặc 'error'
+  const [popupMessage, setPopupMessage] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // Function to send email using EmailJS
+  const sendEmail = async (formData) => {
+    // EmailJS configuration
+    const serviceId = 'service_wp9uh8s'; // Thay bằng Service ID của bạn
+    const templateId = 'template_8xwhh9v'; // Thay bằng Template ID của bạn
+    const publicKey = 'ugO2jFaDOhJmKbbP3'; // Thay bằng Public Key của bạn
+
+    const emailData = {
+      to_email: 'cung@gmail.com',
+      from_name: formData.name,
+      from_phone: formData.phone,
+      message: formData.message,
+      reply_to: 'noreply@yourcompany.com'
+    };
+
+    try {
+      // Sử dụng EmailJS API
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service_id: serviceId,
+          template_id: templateId,
+          user_id: publicKey,
+          template_params: emailData
+        })
+      });
+
+      if (response.ok) {
+        return { success: true };
+      } else {
+        throw new Error('Failed to send email');
+      }
+    } catch (error) {
+      console.error('Email sending error:', error);
+      return { success: false, error: error.message };
+    }
+  };
+
+  const handleSubmit = async () => {
     setIsSubmitting(true);
     
-    // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log({ name, phone, message });
+      const formData = { name, phone, message };
       
-      // Reset form after successful submission
-      setName("");
-      setPhone("");
-      setMessage("");
-      alert("Tin nhắn đã được gửi thành công!");
+      // Send email
+      const emailResult = await sendEmail(formData);
+      
+      if (emailResult.success) {
+        // Reset form after successful submission
+        setName("");
+        setPhone("");
+        setMessage("");
+        
+        // Hiển thị popup thành công
+        setPopupType('success');
+        setPopupMessage('Tin nhắn đã được gửi thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.');
+        setShowPopup(true);
+      } else {
+        throw new Error(emailResult.error || 'Không thể gửi email');
+      }
     } catch (error) {
-      alert("Có lỗi xảy ra, vui lòng thử lại!");
+      console.error('Submission error:', error);
+      
+      // Hiển thị popup lỗi
+      setPopupType('error');
+      setPopupMessage('Có lỗi xảy ra khi gửi tin nhắn, vui lòng thử lại sau!');
+      setShowPopup(true);
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
   };
 
   const contactInfo = [
@@ -59,6 +125,58 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pt-32 pb-8 sm:pt-36 sm:py-12 md:py-16 lg:py-20">
+      {/* Popup Modal */}
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 transform animate-[scale-in_0.3s_ease-out] relative">
+            {/* Close button */}
+            <button
+              onClick={closePopup}
+              className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
+            >
+              <CloseIcon className="w-5 h-5 text-gray-500" />
+            </button>
+            
+            <div className="p-8 text-center">
+              {/* Icon */}
+              <div className="mb-6">
+                {popupType === 'success' ? (
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                    <CheckCircleIcon className="w-10 h-10 text-green-600" />
+                  </div>
+                ) : (
+                  <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
+                    <ErrorIcon className="w-10 h-10 text-red-600" />
+                  </div>
+                )}
+              </div>
+
+              {/* Title */}
+              <h3 className="text-xl font-bold text-gray-800 mb-4">
+                {popupType === 'success' ? 'Gửi Thành Công!' : 'Có Lỗi Xảy Ra!'}
+              </h3>
+
+              {/* Message */}
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                {popupMessage}
+              </p>
+
+              {/* Button */}
+              <button
+                onClick={closePopup}
+                className={`w-full py-3 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg ${
+                  popupType === 'success'
+                    ? 'bg-green-600 hover:bg-green-700 text-white'
+                    : 'bg-red-600 hover:bg-red-700 text-white'
+                }`}
+              >
+                Đã hiểu
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 mb-8 sm:mb-12 mt-16 sm:mt-20 md:mt-24 lg:mt-28">
         <div className="text-center">
@@ -171,7 +289,7 @@ const Contact = () => {
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {/* Name Field */}
                 <div className="relative">
                   <input
@@ -210,14 +328,15 @@ const Contact = () => {
                 {/* Submit Button */}
                 <div className="pt-2 sm:pt-4">
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={handleSubmit}
                     disabled={isSubmitting || !name.trim() || !phone.trim()}
                     className="group w-full bg-white hover:bg-gray-50 text-red-600 font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base"
                   >
                     {isSubmitting ? (
                       <div className="flex items-center justify-center space-x-2">
                         <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-b-2 border-red-600"></div>
-                        <span>Đang gửi...</span>
+                        <span>Đang gửi tin nhắn...</span>
                       </div>
                     ) : (
                       <div className="flex items-center justify-center space-x-2">
@@ -236,12 +355,12 @@ const Contact = () => {
                     * Thông tin bắt buộc. Chúng tôi cam kết bảo mật thông tin của bạn.
                   </p>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Map Section (Updated) */}
+        {/* Map Section */}
         <div className="mt-8 sm:mt-12 md:mt-16">
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="p-6 sm:p-8 text-center border-b border-gray-200">
@@ -298,6 +417,19 @@ const Contact = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes scale-in {
+          0% {
+            transform: scale(0.9);
+            opacity: 0;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 };
