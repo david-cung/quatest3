@@ -31,6 +31,24 @@ function Footer() {
                 </span>
               </li>
               <li className="flex items-center text-[#555]">
+                <MapPin className="mr-3 text-red-500" size={24} />
+                <span className="text-base">
+                  18/29 Alley 42, phường Thanh Bình, phường Mộ Lao, quận Hà Đông, TP. Hà Nội
+                </span>
+              </li>
+              <li className="flex items-center text-[#555]">
+                <MapPin className="mr-3 text-red-500" size={24} />
+                <span className="text-base">
+                  156 Vườn Lài, An Phú Đông, quận 12, TP. HCM
+                </span>
+              </li>
+              <li className="flex items-center text-[#555]">
+                <MapPin className="mr-3 text-red-500" size={24} />
+                <span className="text-base">
+                  Thôn Diên Niên, xã Tịnh Sơn, huyện Sơn Tịnh, tỉnh Quảng Ngãi
+                </span>
+              </li>
+              <li className="flex items-center text-[#555]">
                 <Phone className="mr-3 text-green-500" size={24} />
                 <span className="text-base">0987 852 752</span>
               </li>
