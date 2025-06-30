@@ -47,7 +47,7 @@ const Banner = () => {
           display: "inline-block",
         }}
       >
-        📞 098 7852 752
+        📞 0987 852 752
       </div>
     </div>
   );

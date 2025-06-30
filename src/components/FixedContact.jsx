@@ -29,7 +29,7 @@ function FixedContact() {
             style={{ color: "white", fontSize: "20px", marginRight: "10px" }}
           ></i>
           <span style={{ color: "white", fontSize: "16px", fontWeight: "bold" }}>
-           098 7852 752
+           0987 852 752
           </span>
         </div>
         {/* Phone 2 */}

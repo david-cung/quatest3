@@ -32,11 +32,11 @@ function Footer() {
               </li>
               <li className="flex items-center text-[#555]">
                 <Phone className="mr-3 text-green-500" size={24} />
-                <span className="text-base">098 7852 752</span>
+                <span className="text-base">0987 852 752</span>
               </li>
               <li className="flex items-center text-[#555]">
                 <Phone className="mr-3 text-blue-500" size={24} />
-                <span className="text-base">Zalo: 098 7852 752</span>
+                <span className="text-base">Zalo: 0987 852 752</span>
               </li>
               <li className="flex items-center text-[#555]">
                 <Mail className="mr-3 text-yellow-500" size={24} />

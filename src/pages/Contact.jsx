@@ -109,12 +109,12 @@ const Contact = () => {
     {
       icon: <PhoneIcon className="w-5 h-5 text-red-600" />,
       label: "Điện thoại",
-      value: "098 7852 752"
+      value: "0987 852 752"
     },
     {
       icon: <MessageIcon className="w-5 h-5 text-red-600" />,
       label: "Zalo",
-      value: "098 7852 752"
+      value: "0987 852 752"
     },
     {
       icon: <EmailIcon className="w-5 h-5 text-red-600" />,
