@@ -17,7 +17,6 @@ const images = {
   introduce4: new URL("../assets/introduceHome/introduce4.jpg", import.meta.url)
     .href,
   intro1: new URL("../assets/intro/intro1.jpg", import.meta.url).href,
-  new8: new URL("../assets/logo/2.jpg", import.meta.url).href,
   logo1: new URL("../assets/logo/4.jpg", import.meta.url).href,
   logo2: new URL("../assets/logo/6.jpg", import.meta.url).href,
   logo3: new URL("../assets/logo/7.jpg", import.meta.url).href,
