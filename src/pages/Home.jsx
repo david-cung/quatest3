@@ -75,7 +75,7 @@ function HomePage() {
 
   const serviceCategories = useMemo(() => ({
     left: ["Khối lượng", "Lực - độ cứng", "Áp suất", "Nhiệt", "Điện - Điện tử"],
-    right: ["Độ dài", "Hoá lý", "Dung tích - Lưu lượng", "Quang học - Bức xạ"]
+    right: ["Độ dài", "Hoá lý", "Dung tích - Lưu lượng", "Quang học - Bức xạ", "Thời gian - Tần số"]
   }), []);
 
   return (

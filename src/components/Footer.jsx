@@ -44,12 +44,6 @@ function Footer() {
       type: "address"
     },
     {
-      icon: MapPin,
-      color: "text-red-500",
-      text: "Thôn Diên Niên, xã Tịnh Sơn, huyện Sơn Tịnh, tỉnh Quảng Ngãi",
-      type: "address"
-    },
-    {
       icon: Phone,
       color: "text-green-500",
       text: "0987 852 752",

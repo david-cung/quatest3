@@ -24,7 +24,7 @@ const Contact = () => {
   // Function to send email using EmailJS
   const sendEmail = async (formData) => {
     // EmailJS configuration
-    const serviceId = 'service_wp9uh8s'; // Thay bằng Service ID của bạn
+    const serviceId = 'service_dla81n9'; // Thay bằng Service ID của bạn
     const templateId = 'template_8xwhh9v'; // Thay bằng Template ID của bạn
     const publicKey = 'ugO2jFaDOhJmKbbP3'; // Thay bằng Public Key của bạn
 
@@ -105,6 +105,16 @@ const Contact = () => {
       icon: <LocationOnIcon className="w-5 h-5 text-red-600" />,
       label: "Địa chỉ",
       value: "91 An Dương Vương, phường Trần Phú, TP. Quảng Ngãi, tỉnh Quảng Ngãi"
+    },
+    {
+      icon: <LocationOnIcon className="w-5 h-5 text-red-600" />,
+      label: "Địa chỉ",
+      value: "18/29 Alley 42, phường Thanh Bình, phường Mộ Lao, quận Hà Đông, TP. Hà Nội"
+    },
+    {
+      icon: <LocationOnIcon className="w-5 h-5 text-red-600" />,
+      label: "Địa chỉ",
+      value: "156 Vườn Lài, An Phú Đông, quận 12, TP. HCM"
     },
     {
       icon: <PhoneIcon className="w-5 h-5 text-red-600" />,
@@ -240,7 +250,7 @@ const Contact = () => {
               </div>
 
               {/* Social Media */}
-              <div className="border-t border-gray-200 pt-6 sm:pt-8">
+              {/* <div className="border-t border-gray-200 pt-6 sm:pt-8">
                 <h4 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">
                   Kết nối với chúng tôi
                 </h4>
@@ -252,9 +262,9 @@ const Contact = () => {
                     <YouTubeIcon className="w-5 h-5 sm:w-6 sm:h-6 text-red-600 group-hover:text-white transition-colors duration-300" />
                   </button>
                 </div>
-              </div>
+              </div> */}
 
-              {/* Business Hours */}
+              {/* Business Hours
               <div className="mt-6 sm:mt-8 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 sm:p-6 border border-green-100">
                 <h4 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 sm:mb-3">
                   Giờ làm việc
@@ -273,7 +283,7 @@ const Contact = () => {
                     <span className="font-medium text-red-600">Nghỉ</span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
