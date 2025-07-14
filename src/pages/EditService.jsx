@@ -1,14 +1,7 @@
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
 import { Alert, Button, FileInput, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { app } from "../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -76,31 +69,53 @@ export default function EditService() {
       }
       
       setImageUploadError(null);
-      const storage = getStorage(app);
-      const fileName = new Date().getTime() + "-" + file.name;
-      const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+      setImageFileUploadProgress(0);
       
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      const token = localStorage.getItem("token");
+      const formDataUpload = new FormData();
+      formDataUpload.append("image", file);
+      
+      const xhr = new XMLHttpRequest();
+      
+      // Track upload progress
+      xhr.upload.addEventListener("progress", (e) => {
+        if (e.lengthComputable) {
+          const progress = (e.loaded / e.total) * 100;
           setImageFileUploadProgress(progress.toFixed(0));
-        },
-        (error) => {
-          console.error("Upload error:", error);
+        }
+      });
+      
+      xhr.addEventListener("load", () => {
+        if (xhr.status === 200) {
+          try {
+            const response = JSON.parse(xhr.responseText);
+            if (response.data && response.data.url) {
+              setImageFileUploadProgress(null);
+              setImageUploadError(null);
+              setFormData({ ...formData, image: response.data.url });
+            } else {
+              throw new Error("Invalid response format");
+            }
+          } catch (error) {
+            console.error("Parse error:", error);
+            setImageUploadError("Không thể tải ảnh lên. Vui lòng thử lại.");
+            setImageFileUploadProgress(null);
+          }
+        } else {
           setImageUploadError("Không thể tải ảnh lên. Vui lòng thử lại.");
           setImageFileUploadProgress(null);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            setImageFileUploadProgress(null);
-            setImageUploadError(null);
-            setFormData({ ...formData, image: url });
-          });
         }
-      );
+      });
+      
+      xhr.addEventListener("error", () => {
+        setImageUploadError("Không thể tải ảnh lên. Vui lòng thử lại.");
+        setImageFileUploadProgress(null);
+      });
+      
+      xhr.open("POST", "https://intest.vn/api/v1/upload/image");
+      xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+      xhr.send(formDataUpload);
+      
     } catch (error) {
       console.error("Image upload error:", error);
       setImageUploadError("Không thể tải ảnh lên. Vui lòng thử lại.");

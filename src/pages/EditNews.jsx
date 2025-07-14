@@ -1,14 +1,7 @@
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
 import { Alert, Button, FileInput, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { app } from "../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -76,31 +69,39 @@ export default function EditNews() {
       }
       
       setImageUploadError(null);
-      const storage = getStorage(app);
-      const fileName = new Date().getTime() + "-" + file.name;
-      const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+      setImageFileUploadProgress(0);
+
+      // Tạo FormData để gửi file
+      const uploadFormData = new FormData();
+      uploadFormData.append('file', file);
+
+      // Gọi API upload
+      const response = await fetch('https://intest.vn/api/v1/upload/image', {
+        method: 'POST',
+        body: uploadFormData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const result = await response.json();
       
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setImageFileUploadProgress(progress.toFixed(0));
-        },
-        (error) => {
-          console.error("Upload error:", error);
-          setImageUploadError("Không thể tải ảnh lên. Vui lòng thử lại.");
-          setImageFileUploadProgress(null);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            setImageFileUploadProgress(null);
-            setImageUploadError(null);
-            setFormData({ ...formData, image: url });
-          });
-        }
-      );
+      // Lấy URL từ response theo cấu trúc API
+      const imageUrl = result.data?.url;
+      
+      if (!imageUrl) {
+        throw new Error('No image URL returned from server');
+      }
+
+      setImageFileUploadProgress(100);
+      setFormData({ ...formData, image: imageUrl });
+      
+      // Reset progress sau 1 giây
+      setTimeout(() => {
+        setImageFileUploadProgress(null);
+      }, 1000);
+
     } catch (error) {
       console.error("Image upload error:", error);
       setImageUploadError("Không thể tải ảnh lên. Vui lòng thử lại.");
@@ -218,9 +219,9 @@ export default function EditNews() {
             size="sm"
             outline
             onClick={handleUploadImage}
-            disabled={imageUploadProgress}
+            disabled={imageUploadProgress !== null}
           >
-            {imageUploadProgress ? (
+            {imageUploadProgress !== null ? (
               <div className="w-16 h-16">
                 <CircularProgressbar
                   value={imageUploadProgress}
