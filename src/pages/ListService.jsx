@@ -19,7 +19,6 @@ export default function ServiceList() {
         // Replace with your actual API endpoint
         const response = await fetch("/api/v1/services", {
           headers: {
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
         });
@@ -55,6 +54,34 @@ export default function ServiceList() {
             category: "Tư vấn",
             image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
             updatedAt: "2024-01-18T09:45:00Z"
+          },
+          {
+            id: 4,
+            title: "Phát triển App Mobile",
+            category: "Công nghệ",
+            image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=300&h=300&fit=crop",
+            updatedAt: "2024-01-22T16:20:00Z"
+          },
+          {
+            id: 5,
+            title: "SEO & Content Marketing",
+            category: "Marketing",
+            image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&h=300&fit=crop",
+            updatedAt: "2024-01-25T11:30:00Z"
+          },
+          {
+            id: 6,
+            title: "Thiết kế UI/UX",
+            category: "Thiết kế",
+            image: "https://images.unsplash.com/photo-1559028006-448665bd7c7f?w=300&h=300&fit=crop",
+            updatedAt: "2024-01-28T08:45:00Z"
+          },
+          {
+            id: 7,
+            title: "Cloud Computing",
+            category: "Công nghệ",
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&h=300&fit=crop",
+            updatedAt: "2024-01-30T13:15:00Z"
           }
         ]);
         setIsLoading(false);
@@ -73,7 +100,6 @@ export default function ServiceList() {
       const response = await fetch(`/api/v1/services/${id}`, {
         method: 'DELETE',
         headers: {
-          "Authorization": `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });
@@ -120,14 +146,14 @@ export default function ServiceList() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="mb-8 animate-fadeInDown">
-          <div className="bg-white rounded-2xl shadow-xl p-6 backdrop-blur-sm bg-opacity-90">
-            <div className="flex justify-between items-center">
+          <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 backdrop-blur-sm bg-opacity-90">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
                   Quản lý Dịch vụ
                 </h1>
                 <p className="text-gray-600">
@@ -136,7 +162,7 @@ export default function ServiceList() {
               </div>
               <button
                 onClick={handleAddService}
-                className="group relative px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                className="group relative px-4 sm:px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2 w-full sm:w-auto justify-center"
               >
                 <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
                 Thêm dịch vụ
@@ -146,12 +172,12 @@ export default function ServiceList() {
           </div>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Services Grid - 3 items per row on desktop, responsive on smaller screens */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {services.map((service, index) => (
             <div
               key={service.id}
-              className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-500 overflow-hidden animate-fadeInUp"
+              className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-500 overflow-hidden animate-fadeInUp w-full"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Image Container */}
@@ -171,7 +197,7 @@ export default function ServiceList() {
               </div>
 
               {/* Content */}
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <Tag className="w-4 h-4 text-indigo-500" />
                   <span className="text-sm font-medium text-indigo-600 bg-indigo-50 px-2 py-1 rounded-full">
@@ -180,7 +206,7 @@ export default function ServiceList() {
                 </div>
 
                 <h3 
-                  className="text-xl font-bold text-gray-800 mb-3 group-hover:text-indigo-600 transition-colors duration-300 cursor-pointer"
+                  className="text-lg sm:text-xl font-bold text-gray-800 mb-3 group-hover:text-indigo-600 transition-colors duration-300 cursor-pointer line-clamp-2"
                   onClick={() => handleViewDetail(service.id)}
                 >
                   {service.title}
@@ -196,19 +222,19 @@ export default function ServiceList() {
                 {/* Action Buttons */}
                 {showDeleteConfirmation === service.id ? (
                   <div className="animate-fadeIn">
-                    <p className="text-center text-gray-700 mb-4 font-medium">
+                    <p className="text-center text-gray-700 mb-4 font-medium text-sm sm:text-base">
                       Bạn có chắc chắn muốn xoá?
                     </p>
                     <div className="flex gap-2">
                       <button
                         onClick={() => confirmDelete(service.id)}
-                        className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transform hover:scale-105 transition-all duration-200 font-medium"
+                        className="flex-1 px-3 sm:px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transform hover:scale-105 transition-all duration-200 font-medium text-sm sm:text-base"
                       >
                         Xác nhận
                       </button>
                       <button
                         onClick={cancelDelete}
-                        className="flex-1 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transform hover:scale-105 transition-all duration-200 font-medium"
+                        className="flex-1 px-3 sm:px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transform hover:scale-105 transition-all duration-200 font-medium text-sm sm:text-base"
                       >
                         Huỷ
                       </button>
@@ -218,16 +244,16 @@ export default function ServiceList() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleEdit(service.id)}
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transform hover:scale-105 transition-all duration-200 font-medium"
+                      className="flex-1 flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transform hover:scale-105 transition-all duration-200 font-medium text-sm sm:text-base"
                     >
-                      <Edit className="w-4 h-4" />
+                      <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
                       Sửa
                     </button>
                     <button
                       onClick={() => handleDelete(service.id)}
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transform hover:scale-105 transition-all duration-200 font-medium"
+                      className="flex-1 flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transform hover:scale-105 transition-all duration-200 font-medium text-sm sm:text-base"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                       Xoá
                     </button>
                   </div>
@@ -240,18 +266,18 @@ export default function ServiceList() {
         {/* Empty State */}
         {services.length === 0 && (
           <div className="text-center py-12 animate-fadeIn">
-            <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-              <Tag className="w-12 h-12 text-gray-400" />
+            <div className="w-20 sm:w-24 h-20 sm:h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+              <Tag className="w-10 sm:w-12 h-10 sm:h-12 text-gray-400" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-600 mb-2">
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-600 mb-2">
               Chưa có dịch vụ nào
             </h3>
-            <p className="text-gray-500 mb-6">
+            <p className="text-gray-500 mb-6 text-sm sm:text-base">
               Hãy thêm dịch vụ đầu tiên của bạn
             </p>
             <button
               onClick={handleAddService}
-              className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transform hover:scale-105 transition-all duration-200"
+              className="px-4 sm:px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transform hover:scale-105 transition-all duration-200 text-sm sm:text-base"
             >
               Thêm dịch vụ ngay
             </button>
@@ -301,6 +327,13 @@ export default function ServiceList() {
 
         .animate-fadeIn {
           animation: fadeIn 0.3s ease-out;
+        }
+
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
       `}</style>
     </div>
