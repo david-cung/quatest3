@@ -400,7 +400,7 @@ const Contact = () => {
                   <LocationOnIcon className="w-5 h-5 sm:w-6 sm:h-6 text-red-600 flex-shrink-0 mt-0.5" />
                   <div>
                     <h4 className="font-semibold text-gray-800 text-sm sm:text-base">
-                      CÔNG TY CỔ PHẦN KIỂM ĐỊNH HIỆU CHUẨN ĐO LƯỜNG MIỀN TRUNG TÂY NGUYÊN
+                      Công ty cổ phần kiểm định hiệu chuẩn đo lường khu vực 2
                     </h4>
                     <p className="text-xs sm:text-sm text-gray-600 mt-1">
                       91 An Dương Vương, phường Trần Phú, TP. Quảng Ngãi, tỉnh Quảng Ngãi
