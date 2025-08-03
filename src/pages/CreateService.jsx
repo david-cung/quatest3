@@ -1,5 +1,5 @@
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
-import { useState } from "react";
+import { useState, useRef, useMemo } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -12,22 +12,16 @@ export default function CreateService() {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
+  const [content, setContent] = useState('');
   const navigate = useNavigate();
+  const quillRef = useRef(null);
 
-  const handleUploadImage = async () => {
+  // Function to upload image to server
+  const uploadImageToServer = async (file) => {
     try {
-      if (!file) {
-        setImageUploadError("Hãy chọn ít nhất một ảnh");
-        return;
-      }
-      setImageUploadError(null);
-      setImageFileUploadProgress(0);
-
-      // Tạo FormData để gửi file
       const uploadFormData = new FormData();
       uploadFormData.append('file', file);
 
-      // Gọi API upload
       const response = await fetch('https://intest.vn/api/v1/upload/image', {
         method: 'POST',
         body: uploadFormData,
@@ -38,14 +32,109 @@ export default function CreateService() {
       }
 
       const result = await response.json();
-      
-      // Lấy URL từ response theo cấu trúc API
       const imageUrl = result.data?.url;
       
       if (!imageUrl) {
         throw new Error('No image URL returned from server');
       }
 
+      return imageUrl;
+    } catch (error) {
+      console.error('Image upload error:', error);
+      throw error;
+    }
+  };
+
+  // Custom image handler for ReactQuill
+  const imageHandler = () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files[0];
+      if (file) {
+        try {
+          // Show loading state
+          const quill = quillRef.current.getEditor();
+          const range = quill.getSelection();
+          quill.insertText(range.index, 'Đang tải ảnh...', 'user');
+          
+          // Upload image
+          const imageUrl = await uploadImageToServer(file);
+          
+          // Remove loading text and insert image
+          quill.deleteText(range.index, 'Đang tải ảnh...'.length);
+          quill.insertEmbed(range.index, 'image', imageUrl);
+          quill.setSelection(range.index + 1);
+          
+        } catch (error) {
+          console.error('Error uploading image:', error);
+          // Remove loading text if upload fails
+          const quill = quillRef.current.getEditor();
+          const range = quill.getSelection();
+          quill.deleteText(range.index, 'Đang tải ảnh...'.length);
+          
+          // Show error message
+          setImageUploadError('Không thể tải ảnh lên. Vui lòng thử lại.');
+          setTimeout(() => setImageUploadError(null), 3000);
+        }
+      }
+    };
+  };
+
+  // ReactQuill modules with custom toolbar
+  const modules = useMemo(() => ({
+    toolbar: {
+      container: [
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
+        [{ 'align': [] }],
+        ['link', 'image', 'video'],
+        ['clean']
+      ],
+      handlers: {
+        image: imageHandler
+      }
+    }
+  }), []);
+
+  const formats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike',
+    'color', 'background',
+    'list', 'bullet', 'indent',
+    'align',
+    'link', 'image', 'video'
+  ];
+
+  const handleUploadImage = async () => {
+    try {
+      if (!file) {
+        setImageUploadError("Hãy chọn ít nhất một ảnh");
+        return;
+      }
+      setImageUploadError(null);
+      setImageFileUploadProgress(0);
+
+      // Simulate progress
+      const progressInterval = setInterval(() => {
+        setImageFileUploadProgress(prev => {
+          if (prev >= 90) {
+            clearInterval(progressInterval);
+            return 90;
+          }
+          return prev + 10;
+        });
+      }, 100);
+
+      const imageUrl = await uploadImageToServer(file);
+      
+      clearInterval(progressInterval);
       setImageFileUploadProgress(100);
       setFormData({ ...formData, image: imageUrl });
       
@@ -65,13 +154,20 @@ export default function CreateService() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
+      
+      // Include content in formData
+      const submitData = {
+        ...formData,
+        content: content
+      };
+
       const res = await fetch("/api/v1/services", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submitData),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -91,11 +187,7 @@ export default function CreateService() {
   };
 
   const handleContentChange = (value) => {
-    const cleanedContent = value.trim().replace(/^<p>(.*?)<\/p>$/s, "$1");
-    setFormData((prevData) => ({
-      ...prevData,
-      content: cleanedContent,
-    }));
+    setContent(value);
   };
 
   return (
@@ -133,7 +225,7 @@ export default function CreateService() {
           </Select>
         </div>
 
-        {/* Upload image section */}
+        {/* Upload featured image section */}
         <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
           <FileInput
             accept='image/*'
@@ -157,7 +249,7 @@ export default function CreateService() {
                 />
               </div>
             ) : (
-              "Thêm hình ảnh"
+              "Thêm ảnh đại diện"
             )}
           </Button>
         </div>
@@ -169,22 +261,34 @@ export default function CreateService() {
           </Alert>
         )}
 
-        {/* Show uploaded image */}
+        {/* Show uploaded featured image */}
         {formData.image && (
-          <img
-            src={formData.image}
-            alt='upload'
-            className='w-full h-72 object-cover'
-          />
+          <div className='relative'>
+            <p className='text-sm text-gray-600 mb-2'>Ảnh đại diện:</p>
+            <img
+              src={formData.image}
+              alt='featured image'
+              className='w-full h-72 object-cover rounded'
+            />
+          </div>
         )}
 
-        {/* Content editor */}
-        <ReactQuill
-          theme='snow'
-          placeholder='Nhập nội dung...'
-          className='h-72 mb-12'
-          onChange={handleContentChange}
-        />
+        {/* Content editor with image upload capability */}
+        <div>
+          <p className='text-sm text-gray-600 mb-2'>
+            Nội dung (Bạn có thể thêm hình ảnh trực tiếp bằng cách nhấn vào icon hình ảnh trên thanh công cụ):
+          </p>
+          <ReactQuill
+            ref={quillRef}
+            theme='snow'
+            value={content}
+            placeholder='Nhập nội dung...'
+            className='h-72 mb-12'
+            modules={modules}
+            formats={formats}
+            onChange={handleContentChange}
+          />
+        </div>
 
         {/* Publish button */}
         <Button

@@ -115,7 +115,7 @@ const ServicePage = () => {
               Dịch vụ
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              INTEST 3 thực hiện các hoạt động cung cấp dịch vụ kỹ thuật theo các
+              INTEST thực hiện các hoạt động cung cấp dịch vụ kỹ thuật theo các
               lĩnh vực tiêu chuẩn đo lường chất lượng.
             </p>
           </div>
