@@ -19,13 +19,44 @@ export default function EditService() {
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
   const [updateError, setUpdateError] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
   const navigate = useNavigate();
+
+  // Function to get auth headers
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem("token") || localStorage.getItem("authToken");
+    
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
+    return headers;
+  };
+
+  // Function to handle unauthorized access
+  const handleUnauthorized = () => {
+    console.error("Unauthorized: Token may be expired or invalid");
+    localStorage.removeItem('token');
+    localStorage.removeItem('authToken');
+    navigate('/login');
+  };
 
   useEffect(() => {
     const fetchServiceDetails = async () => {
       try {
         setIsLoading(true);
-        const token = localStorage.getItem("token");
+        setFetchError(null);
+
+        const token = localStorage.getItem("token") || localStorage.getItem("authToken");
+        if (!token) {
+          navigate('/login');
+          return;
+        }
+
         const res = await fetch(`/api/v1/services/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -33,10 +64,15 @@ export default function EditService() {
         });
         
         if (!res.ok) {
-          throw new Error("Failed to fetch service details");
+          if (res.status === 401) {
+            handleUnauthorized();
+            return;
+          }
+          throw new Error(`HTTP ${res.status}: Failed to fetch service details`);
         }
         
         const data = await res.json();
+        console.log("Fetched service data:", data);
         
         if (data && data.data) {
           setFormData({
@@ -59,67 +95,104 @@ export default function EditService() {
     if (id) {
       fetchServiceDetails();
     }
-  }, [id]);
+  }, [id, navigate]);
+
+  // Function to upload image to server (giống CreateService)
+  const uploadImageToServer = async (file) => {
+    try {
+      const uploadFormData = new FormData();
+      uploadFormData.append('file', file); // Sử dụng 'file' thay vì 'image'
+
+      const response = await fetch('https://intest.vn/api/v1/upload/image', {
+        method: 'POST',
+        body: uploadFormData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const result = await response.json();
+      const imageUrl = result.data?.url;
+      
+      if (!imageUrl) {
+        throw new Error('No image URL returned from server');
+      }
+
+      return imageUrl;
+    } catch (error) {
+      console.error('Image upload error:', error);
+      throw error;
+    }
+  };
+
+  // Validate file before upload
+  const validateFile = (file) => {
+    if (!file) {
+      return "Hãy chọn ít nhất một ảnh";
+    }
+
+    // Check file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      return "Chỉ chấp nhận file ảnh (JPEG, PNG, GIF, WebP)";
+    }
+
+    // Check file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      return "Kích thước file không được vượt quá 5MB";
+    }
+
+    return null;
+  };
 
   const handleUploadImage = async () => {
     try {
-      if (!file) {
-        setImageUploadError("Hãy chọn ít nhất một ảnh");
+      // Reset previous errors
+      setImageUploadError(null);
+      
+      // Validate file
+      const validationError = validateFile(file);
+      if (validationError) {
+        setImageUploadError(validationError);
         return;
       }
       
-      setImageUploadError(null);
+      setIsUploading(true);
       setImageFileUploadProgress(0);
-      
-      const token = localStorage.getItem("token");
-      const formDataUpload = new FormData();
-      formDataUpload.append("image", file);
-      
-      const xhr = new XMLHttpRequest();
-      
-      // Track upload progress
-      xhr.upload.addEventListener("progress", (e) => {
-        if (e.lengthComputable) {
-          const progress = (e.loaded / e.total) * 100;
-          setImageFileUploadProgress(progress.toFixed(0));
-        }
-      });
-      
-      xhr.addEventListener("load", () => {
-        if (xhr.status === 200) {
-          try {
-            const response = JSON.parse(xhr.responseText);
-            if (response.data && response.data.url) {
-              setImageFileUploadProgress(null);
-              setImageUploadError(null);
-              setFormData({ ...formData, image: response.data.url });
-            } else {
-              throw new Error("Invalid response format");
-            }
-          } catch (error) {
-            console.error("Parse error:", error);
-            setImageUploadError("Không thể tải ảnh lên. Vui lòng thử lại.");
-            setImageFileUploadProgress(null);
+
+      // Simulate progress like CreateService
+      const progressInterval = setInterval(() => {
+        setImageFileUploadProgress(prev => {
+          if (prev >= 90) {
+            clearInterval(progressInterval);
+            return 90;
           }
-        } else {
-          setImageUploadError("Không thể tải ảnh lên. Vui lòng thử lại.");
-          setImageFileUploadProgress(null);
-        }
-      });
+          return prev + 10;
+        });
+      }, 100);
+
+      // Upload image using the same method as CreateService
+      const imageUrl = await uploadImageToServer(file);
       
-      xhr.addEventListener("error", () => {
-        setImageUploadError("Không thể tải ảnh lên. Vui lòng thử lại.");
+      clearInterval(progressInterval);
+      setImageFileUploadProgress(100);
+      setFormData(prevData => ({ ...prevData, image: imageUrl }));
+      setImageUploadError(null);
+      setFile(null); // Clear file input
+      
+      // Reset progress after 1 second
+      setTimeout(() => {
         setImageFileUploadProgress(null);
-      });
-      
-      xhr.open("POST", "https://intest.vn/api/v1/upload/image");
-      xhr.setRequestHeader("Authorization", `Bearer ${token}`);
-      xhr.send(formDataUpload);
-      
+      }, 1000);
+
     } catch (error) {
       console.error("Image upload error:", error);
-      setImageUploadError("Không thể tải ảnh lên. Vui lòng thử lại.");
+      setImageUploadError("Image upload failed");
       setImageFileUploadProgress(null);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -132,14 +205,19 @@ export default function EditService() {
       return;
     }
     
-    if (!formData.content || formData.content.trim() === '<p><br></p>') {
+    if (!formData.content || formData.content.trim() === '<p><br></p>' || formData.content.trim() === '') {
       setUpdateError("Nội dung không được để trống");
       return;
     }
     
     try {
       setUpdateError(null);
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token") || localStorage.getItem("authToken");
+      
+      if (!token) {
+        navigate('/login');
+        return;
+      }
       
       const res = await fetch(`/api/v1/services/${id}`, {
         method: "PUT",
@@ -150,11 +228,25 @@ export default function EditService() {
         body: JSON.stringify(formData),
       });
       
-      const data = await res.json();
-      
       if (!res.ok) {
-        throw new Error(data.message || "Failed to update service");
+        if (res.status === 401) {
+          handleUnauthorized();
+          return;
+        }
+        
+        let errorMessage = "Failed to update service";
+        try {
+          const errorData = await res.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch (e) {
+          // Use default error message
+        }
+        
+        throw new Error(errorMessage);
       }
+      
+      const data = await res.json();
+      console.log("Update response:", data);
       
       // Navigate to detail page after successful update
       navigate(`/detail-service/${id}`, { replace: true });
@@ -169,6 +261,16 @@ export default function EditService() {
       ...prevData,
       content: value,
     }));
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target?.files?.length ? e.target?.files[0] : null;
+    setFile(selectedFile);
+    
+    // Clear previous errors when new file is selected
+    if (selectedFile) {
+      setImageUploadError(null);
+    }
   };
 
   if (isLoading) {
@@ -189,7 +291,10 @@ export default function EditService() {
           <p className="font-medium">Lỗi khi tải dữ liệu:</p>
           <p>{fetchError}</p>
         </Alert>
-        <Button onClick={() => navigate(-1)}>Quay lại</Button>
+        <div className="flex gap-2">
+          <Button onClick={() => navigate(-1)}>Quay lại</Button>
+          <Button color="blue" onClick={() => window.location.reload()}>Thử lại</Button>
+        </div>
       </div>
     );
   }
@@ -221,26 +326,36 @@ export default function EditService() {
         </div>
 
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
-          <FileInput
-            accept="image/*"
-            onChange={(e) =>
-              setFile(e.target?.files?.length ? e.target?.files[0] : null)
-            }
-          />
+          <div className="flex-1">
+            <FileInput
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+            {file && (
+              <p className="text-sm text-gray-600 mt-1">
+                Đã chọn: {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
+              </p>
+            )}
+          </div>
           <Button
             type="button"
             gradientDuoTone="purpleToBlue"
             size="sm"
             outline
             onClick={handleUploadImage}
-            disabled={imageUploadProgress}
+            disabled={isUploading || imageUploadProgress !== null}
           >
-            {imageUploadProgress ? (
+            {imageUploadProgress !== null ? (
               <div className="w-16 h-16">
                 <CircularProgressbar
                   value={imageUploadProgress}
                   text={`${imageUploadProgress}%`}
                 />
+              </div>
+            ) : isUploading ? (
+              <div className="flex items-center gap-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
+                Đang tải...
               </div>
             ) : (
               "Tải ảnh lên"
@@ -250,7 +365,12 @@ export default function EditService() {
 
         {imageUploadError && (
           <Alert className="mt-2" color="failure">
-            {imageUploadError}
+            <div className="flex items-center">
+              <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
+              {imageUploadError}
+            </div>
           </Alert>
         )}
 
@@ -260,7 +380,10 @@ export default function EditService() {
             <img
               src={formData.image}
               alt="Service preview"
-              className="w-full h-72 object-cover rounded"
+              className="w-full h-72 object-cover rounded border"
+              onError={(e) => {
+                e.target.src = 'https://via.placeholder.com/400x300?text=Image+Not+Found';
+              }}
             />
           </div>
         )}
@@ -280,14 +403,16 @@ export default function EditService() {
           <Button
             type="submit"
             className="bg-gradient-to-r from-blue-500 to-green-500 text-white p-2 rounded"
+            disabled={isUploading}
           >
-            Cập nhật
+            {isUploading ? 'Đang xử lý...' : 'Cập nhật'}
           </Button>
 
           <Button
             type="button"
             className="bg-gray-500 text-white p-2 rounded"
             onClick={() => navigate(-1)}
+            disabled={isUploading}
           >
             Huỷ bỏ
           </Button>
@@ -295,7 +420,12 @@ export default function EditService() {
 
         {updateError && (
           <Alert className="mt-4" color="failure">
-            {updateError}
+            <div className="flex items-center">
+              <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
+              {updateError}
+            </div>
           </Alert>
         )}
       </form>

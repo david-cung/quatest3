@@ -237,7 +237,7 @@ export default function CreateNews() {
                 />
               </div>
             ) : (
-              "Thêm ảnh đại diện"
+              "Tải ảnh lên"
             )}
           </Button>
         </div>

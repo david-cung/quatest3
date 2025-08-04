@@ -13,78 +13,64 @@ export default function ServiceList() {
     window.location.href = path;
   };
 
+  // Function to get auth headers with token from localStorage
+  const getAuthHeaders = () => {
+     const token = localStorage.getItem("token");
+    
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
+    return headers;
+  };
+
+  // Function to handle unauthorized access
+  const handleUnauthorized = () => {
+    console.error("Unauthorized: Token may be expired or invalid");
+    // Clear invalid token
+    localStorage.removeItem('authToken');
+    // Redirect to sign-in page
+    window.location.href = '/sign-in';
+  };
+
   useEffect(() => {
     const fetchServices = async () => {
       try {
+        // Check if token exists
+         const token = localStorage.getItem("token");
+        if (!token) {
+          console.warn("No auth token found, redirecting to sign-in");
+          window.location.href = '/sign-in';
+          return;
+        }
+
         // Replace with your actual API endpoint
         const response = await fetch("/api/v1/services", {
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: getAuthHeaders(),
         });
         
         if (!response.ok) {
+          if (response.status === 401) {
+            handleUnauthorized();
+            return;
+          }
           throw new Error('Failed to fetch services');
         }
         
         const data = await response.json();
-        setServices(data.data);
+        setServices(data.data || data); // Handle different response structures
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching services:", error);
-        // Fallback to mock data for demo purposes
-        setServices([
-          {
-            id: 1,
-            title: "Thiết kế Website",
-            category: "Công nghệ",
-            image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=300&h=300&fit=crop",
-            updatedAt: "2024-01-15T10:30:00Z"
-          },
-          {
-            id: 2,
-            title: "Marketing Digital",
-            category: "Quảng cáo",
-            image: "https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=300&h=300&fit=crop",
-            updatedAt: "2024-01-20T14:15:00Z"
-          },
-          {
-            id: 3,
-            title: "Tư vấn kinh doanh",
-            category: "Tư vấn",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
-            updatedAt: "2024-01-18T09:45:00Z"
-          },
-          {
-            id: 4,
-            title: "Phát triển App Mobile",
-            category: "Công nghệ",
-            image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=300&h=300&fit=crop",
-            updatedAt: "2024-01-22T16:20:00Z"
-          },
-          {
-            id: 5,
-            title: "SEO & Content Marketing",
-            category: "Marketing",
-            image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300&h=300&fit=crop",
-            updatedAt: "2024-01-25T11:30:00Z"
-          },
-          {
-            id: 6,
-            title: "Thiết kế UI/UX",
-            category: "Thiết kế",
-            image: "https://images.unsplash.com/photo-1559028006-448665bd7c7f?w=300&h=300&fit=crop",
-            updatedAt: "2024-01-28T08:45:00Z"
-          },
-          {
-            id: 7,
-            title: "Cloud Computing",
-            category: "Công nghệ",
-            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&h=300&fit=crop",
-            updatedAt: "2024-01-30T13:15:00Z"
-          }
-        ]);
         setIsLoading(false);
+        
+        // Optional: Show error message to user
+        // You can add a toast notification here
+        alert('Có lỗi xảy ra khi tải dữ liệu dịch vụ: ' + error.message);
       }
     };
 
@@ -99,22 +85,33 @@ export default function ServiceList() {
     try {
       const response = await fetch(`/api/v1/services/${id}`, {
         method: 'DELETE',
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: getAuthHeaders(),
       });
       
       if (!response.ok) {
+        if (response.status === 401) {
+          handleUnauthorized();
+          return;
+        }
+        if (response.status === 403) {
+          throw new Error('Bạn không có quyền xóa dịch vụ này');
+        }
         throw new Error('Failed to delete service');
       }
       
+      // Remove from local state
       setServices(services.filter((service) => service.id !== id));
       setShowDeleteConfirmation(null);
+      
+      // Optional: Show success message
+      console.log('Service deleted successfully');
+      
     } catch (error) {
       console.error("Error deleting service:", error);
-      // For demo purposes, still remove from UI
-      setServices(services.filter((service) => service.id !== id));
       setShowDeleteConfirmation(null);
+      
+      // Show error message to user
+      alert('Có lỗi xảy ra khi xóa dịch vụ: ' + error.message);
     }
   };
 
@@ -134,6 +131,7 @@ export default function ServiceList() {
     navigate(`/detail-service/${id}`);
   };
 
+  // Show loading state
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
@@ -172,7 +170,7 @@ export default function ServiceList() {
           </div>
         </div>
 
-        {/* Services Grid - 3 items per row on desktop, responsive on smaller screens */}
+        {/* Services Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {services.map((service, index) => (
             <div
@@ -186,6 +184,10 @@ export default function ServiceList() {
                   src={service.image}
                   alt={service.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  onError={(e) => {
+                    // Fallback image if image fails to load
+                    e.target.src = 'https://via.placeholder.com/300x300?text=No+Image';
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <button
@@ -264,7 +266,7 @@ export default function ServiceList() {
         </div>
 
         {/* Empty State */}
-        {services.length === 0 && (
+        {services.length === 0 && !isLoading && (
           <div className="text-center py-12 animate-fadeIn">
             <div className="w-20 sm:w-24 h-20 sm:h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
               <Tag className="w-10 sm:w-12 h-10 sm:h-12 text-gray-400" />
