@@ -1,5 +1,5 @@
 import { Alert, Button, FileInput, TextInput } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -19,7 +19,105 @@ export default function EditNews() {
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
   const [updateError, setUpdateError] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
   const navigate = useNavigate();
+  const quillRef = useRef(null);
+
+  // Function to upload image to server
+  const uploadImageToServer = async (file) => {
+    try {
+      const uploadFormData = new FormData();
+      uploadFormData.append('file', file);
+
+      const response = await fetch('https://intest.vn/api/v1/upload/image', {
+        method: 'POST',
+        body: uploadFormData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const result = await response.json();
+      const imageUrl = result.data?.url;
+      
+      if (!imageUrl) {
+        throw new Error('No image URL returned from server');
+      }
+
+      return imageUrl;
+    } catch (error) {
+      console.error('Image upload error:', error);
+      throw error;
+    }
+  };
+
+  // Custom image handler for ReactQuill
+  const imageHandler = () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files[0];
+      if (file) {
+        try {
+          // Show loading state
+          const quill = quillRef.current.getEditor();
+          const range = quill.getSelection();
+          quill.insertText(range.index, 'Đang tải ảnh...', 'user');
+          
+          // Upload image
+          const imageUrl = await uploadImageToServer(file);
+          
+          // Remove loading text and insert image
+          quill.deleteText(range.index, 'Đang tải ảnh...'.length);
+          quill.insertEmbed(range.index, 'image', imageUrl);
+          quill.setSelection(range.index + 1);
+          
+        } catch (error) {
+          console.error('Error uploading image:', error);
+          // Remove loading text if upload fails
+          const quill = quillRef.current.getEditor();
+          const range = quill.getSelection();
+          quill.deleteText(range.index, 'Đang tải ảnh...'.length);
+          
+          // Show error message
+          setImageUploadError('Không thể tải ảnh lên. Vui lòng thử lại.');
+          setTimeout(() => setImageUploadError(null), 3000);
+        }
+      }
+    };
+  };
+
+  // ReactQuill modules with custom toolbar
+  const modules = useMemo(() => ({
+    toolbar: {
+      container: [
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
+        [{ 'align': [] }],
+        ['link', 'image', 'video'],
+        ['clean']
+      ],
+      handlers: {
+        image: imageHandler
+      }
+    }
+  }), []);
+
+  const formats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike',
+    'color', 'background',
+    'list', 'bullet', 'indent',
+    'align',
+    'link', 'image', 'video'
+  ];
 
   useEffect(() => {
     const fetchNewsDetails = async () => {
@@ -61,41 +159,58 @@ export default function EditNews() {
     }
   }, [id]);
 
+  // Validate file before upload
+  const validateFile = (file) => {
+    if (!file) {
+      return "Hãy chọn ít nhất một ảnh";
+    }
+
+    // Check file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      return "Chỉ chấp nhận file ảnh (JPEG, PNG, GIF, WebP)";
+    }
+
+    // Check file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      return "Kích thước file không được vượt quá 5MB";
+    }
+
+    return null;
+  };
+
   const handleUploadImage = async () => {
     try {
-      if (!file) {
-        setImageUploadError("Hãy chọn ít nhất một ảnh");
+      // Validate file
+      const validationError = validateFile(file);
+      if (validationError) {
+        setImageUploadError(validationError);
         return;
       }
       
       setImageUploadError(null);
+      setIsUploading(true);
       setImageFileUploadProgress(0);
 
-      // Tạo FormData để gửi file
-      const uploadFormData = new FormData();
-      uploadFormData.append('file', file);
+      // Simulate progress
+      const progressInterval = setInterval(() => {
+        setImageFileUploadProgress(prev => {
+          if (prev >= 90) {
+            clearInterval(progressInterval);
+            return 90;
+          }
+          return prev + 10;
+        });
+      }, 100);
 
-      // Gọi API upload
-      const response = await fetch('https://intest.vn/api/v1/upload/image', {
-        method: 'POST',
-        body: uploadFormData,
-      });
-
-      if (!response.ok) {
-        throw new Error('Upload failed');
-      }
-
-      const result = await response.json();
+      // Upload image
+      const imageUrl = await uploadImageToServer(file);
       
-      // Lấy URL từ response theo cấu trúc API
-      const imageUrl = result.data?.url;
-      
-      if (!imageUrl) {
-        throw new Error('No image URL returned from server');
-      }
-
+      clearInterval(progressInterval);
       setImageFileUploadProgress(100);
       setFormData({ ...formData, image: imageUrl });
+      setFile(null); // Clear file input
       
       // Reset progress sau 1 giây
       setTimeout(() => {
@@ -106,6 +221,8 @@ export default function EditNews() {
       console.error("Image upload error:", error);
       setImageUploadError("Không thể tải ảnh lên. Vui lòng thử lại.");
       setImageFileUploadProgress(null);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -118,7 +235,7 @@ export default function EditNews() {
       return;
     }
     
-    if (!formData.content || formData.content.trim() === '<p><br></p>') {
+    if (!formData.content || formData.content.trim() === '<p><br></p>' || formData.content.trim() === '') {
       setUpdateError("Nội dung không được để trống");
       return;
     }
@@ -157,6 +274,16 @@ export default function EditNews() {
     }));
   };
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target?.files?.length ? e.target?.files[0] : null;
+    setFile(selectedFile);
+    
+    // Clear previous errors when new file is selected
+    if (selectedFile) {
+      setImageUploadError(null);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="p-3 max-w-3xl mx-auto min-h-screen flex items-center justify-center" style={{ paddingTop: "70px" }}>
@@ -175,7 +302,10 @@ export default function EditNews() {
           <p className="font-medium">Lỗi khi tải dữ liệu:</p>
           <p>{fetchError}</p>
         </Alert>
-        <Button onClick={() => navigate(-1)}>Quay lại</Button>
+        <div className="flex gap-2">
+          <Button onClick={() => navigate(-1)}>Quay lại</Button>
+          <Button color="blue" onClick={() => window.location.reload()}>Thử lại</Button>
+        </div>
       </div>
     );
   }
@@ -206,20 +336,26 @@ export default function EditNews() {
           />
         </div>
 
+        {/* Upload featured image section */}
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
-          <FileInput
-            accept="image/*"
-            onChange={(e) =>
-              setFile(e.target?.files?.length ? e.target?.files[0] : null)
-            }
-          />
+          <div className="flex-1">
+            <FileInput
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+            {file && (
+              <p className="text-sm text-gray-600 mt-1">
+                Đã chọn: {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
+              </p>
+            )}
+          </div>
           <Button
             type="button"
             gradientDuoTone="purpleToBlue"
             size="sm"
             outline
             onClick={handleUploadImage}
-            disabled={imageUploadProgress !== null}
+            disabled={isUploading || imageUploadProgress !== null}
           >
             {imageUploadProgress !== null ? (
               <div className="w-16 h-16">
@@ -228,36 +364,56 @@ export default function EditNews() {
                   text={`${imageUploadProgress}%`}
                 />
               </div>
+            ) : isUploading ? (
+              <div className="flex items-center gap-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
+                Đang tải...
+              </div>
             ) : (
-              "Tải ảnh lên"
+              "Thêm ảnh đại diện"
             )}
           </Button>
         </div>
 
         {imageUploadError && (
           <Alert className="mt-2" color="failure">
-            {imageUploadError}
+            <div className="flex items-center">
+              <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
+              {imageUploadError}
+            </div>
           </Alert>
         )}
 
+        {/* Show uploaded featured image */}
         {formData.image && (
           <div className="mt-2">
-            <p className="text-sm text-gray-500 mb-1">Ảnh hiện tại:</p>
+            <p className="text-sm text-gray-600 mb-2">Ảnh đại diện hiện tại:</p>
             <img
               src={formData.image}
               alt="News preview"
-              className="w-full h-72 object-cover rounded"
+              className="w-full h-72 object-cover rounded border"
+              onError={(e) => {
+                e.target.src = 'https://via.placeholder.com/400x300?text=Image+Not+Found';
+              }}
             />
           </div>
         )}
 
+        {/* Content editor with image upload capability */}
         <div className="mt-4">
-          <p className="text-sm text-gray-500 mb-2">Nội dung tin tức:</p>
+          <p className="text-sm text-gray-600 mb-2">
+            Nội dung tin tức (Bạn có thể thêm hình ảnh trực tiếp bằng cách nhấn vào icon hình ảnh trên thanh công cụ):
+          </p>
           <ReactQuill
+            ref={quillRef}
             theme="snow"
             placeholder="Nhập nội dung..."
             value={formData.content}
             className="h-72 mb-12"
+            modules={modules}
+            formats={formats}
             onChange={handleContentChange}
           />
         </div>
@@ -266,14 +422,16 @@ export default function EditNews() {
           <Button
             type="submit"
             className="bg-gradient-to-r from-blue-500 to-green-500 text-white p-2 rounded"
+            disabled={isUploading}
           >
-            Cập nhật
+            {isUploading ? 'Đang xử lý...' : 'Cập nhật'}
           </Button>
 
           <Button
             type="button"
             className="bg-gray-500 text-white p-2 rounded"
             onClick={() => navigate(-1)}
+            disabled={isUploading}
           >
             Huỷ bỏ
           </Button>
@@ -281,7 +439,12 @@ export default function EditNews() {
 
         {updateError && (
           <Alert className="mt-4" color="failure">
-            {updateError}
+            <div className="flex items-center">
+              <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
+              {updateError}
+            </div>
           </Alert>
         )}
       </form>
