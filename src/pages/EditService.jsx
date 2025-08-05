@@ -1,5 +1,5 @@
 import { Alert, Button, FileInput, TextInput } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -21,6 +21,7 @@ export default function EditService() {
   const [updateError, setUpdateError] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const navigate = useNavigate();
+  const quillRef = useRef(null);
 
   // Function to get auth headers
   const getAuthHeaders = () => {
@@ -44,6 +45,102 @@ export default function EditService() {
     localStorage.removeItem('authToken');
     navigate('/login');
   };
+
+  // Function to upload image to server
+  const uploadImageToServer = async (file) => {
+    try {
+      const uploadFormData = new FormData();
+      uploadFormData.append('file', file);
+
+      const response = await fetch('https://intest.vn/api/v1/upload/image', {
+        method: 'POST',
+        body: uploadFormData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const result = await response.json();
+      const imageUrl = result.data?.url;
+      
+      if (!imageUrl) {
+        throw new Error('No image URL returned from server');
+      }
+
+      return imageUrl;
+    } catch (error) {
+      console.error('Image upload error:', error);
+      throw error;
+    }
+  };
+
+  // Custom image handler for ReactQuill
+  const imageHandler = () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files[0];
+      if (file) {
+        try {
+          // Show loading state
+          const quill = quillRef.current.getEditor();
+          const range = quill.getSelection();
+          quill.insertText(range.index, 'Đang tải ảnh...', 'user');
+          
+          // Upload image
+          const imageUrl = await uploadImageToServer(file);
+          
+          // Remove loading text and insert image
+          quill.deleteText(range.index, 'Đang tải ảnh...'.length);
+          quill.insertEmbed(range.index, 'image', imageUrl);
+          quill.setSelection(range.index + 1);
+          
+        } catch (error) {
+          console.error('Error uploading image:', error);
+          // Remove loading text if upload fails
+          const quill = quillRef.current.getEditor();
+          const range = quill.getSelection();
+          quill.deleteText(range.index, 'Đang tải ảnh...'.length);
+          
+          // Show error message
+          setImageUploadError('Không thể tải ảnh lên. Vui lòng thử lại.');
+          setTimeout(() => setImageUploadError(null), 3000);
+        }
+      }
+    };
+  };
+
+  // ReactQuill modules with custom toolbar
+  const modules = useMemo(() => ({
+    toolbar: {
+      container: [
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
+        [{ 'align': [] }],
+        ['link', 'image', 'video'],
+        ['clean']
+      ],
+      handlers: {
+        image: imageHandler
+      }
+    }
+  }), []);
+
+  const formats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike',
+    'color', 'background',
+    'list', 'bullet', 'indent',
+    'align',
+    'link', 'image', 'video'
+  ];
 
   useEffect(() => {
     const fetchServiceDetails = async () => {
@@ -97,35 +194,6 @@ export default function EditService() {
     }
   }, [id, navigate]);
 
-  // Function to upload image to server (giống CreateService)
-  const uploadImageToServer = async (file) => {
-    try {
-      const uploadFormData = new FormData();
-      uploadFormData.append('file', file); // Sử dụng 'file' thay vì 'image'
-
-      const response = await fetch('https://intest.vn/api/v1/upload/image', {
-        method: 'POST',
-        body: uploadFormData,
-      });
-
-      if (!response.ok) {
-        throw new Error('Upload failed');
-      }
-
-      const result = await response.json();
-      const imageUrl = result.data?.url;
-      
-      if (!imageUrl) {
-        throw new Error('No image URL returned from server');
-      }
-
-      return imageUrl;
-    } catch (error) {
-      console.error('Image upload error:', error);
-      throw error;
-    }
-  };
-
   // Validate file before upload
   const validateFile = (file) => {
     if (!file) {
@@ -162,7 +230,7 @@ export default function EditService() {
       setIsUploading(true);
       setImageFileUploadProgress(0);
 
-      // Simulate progress like CreateService
+      // Simulate progress
       const progressInterval = setInterval(() => {
         setImageFileUploadProgress(prev => {
           if (prev >= 90) {
@@ -325,6 +393,7 @@ export default function EditService() {
           />
         </div>
 
+        {/* Upload featured image section */}
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
           <div className="flex-1">
             <FileInput
@@ -358,7 +427,7 @@ export default function EditService() {
                 Đang tải...
               </div>
             ) : (
-              "Tải ảnh lên"
+              "Thêm ảnh đại diện"
             )}
           </Button>
         </div>
@@ -374,9 +443,10 @@ export default function EditService() {
           </Alert>
         )}
 
+        {/* Show uploaded featured image */}
         {formData.image && (
           <div className="mt-2">
-            <p className="text-sm text-gray-500 mb-1">Ảnh hiện tại:</p>
+            <p className="text-sm text-gray-600 mb-2">Ảnh đại diện hiện tại:</p>
             <img
               src={formData.image}
               alt="Service preview"
@@ -388,13 +458,19 @@ export default function EditService() {
           </div>
         )}
 
+        {/* Content editor with image upload capability */}
         <div className="mt-4">
-          <p className="text-sm text-gray-500 mb-2">Nội dung dịch vụ:</p>
+          <p className="text-sm text-gray-600 mb-2">
+            Nội dung dịch vụ (Bạn có thể thêm hình ảnh trực tiếp bằng cách nhấn vào icon hình ảnh trên thanh công cụ):
+          </p>
           <ReactQuill
+            ref={quillRef}
             theme="snow"
             placeholder="Nhập nội dung dịch vụ..."
             value={formData.content}
             className="h-72 mb-12"
+            modules={modules}
+            formats={formats}
             onChange={handleContentChange}
           />
         </div>
