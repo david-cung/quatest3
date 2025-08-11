@@ -27,7 +27,7 @@ export default function NewsList() {
         }
         
         const data = await response.json();
-        setNews(data.data);
+        setNews(data.data.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching news:", error);

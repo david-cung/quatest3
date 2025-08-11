@@ -24,7 +24,7 @@ const NewsGrid = () => {
         const offset = (currentPage - 1) * itemsPerPage;
         
         try {
-          const response = await fetch('v1/news', {
+          const response = await fetch('api/v1/news', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

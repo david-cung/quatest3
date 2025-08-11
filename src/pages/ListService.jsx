@@ -62,7 +62,7 @@ export default function ServiceList() {
         }
         
         const data = await response.json();
-        setServices(data.data || data); // Handle different response structures
+        setServices(data.data.data || data); // Handle different response structures
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching services:", error);

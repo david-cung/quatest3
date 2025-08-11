@@ -20,7 +20,7 @@ const ServicePage = () => {
     setLoading(true);
     try {
       const offset = (page - 1) * itemsPerPage;
-      const response = await fetch(`/v1/services?limit=${itemsPerPage}&offset=${offset}`);
+      const response = await fetch(`api/v1/services?limit=${itemsPerPage}&offset=${offset}`);
       const data = await response.json();
       
       setServices(data.data.data || []);
