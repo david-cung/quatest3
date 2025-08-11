@@ -16,143 +16,149 @@ const NewsGrid = () => {
   const [totalItems, setTotalItems] = useState(0);
   const itemsPerPage = 4;
 
-  useEffect(() => {
-    const fetchNews = async () => {
+  const fetchNews = async (page = 1) => {
+    setLoading(true);
+    try {
+      const offset = (page - 1) * itemsPerPage;
+      
       try {
-        setLoading(true);
-        
-        const offset = (currentPage - 1) * itemsPerPage;
-        
-        try {
-          const response = await fetch('api/v1/news', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            }
-          });
-          
-          const {data} = await response.json();
-          
-          // Check if API returns new format with pagination info
-          if (data.data && typeof data.total !== 'undefined') {
-            // New API format
-            setNewsItems(data.data || []);
-            setTotalItems(data.total || 0);
-            setTotalPages(data.totalPages || Math.ceil((data.total || 0) / itemsPerPage));
-          } else if (Array.isArray(data.data)) {
-            // Old API format - only data array
-            setNewsItems(data.data);
-            // Fallback: assume there are more pages if we get full limit
-            setTotalItems(data.data.length);
-            setTotalPages(data.data.length < itemsPerPage ? currentPage : currentPage + 1);
-          } else if (Array.isArray(data)) {
-            // Very old format - direct array
-            setNewsItems(data);
-            setTotalItems(data.length);
-            setTotalPages(data.length < itemsPerPage ? currentPage : currentPage + 1);
-          } else {
-            throw new Error('Invalid API response format');
+        // Updated API call to match ServicePage pattern
+        const response = await fetch(`api/v1/news?limit=${itemsPerPage}&offset=${offset}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
           }
-          
-          setError(null);
-        } catch (apiError) {
-          console.warn('API call failed, using fallback data:', apiError);
-          
-          // Fallback with mock data for demo
-          const mockNews = [
-            {
-              id: 1,
-              title: "INTEST công bố dịch vụ hiệu chuẩn mới cho ngành y tế",
-              description: "Công ty cổ phần Kiểm định Hiệu chuẩn Đo lường Khu vực 2 vừa ra mắt gói dịch vụ hiệu chuẩn chuyên biệt cho các thiết bị y tế, đáp ứng tiêu chuẩn quốc tế.",
-              image: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=400&h=300&fit=crop",
-              category: "Dịch vụ mới"
-            },
-            {
-              id: 2,
-              title: "Đào tạo kỹ thuật viên hiệu chuẩn chuyên nghiệp",
-              description: "Khóa học đào tạo kỹ thuật viên hiệu chuẩn với chứng chỉ quốc tế, trang bị kiến thức và kỹ năng thực hành về đo lường.",
-              image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop",
-              category: "Đào tạo"
-            },
-            {
-              id: 3,
-              title: "INTEST mở rộng phòng lab hiệu chuẩn tại TP.HCM",
-              description: "Phòng lab mới được trang bị thiết bị hiện đại nhất, nâng cao năng lực phục vụ khách hàng khu vực phía Nam.",
-              image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=400&h=300&fit=crop",
-              category: "Tin công ty"
-            },
-            {
-              id: 4,
-              title: "Hội thảo về tiêu chuẩn ISO 17025:2017",
-              description: "Sự kiện quan trọng về cập nhật tiêu chuẩn mới nhất trong lĩnh vực phòng thí nghiệm và hiệu chuẩn.",
-              image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
-              category: "Sự kiện"
-            },
-            {
-              id: 5,
-              title: "Dịch vụ hiệu chuẩn thiết bị môi trường",
-              description: "INTEST giới thiệu dịch vụ hiệu chuẩn các thiết bị đo môi trường, hỗ trợ doanh nghiệp tuân thủ quy định về môi trường.",
-              image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop",
-              category: "Môi trường"
-            },
-            {
-              id: 6,
-              title: "Chứng nhận năng lực theo VILAS",
-              description: "INTEST chính thức được công nhận năng lực hiệu chuẩn theo hệ thống VILAS của Việt Nam.",
-              image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop",
-              category: "Chứng nhận"
-            },
-            {
-              id: 7,
-              title: "Hợp tác với các trường đại học trong đào tạo",
-              description: "INTEST ký kết hợp tác với nhiều trường đại học để đào tạo nguồn nhân lực chất lượng cao cho ngành đo lường.",
-              image: "https://images.unsplash.com/photo-1523050854058-8df90110c9d1?w=400&h=300&fit=crop",
-              category: "Hợp tác"
-            },
-            {
-              id: 8,
-              title: "Cập nhật công nghệ đo lường mới nhất",
-              description: "Đầu tư vào các công nghệ đo lường tiên tiến nhất để nâng cao chất lượng dịch vụ hiệu chuẩn.",
-              image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
-              category: "Công nghệ"
-            },
-            {
-              id: 9,
-              title: "Mở rộng thị trường ra khu vực Đông Nam Á",
-              description: "INTEST có kế hoạch mở rộng dịch vụ hiệu chuẩn ra các nước trong khu vực Đông Nam Á.",
-              image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=300&fit=crop",
-              category: "Mở rộng"
-            },
-            {
-              id: 10,
-              title: "Giải thưởng doanh nghiệp xuất sắc năm 2024",
-              description: "INTEST vinh dự nhận giải thưởng doanh nghiệp xuất sắc trong lĩnh vực đo lường hiệu chuẩn.",
-              image: "https://images.unsplash.com/photo-1567427018141-0584cfcbf1b8?w=400&h=300&fit=crop",
-              category: "Giải thưởng"
-            }
-          ];
-
-          // Simulate pagination with mock data
-          const startIndex = (currentPage - 1) * itemsPerPage;
-          const endIndex = startIndex + itemsPerPage;
-          const paginatedData = mockNews.slice(startIndex, endIndex);
-          
-          setNewsItems(paginatedData);
-          setTotalItems(mockNews.length);
-          setTotalPages(Math.ceil(mockNews.length / itemsPerPage));
-          
-          setError(null);
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
         
-        setLoading(false);
-      } catch (err) {
-        setError('Failed to fetch news. Please try again later.');
-        setLoading(false);
-        console.error('Error fetching news:', err);
-      }
-    };
+        const data = await response.json();
+        
+        // Handle different API response formats
+        if (data.data && data.data.data && typeof data.data.total !== 'undefined') {
+          // ServicePage format: data.data.data with pagination info
+          setNewsItems(data.data.data || []);
+          setTotalItems(data.data.total || 0);
+          setTotalPages(Math.ceil((data.data.total || 0) / itemsPerPage));
+        } else if (data.data && typeof data.total !== 'undefined') {
+          // Alternative format: data.data with pagination info
+          setNewsItems(data.data || []);
+          setTotalItems(data.total || 0);
+          setTotalPages(Math.ceil((data.total || 0) / itemsPerPage));
+        } else if (Array.isArray(data.data)) {
+          // Old API format - only data array
+          setNewsItems(data.data);
+          setTotalItems(data.data.length);
+          setTotalPages(data.data.length < itemsPerPage ? currentPage : currentPage + 1);
+        } else if (Array.isArray(data)) {
+          // Very old format - direct array
+          setNewsItems(data);
+          setTotalItems(data.length);
+          setTotalPages(data.length < itemsPerPage ? currentPage : currentPage + 1);
+        } else {
+          throw new Error('Invalid API response format');
+        }
+        
+        setError(null);
+      } catch (apiError) {
+        console.warn('API call failed, using fallback data:', apiError);
+        
+        // Fallback with mock data for demo
+        const mockNews = [
+          {
+            id: 1,
+            title: "INTEST công bố dịch vụ hiệu chuẩn mới cho ngành y tế",
+            description: "Công ty cổ phần Kiểm định Hiệu chuẩn Đo lường Khu vực 2 vừa ra mắt gói dịch vụ hiệu chuẩn chuyên biệt cho các thiết bị y tế, đáp ứng tiêu chuẩn quốc tế.",
+            image: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=400&h=300&fit=crop",
+            category: "Dịch vụ mới"
+          },
+          {
+            id: 2,
+            title: "Đào tạo kỹ thuật viên hiệu chuẩn chuyên nghiệp",
+            description: "Khóa học đào tạo kỹ thuật viên hiệu chuẩn với chứng chỉ quốc tế, trang bị kiến thức và kỹ năng thực hành về đo lường.",
+            image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop",
+            category: "Đào tạo"
+          },
+          {
+            id: 3,
+            title: "INTEST mở rộng phòng lab hiệu chuẩn tại TP.HCM",
+            description: "Phòng lab mới được trang bị thiết bị hiện đại nhất, nâng cao năng lực phục vụ khách hàng khu vực phía Nam.",
+            image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=400&h=300&fit=crop",
+            category: "Tin công ty"
+          },
+          {
+            id: 4,
+            title: "Hội thảo về tiêu chuẩn ISO 17025:2017",
+            description: "Sự kiện quan trọng về cập nhật tiêu chuẩn mới nhất trong lĩnh vực phòng thí nghiệm và hiệu chuẩn.",
+            image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
+            category: "Sự kiện"
+          },
+          {
+            id: 5,
+            title: "Dịch vụ hiệu chuẩn thiết bị môi trường",
+            description: "INTEST giới thiệu dịch vụ hiệu chuẩn các thiết bị đo môi trường, hỗ trợ doanh nghiệp tuân thủ quy định về môi trường.",
+            image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop",
+            category: "Môi trường"
+          },
+          {
+            id: 6,
+            title: "Chứng nhận năng lực theo VILAS",
+            description: "INTEST chính thức được công nhận năng lực hiệu chuẩn theo hệ thống VILAS của Việt Nam.",
+            image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop",
+            category: "Chứng nhận"
+          },
+          {
+            id: 7,
+            title: "Hợp tác với các trường đại học trong đào tạo",
+            description: "INTEST ký kết hợp tác với nhiều trường đại học để đào tạo nguồn nhân lực chất lượng cao cho ngành đo lường.",
+            image: "https://images.unsplash.com/photo-1523050854058-8df90110c9d1?w=400&h=300&fit=crop",
+            category: "Hợp tác"
+          },
+          {
+            id: 8,
+            title: "Cập nhật công nghệ đo lường mới nhất",
+            description: "Đầu tư vào các công nghệ đo lường tiên tiến nhất để nâng cao chất lượng dịch vụ hiệu chuẩn.",
+            image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
+            category: "Công nghệ"
+          },
+          {
+            id: 9,
+            title: "Mở rộng thị trường ra khu vực Đông Nam Á",
+            description: "INTEST có kế hoạch mở rộng dịch vụ hiệu chuẩn ra các nước trong khu vực Đông Nam Á.",
+            image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=300&fit=crop",
+            category: "Mở rộng"
+          },
+          {
+            id: 10,
+            title: "Giải thưởng doanh nghiệp xuất sắc năm 2024",
+            description: "INTEST vinh dự nhận giải thưởng doanh nghiệp xuất sắc trong lĩnh vực đo lường hiệu chuẩn.",
+            image: "https://images.unsplash.com/photo-1567427018141-0584cfcbf1b8?w=400&h=300&fit=crop",
+            category: "Giải thưởng"
+          }
+        ];
 
-    fetchNews();
+        // Simulate pagination with mock data
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const paginatedData = mockNews.slice(startIndex, endIndex);
+        
+        setNewsItems(paginatedData);
+        setTotalItems(mockNews.length);
+        setTotalPages(Math.ceil(mockNews.length / itemsPerPage));
+        setError(null);
+      }
+    } catch (err) {
+      setError('Failed to fetch news. Please try again later.');
+      console.error('Error fetching news:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNews(currentPage);
   }, [currentPage]);
 
   const handleNewsClick = (newsId) => {
@@ -160,16 +166,18 @@ const NewsGrid = () => {
   };
 
   const handlePageChange = (newPage) => {
-    console.log('Changing to page:', newPage, 'Current:', currentPage, 'Total:', totalPages);
+    console.log('Attempting to change to page:', newPage, 'Current page:', currentPage, 'Total pages:', totalPages);
     if (newPage >= 1 && newPage <= totalPages && newPage !== currentPage) {
+      console.log('Page change accepted');
       setCurrentPage(newPage);
       // Scroll to top when page changes
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      console.log('Page change rejected - invalid conditions');
     }
   };
 
   const renderPagination = () => {
-    // Always show pagination controls when there are items
     const pages = [];
     const maxVisiblePages = 5;
     
@@ -185,7 +193,10 @@ const NewsGrid = () => {
     pages.push(
       <button
         key="prev"
-        onClick={() => handlePageChange(currentPage - 1)}
+        onClick={() => {
+          console.log('Prev button clicked, current page:', currentPage);
+          handlePageChange(currentPage - 1);
+        }}
         disabled={currentPage <= 1}
         className={`px-3 py-2 mx-1 text-sm font-medium rounded-lg border transition-colors ${
           currentPage <= 1
@@ -260,7 +271,10 @@ const NewsGrid = () => {
     pages.push(
       <button
         key="next"
-        onClick={() => handlePageChange(currentPage + 1)}
+        onClick={() => {
+          console.log('Next button clicked, current page:', currentPage, 'total pages:', totalPages);
+          handlePageChange(currentPage + 1);
+        }}
         disabled={currentPage >= totalPages}
         className={`px-3 py-2 mx-1 text-sm font-medium rounded-lg border transition-colors ${
           currentPage >= totalPages
@@ -286,13 +300,13 @@ const NewsGrid = () => {
     );
   }
 
-  if (error) {
+  if (error && (!newsItems || newsItems.length === 0)) {
     return (
       <div className="container mx-auto px-4 py-8 text-center text-red-500">
         <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
           <p className="mb-4">{error}</p>
           <button
-            onClick={() => window.location.reload()}
+            onClick={() => fetchNews(currentPage)}
             className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
           >
             Thử lại
@@ -309,11 +323,13 @@ const NewsGrid = () => {
         <div className="h-[2px] sm:h-[3px] bg-blue-500 w-16 sm:w-24 mx-auto mt-2 sm:mt-3"></div>
       </h2>
 
-      {/* Debug info */}
-      {/* <div className="mb-8 text-center text-sm text-gray-500 bg-gray-50 p-4 rounded">
-        <div>Items: {newsItems.length} | Total: {totalItems} | Pages: {totalPages} | Current: {currentPage}</div>
-      </div> */}
-      
+      {/* Optional: Show current pagination status */}
+      {/* {totalItems > 0 && (
+        <div className="text-center mb-6 text-sm text-gray-500">
+          Hiển thị {((currentPage - 1) * itemsPerPage) + 1}-{Math.min(currentPage * itemsPerPage, totalItems)} trong tổng số {totalItems} tin tức
+        </div>
+      )}
+       */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
         {newsItems.map((item) => (
           <div
