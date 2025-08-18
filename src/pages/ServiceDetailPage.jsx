@@ -43,8 +43,8 @@ const ServiceDetailPage = () => {
     const fetchRelatedNews = async () => {
       try {
         const response = await axios.get("/api/v1/news");
-        setRelatedNews(response.data.data.slice(0, 5));
-        setFilteredNews(response.data.data.slice(0, 5));
+        setRelatedNews(response.data.data.data.slice(0, 5));
+        setFilteredNews(response.data.data.data.slice(0, 5));
       } catch (err) {
         console.error("Error fetching related news:", err);
       } finally {
