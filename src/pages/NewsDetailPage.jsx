@@ -216,7 +216,7 @@ const NewsDetailPage = () => {
 
         if (isMounted) {
           setService(newsResponse.data.data);
-          const related = relatedResponse.data.data
+          const related = relatedResponse.data.data.data
             .filter(news => news.id !== parseInt(newsId))
             .slice(0, 5);
           setRelatedNews(related);
