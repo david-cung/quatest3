@@ -114,7 +114,7 @@ export default function Services() {
       setIsLoading(true);
       setError(null);
       const response = await axios.get(`/api/v1/services`);
-      setServicesData(response.data.data.slice(0, 5));
+      setServicesData(response.data.data.data.slice(0, 5));
     } catch (err) {
       console.error("Error fetching services:", err);
       setError("Không thể tải dữ liệu dịch vụ. Vui lòng thử lại sau.");

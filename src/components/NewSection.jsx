@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function NewSection() {
-    const [newsData, setNewsData] = useState([]);
+    const [newsData, setNewsData] = useState([]); // This should be an array
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [hoverIndex, setHoverIndex] = useState(null);
@@ -17,19 +17,32 @@ export default function NewSection() {
         const fetchNews = async () => {
             try {
                 setLoadingMore(page > 1);
-                const response = await axios.get(`/api/v1/news?page=${page}&limit=8`);
+                const { data } = await axios.get(`/api/v1/news`);
+                console.log("Fetched news data:", data);
                 
-                if (page === 1) {
-                    setNewsData(response.data);
+                // Handle different API response structures
+                let apiNewsData = [];
+                if (Array.isArray(data?.data?.data)) {
+                    apiNewsData = data.data.data;
+                } else if (Array.isArray(data?.data)) {
+                    apiNewsData = data.data;
+                } else if (Array.isArray(data)) {
+                    apiNewsData = data;
                 } else {
-                    setNewsData((prevData) => ({
-                        ...prevData,
-                        data: [...prevData.data, ...response.data.data]
-                    }));
+                    console.warn("Unexpected API response structure:", data);
+                    apiNewsData = [];
+                }
+
+                if (page === 1) {
+                    // First page - replace all data
+                    setNewsData(apiNewsData);
+                } else {
+                    // Subsequent pages - append to existing data
+                    setNewsData((prevData) => [...prevData, ...apiNewsData]);
                 }
                 
                 // Check if there are more pages
-                if (response.data.data?.length < 8) {
+                if (apiNewsData.length < 8) {
                     setHasMore(false);
                 }
                 
@@ -102,7 +115,8 @@ export default function NewSection() {
             {/* News Grid */}
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-                    {newsData.data?.map((news, index) => (
+                    {/* Fixed: Access newsData directly since it's already an array */}
+                    {newsData.length > 0 && newsData.map((news, index) => (
                         <article
                             key={`${news.id}-${index}`}
                             className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 cursor-pointer border border-gray-100"
@@ -146,7 +160,7 @@ export default function NewSection() {
                 </div>
 
                 {/* Load More Section */}
-                {hasMore && (
+                {hasMore && newsData.length > 0 && (
                     <div className="text-center mt-8 sm:mt-10 md:mt-12">
                         <button
                             onClick={handleLoadMore}
@@ -171,19 +185,19 @@ export default function NewSection() {
                 )}
 
                 {/* No More Content Message */}
-                {!hasMore && newsData.data?.length > 0 && (
+                {!hasMore && newsData.length > 0 && (
                     <div className="text-center mt-8 sm:mt-10 md:mt-12">
                         <div className="inline-flex items-center px-4 py-2 bg-gray-100 rounded-full text-gray-600 text-sm sm:text-base">
-                            {/* <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg> */}
-                            {/* Đã hiển thị tất cả tin tức */}
+                            </svg>
+                            Đã hiển thị tất cả tin tức
                         </div>
                     </div>
                 )}
 
                 {/* Empty State */}
-                {(!newsData.data || newsData.data.length === 0) && !isLoading && (
+                {newsData.length === 0 && !isLoading && (
                     <div className="text-center py-12 sm:py-16">
                         <svg className="mx-auto h-16 w-16 sm:h-20 sm:w-20 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
